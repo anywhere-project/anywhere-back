@@ -53,88 +53,43 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.PATCH, "/**").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/**").permitAll()
 
-                                                // authController
+                                                
                                                 // .requestMatchers(HttpMethod.GET, "/api/v1/auth/**").permitAll()
                                                 // .requestMatchers(HttpMethod.POST,"/api/v1/auth/id-check", "/api/v1/auth/tel-auth","/api/v1/auth/tel-auth-check","/api/v1/auth/sign-up","/api/v1/auth/sign-in","/api/v1/auth/send-auth","/api/v1/auth/find-id","/api/v1/auth/password-send-auth","/api/v1/auth/find-password").permitAll()
-                                                // .requestMatchers(HttpMethod.GET, "/api/v1/recruit/**").permitAll()
-                                                // .requestMatchers(HttpMethod.GET, "/api/v1/active/**").permitAll()
-                                                // .requestMatchers(HttpMethod.GET, "/api/v1/qna/**").permitAll()
+                                                // .requestMatchers(HttpMethod.GET, "/api/v1/review/**").permitAll()
+                                                // .requestMatchers(HttpMethod.GET, "/api/v1/recommend/**").permitAll()
                                                 // .requestMatchers(HttpMethod.GET, "/api/v1/mypage/**").permitAll()
                                                 // .requestMatchers(HttpMethod.GET, "/file/**").permitAll()
-                                                // .requestMatchers(HttpMethod.GET,"/api/v1/follow/**").permitAll()
                                                 
-                                                // // recruitController
-                                                // .requestMatchers(HttpMethod.POST, "/api/v1/recruit","/api/v1/recruit/","/api/v1/recruit/*/comments","/api/v1/recruit/*/comments/*",
-                                                //                 "/api/v1/recruit/join/*", "/api/v1/recruit/report/*",
-                                                //                 "/api/v1/recruit/like/*",
-                                                //                 "/api/v1/recruit/scrap/*")
+                                                // // reviewController
+                                                // .requestMatchers(HttpMethod.POST, "/api/v1/review","/api/v1/review/","/api/v1/review/*/comments","/api/v1/review/*/comments/*",
+                                                //                 "/api/v1/review/like/*",
+                                                //                 "/api/v1/review/scrap/*")
                                                 //                 .authenticated()
-                                                // .requestMatchers(HttpMethod.PATCH, "/api/v1/recruit/*",
-                                                //                 "/api/v1/recruit/iscompleted/*")
+                                                // .requestMatchers(HttpMethod.PATCH, "/api/v1/review/*")
                                                 //                 .authenticated()
-                                                // .requestMatchers(HttpMethod.DELETE, "/api/v1/recruit/*",
-                                                //                 "/api/v1/recruit/*/comments/*")
+                                                // .requestMatchers(HttpMethod.DELETE, "/api/v1/review/*",
+                                                //                 "/api/v1/review/*/comments/*")
                                                 //                 .authenticated()
                                                 
-                                                // // activeController
-                                                // .requestMatchers(HttpMethod.POST, "/api/v1/active/*",
-                                                //                 "/api/v1/active/*/comments",
-                                                //                 "/api/v1/active/like/*",
-                                                //                 "/api/v1/report/active/*",
-                                                //                 "/api/v1/active/tag/*/*")
+
+                                                // // recommendController
+                                                // .requestMatchers(HttpMethod.POST, "/api/v1/recommend/*",
+                                                //                 "/api/v1/recommend/*/comments",
+                                                //                 "/api/v1/recommend/like/*")
                                                 //                 .authenticated()
-                                                // .requestMatchers(HttpMethod.PATCH,"/api/v1/active/*",
-                                                //                 "/api/v1/active/*/comments/*")
+                                                // .requestMatchers(HttpMethod.PATCH,"/api/v1/recommend/*",
+                                                //                 "/api/v1/recommend/*/comments/*")
                                                 //                 .authenticated()
-                                                // .requestMatchers(HttpMethod.DELETE,"/api/v1/active/*",
-                                                //                 "/api/v1/active/*/comments/*",
-                                                //                 "/api/v1/active/tag/*/*/*")
+                                                // .requestMatchers(HttpMethod.DELETE,"/api/v1/recommend/*",
+                                                //                 "/api/v1/recommend/*/comments/*")
                                                 //                 .authenticated()
-                                                                
-                                                // // qnaController
-                                                // .requestMatchers(HttpMethod.POST,"/api/v1/qna",
-                                                //                 "/api/v1/qna/*/comments")
-                                                //                 .authenticated()
-                                                // .requestMatchers(HttpMethod.PATCH,"/api/v1/qna/*",
-                                                //                 "/api/v1/qna/*/comments/*")
-                                                //                 .authenticated()
-                                                // .requestMatchers(HttpMethod.DELETE,"/api/v1/qna/*",
-                                                //                 "/api/v1/qna/*/comments/*")
-                                                //                 .authenticated()
-                                                                
+                                                        
                                                 // // userController
                                                 // .requestMatchers(HttpMethod.PATCH, "/api/v1/mypage",
                                                 //                 "/api/v1/mypage/tel-auth",
                                                 //                 "/api/v1/mypage/tel-auth-check", "/api/v1/mypage/comment",
                                                 //                 "/api/v1/mypage/update-password").authenticated()
-
-                                                // // alertController
-                                                // .requestMatchers(HttpMethod.GET,"/api/v1/alert/**").authenticated()
-                                                // .requestMatchers(HttpMethod.POST,"/api/v1/alert").authenticated()
-                                                // .requestMatchers(HttpMethod.PATCH,"/api/v1/alert/*/read").authenticated()
-                                                // .requestMatchers(HttpMethod.DELETE, "/api/v1/alert/*").authenticated()
-                                                
-                                                
-                                                // // chatController
-                                                // .requestMatchers(HttpMethod.GET,"/api/v1/chat/**").authenticated()
-                                                // .requestMatchers(HttpMethod.POST,"/api/v1/chat/rooms","/api/v1/chat/rooms/*/messages","/api/v1/chat/rooms/*/join").authenticated()
-                                                // .requestMatchers(HttpMethod.DELETE, "/api/v1/chat/rooms/*").authenticated()
-                                                
-                                                // // fileController
-                                                // .requestMatchers(HttpMethod.POST, "/file/**").authenticated()
-                                                
-                                                // // followController
-                                                // .requestMatchers(HttpMethod.POST,"/api/v1/follow").authenticated()
-                                                // .requestMatchers(HttpMethod.DELETE, "/api/v1/follow/*").authenticated()
-
-                                                // // mileageController
-                                                // .requestMatchers(HttpMethod.GET, "/api/v1/mileage/**").authenticated()
-                                                
-                                                // // gifticonController
-                                                // .requestMatchers(HttpMethod.GET, "/api/v1/gifticon/**").authenticated()
-                                                // .requestMatchers(HttpMethod.POST, "/api/v1/gifticon/","/api/v1/gifticon/*").authenticated()
-                                                // .requestMatchers(HttpMethod.PATCH, "/api/v1/gifticon/*").hasRole("ADMIN")
-                                                // .requestMatchers(HttpMethod.DELETE,"/api/v1/gifticon/*").hasRole("ADMIN")
 
 
                                                 // adminController
