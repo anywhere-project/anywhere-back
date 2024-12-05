@@ -12,7 +12,7 @@ import com.project.anywhere.dto.request.auth.TelAuthCheckRequestDto;
 import com.project.anywhere.dto.request.auth.TelAuthRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.entity.TelAuthEntity;
-import com.project.anywhere.entity.UserEntity;
+import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.provider.SmsProvider;
 import com.project.anywhere.repository.TelAuthRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -123,7 +123,7 @@ public class AuthServiceImplement implements AuthService {
             String encodedPassword = passwordEncoder.encode(password);
             dto.setPassword(encodedPassword);
 
-            UserEntity userEntity = new UserEntity(dto);
+            UsersEntity userEntity = new UsersEntity(dto);
             userRepository.save(userEntity);
 
         } catch (Exception exception) {
