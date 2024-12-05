@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor 
 @AllArgsConstructor
-@Table(name = "recommend_attractions")
-@Entity(name = "recommend_attractions")
+@Table(name = "recommend_missions")
+@Entity(name = "recommend_missions")
 public class RecommendMissionEntity {
     
     @Id

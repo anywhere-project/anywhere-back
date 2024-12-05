@@ -23,11 +23,11 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping(value = { "", "/" })
-    public ResponseEntity<ResponseDto> postRecruit(
-        @RequestBody @Valid PostReviewRequestDto dto, @Valid PostReviewImagesRequestDto dto2,
+    public ResponseEntity<ResponseDto> postReview(
+        @RequestBody @Valid PostReviewRequestDto dto,
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<ResponseDto> response = reviewService.postReview(dto, dto2, userId);
+        ResponseEntity<ResponseDto> response = reviewService.postReview(dto,  userId);
         return response;
     }
     
