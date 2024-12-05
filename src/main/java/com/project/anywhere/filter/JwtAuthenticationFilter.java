@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.project.anywhere.entity.UserEntity;
+
+import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.provider.JwtProvider;
 import com.project.anywhere.repository.UserRepository;
 
@@ -28,7 +29,8 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
@@ -78,7 +80,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // security context 생성 및 등록
         private void setContext(HttpServletRequest request, String userId) {
 
-            UserEntity userEntity = userRepository.findByUserId(userId);
+
+            UsersEntity userEntity = userRepository.findByUserId(userId);
 
             boolean isAdmin = userEntity.getIsAdmin();
 
@@ -106,4 +109,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // 생성한 security context 등록
             SecurityContextHolder.setContext(securityContext);
         }
+
 }
+

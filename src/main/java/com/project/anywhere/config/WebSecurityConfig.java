@@ -129,7 +129,6 @@ public class WebSecurityConfig {
                                         .write("{ \"code\": \"" + ResponseCode.AUTHENTICATION_FAIL
                                                         + "\", \"message\": \""
                                                         + ResponseMessage.AUTHENTICATION_FAIL + "\" }");
-
                 }
         }
 }
