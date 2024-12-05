@@ -16,7 +16,9 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Entity(name = "users")
 @Table(name = "users")
+
 public class UsersEntity {
+
     
     @Id
     private String userId;

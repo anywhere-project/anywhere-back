@@ -1,0 +1,34 @@
+package com.project.anywhere.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.anywhere.dto.request.review.PostReviewRequestDto;
+import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
+import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.service.ReviewService;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/v1/review")
+@RequiredArgsConstructor
+public class ReviewController {
+
+    private final ReviewService reviewService;
+
+    @PostMapping(value = { "", "/" })
+    public ResponseEntity<ResponseDto> postRecruit(
+        @RequestBody @Valid PostReviewRequestDto dto, @Valid PostReviewImagesRequestDto dto2,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = reviewService.postReview(dto, dto2, userId);
+        return response;
+    }
+    
+}

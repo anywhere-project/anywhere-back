@@ -8,7 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter 
+
+@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,5 +20,4 @@ public class TelAuthEntity {
     @Id
     private String telNumber;
     private String authNumber;
-    
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 
 import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.provider.JwtProvider;
@@ -27,7 +29,9 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
+
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
 
@@ -76,11 +80,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         // security context 생성 및 등록
         private void setContext(HttpServletRequest request, String userId) {
 
+
             UsersEntity userEntity = userRepository.findByUserId(userId);
 
             boolean isAdmin = userEntity.getIsAdmin();
 
-            // List <GrantedAuthority> roles = AuthorityUtils.NO_AUTHORITIES;
             List<GrantedAuthority> roles = new ArrayList<>();
             roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 
@@ -105,4 +109,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             // 생성한 security context 등록
             SecurityContextHolder.setContext(securityContext);
         }
+
 }
+

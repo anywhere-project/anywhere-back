@@ -126,8 +126,9 @@ public class WebSecurityConfig {
                         response.setContentType("application/json");
                         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                         response.getWriter()
-                        .write("{ \"code\": \"" + ResponseCode.AUTHENTICATION_FAIL + "\", \"message\": \"" + ResponseMessage.AUTHENTICATION_FAIL + "\" }");
-
+                                        .write("{ \"code\": \"" + ResponseCode.AUTHENTICATION_FAIL
+                                                        + "\", \"message\": \""
+                                                        + ResponseMessage.AUTHENTICATION_FAIL + "\" }");
                 }
         }
 }
