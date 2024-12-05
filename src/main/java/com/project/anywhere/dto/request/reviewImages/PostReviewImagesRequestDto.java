@@ -10,12 +10,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostReviewImagesRequestDto {
     @NotBlank
-    private Integer reviewId;
-    @NotBlank
-    private Integer imageId;
-    @NotBlank
-    private String imageUrl;
-    @NotBlank
-    private Integer imageOrder;
-    
+    private String imageUrl;    
 }

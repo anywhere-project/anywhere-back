@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
-import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.service.ReviewPostService;
 
@@ -23,11 +22,11 @@ public class ReviewController {
     private final ReviewPostService reviewService;
 
     @PostMapping(value = { "", "/" })
-    public ResponseEntity<ResponseDto> postRecruit(
-        @RequestBody @Valid PostReviewRequestDto dto, @Valid PostReviewImagesRequestDto dto2,
+    public ResponseEntity<ResponseDto> postReview(
+        @RequestBody @Valid PostReviewRequestDto dto,
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<ResponseDto> response = reviewService.postReview(dto, dto2, userId);
+        ResponseEntity<ResponseDto> response = reviewService.postReview(dto,  userId);
         return response;
     }
     

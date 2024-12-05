@@ -28,10 +28,7 @@ public class ReviewImagesEntity {
     private Integer imageOrder=0;
 
     public ReviewImagesEntity(PostReviewImagesRequestDto dto){
-        this.reviewId = dto.getReviewId();
         this.imageUrl = dto.getImageUrl();
-        this.imageId = dto.getImageId();
-        this.imageOrder = dto.getImageOrder();
     }
 
 
