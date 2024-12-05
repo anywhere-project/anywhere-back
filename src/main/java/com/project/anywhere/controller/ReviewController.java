@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
-import com.project.anywhere.service.ReviewService;
+import com.project.anywhere.service.ReviewPostService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReviewController {
 
-    private final ReviewService reviewService;
+    private final ReviewPostService reviewService;
 
     @PostMapping(value = { "", "/" })
     public ResponseEntity<ResponseDto> postRecruit(

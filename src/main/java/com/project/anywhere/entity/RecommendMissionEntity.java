@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,8 +16,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor 
 @AllArgsConstructor
-@Table(name = "recommend_attractions")
-@Entity(name = "recommend_attractions")
+@Table(name = "recommend_missions")
+@Entity(name = "recommend_missions")
 public class RecommendMissionEntity {
     
     @Id
@@ -24,5 +26,10 @@ public class RecommendMissionEntity {
     private Integer recommendId;
     private String missionName;
     private String missionContent;
+
+    public RecommendMissionEntity(PostRecommendMissionRequestDto dto) {
+        this.missionName = dto.getMissionName();
+        this.missionContent = dto.getMissionContent();
+    }
 
 }

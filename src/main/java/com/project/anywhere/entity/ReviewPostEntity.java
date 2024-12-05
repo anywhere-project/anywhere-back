@@ -21,7 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity(name="review_posts")
 @Table(name = "review_posts")
-public class ReviewEntity {
+public class ReviewPostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class ReviewEntity {
         this.reviewCreatedAt = LocalDateTime.now().format(Formatter);
     }
     
-    public ReviewEntity(PostReviewRequestDto dto){
+    public ReviewPostEntity(PostReviewRequestDto dto){
         this.reviewId = dto.getReviewId();
         this.reviewContent = dto.getReviewContent();
         this.reviewWriter = dto.getReviewWriter();

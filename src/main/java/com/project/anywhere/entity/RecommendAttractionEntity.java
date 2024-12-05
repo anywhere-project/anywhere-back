@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,5 +27,11 @@ public class RecommendAttractionEntity {
     private String attractionName;
     private String attractionAddress;
     private String attractionContent;
+
+    public RecommendAttractionEntity(PostRecommendAttractionRequestDto dto) {
+        this.attractionName = dto.getAttractionName();
+        this.attractionAddress = dto.getAttractionAddress();
+        this.attractionContent = dto.getAttractionContent();
+    }
 
 }

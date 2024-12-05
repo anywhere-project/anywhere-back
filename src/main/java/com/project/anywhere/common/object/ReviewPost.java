@@ -3,13 +3,13 @@ package com.project.anywhere.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.project.anywhere.entity.ReviewEntity;
+import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.ReviewImagesEntity;
 
 import lombok.Getter;
 
 @Getter
-public class Review {
+public class ReviewPost {
     private Integer reviewId;
     private String reviewContent;
     private String reviewWriter;
@@ -17,7 +17,7 @@ public class Review {
     private Integer reviewLikeCount;
     private List<ReviewImagesEntity> imageUrl;
 
-    public Review(ReviewEntity reviewEntity, List<ReviewImagesEntity> imageUrl) {
+    public ReviewPost(ReviewPostEntity reviewEntity, List<ReviewImagesEntity> imageUrl) {
         this.reviewId = reviewEntity.getReviewId();
         this.reviewContent = reviewEntity.getReviewContent();
         this.reviewWriter = reviewEntity.getReviewWriter();
@@ -27,10 +27,10 @@ public class Review {
         
     }
 
-    public static List<Review> getList(List<ReviewEntity> reviewEntities, List<ReviewImagesEntity> reviewImageEntities) {
-        List<Review> reviews = new ArrayList<>();
+    public static List<ReviewPost> getList(List<ReviewPostEntity> reviewEntities, List<ReviewImagesEntity> reviewImageEntities) {
+        List<ReviewPost> reviews = new ArrayList<>();
         
-        for (ReviewEntity reviewEntity : reviewEntities) {
+        for (ReviewPostEntity reviewEntity : reviewEntities) {
             List<ReviewImagesEntity> relatedImages = new ArrayList<>();
             
             for (ReviewImagesEntity imageEntity : reviewImageEntities) {
@@ -40,7 +40,7 @@ public class Review {
             }
 
             // Review 객체 생성 후 추가
-            Review review = new Review(reviewEntity, relatedImages);
+            ReviewPost review = new ReviewPost(reviewEntity, relatedImages);
             reviews.add(review);
         }
 

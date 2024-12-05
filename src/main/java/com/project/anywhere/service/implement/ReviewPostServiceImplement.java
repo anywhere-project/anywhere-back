@@ -6,26 +6,26 @@ import org.springframework.stereotype.Service;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
-import com.project.anywhere.entity.ReviewEntity;
+import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.UsersEntity;
-import com.project.anywhere.repository.ReviewRespsitory;
+import com.project.anywhere.repository.ReviewPostRespsitory;
 import com.project.anywhere.repository.UserRepository;
-import com.project.anywhere.service.ReviewService;
+import com.project.anywhere.service.ReviewPostService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewServiceImplement implements ReviewService{
+public class ReviewPostServiceImplement implements ReviewPostService{
     private final UserRepository userRepository;
-    private final ReviewRespsitory reviewRepository;
+    private final ReviewPostRespsitory reviewRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, PostReviewImagesRequestDto dto2,
             String userId) {
                 try {
 
-                    ReviewEntity reviewEntity = new ReviewEntity(dto);
+                    ReviewPostEntity reviewEntity = new ReviewPostEntity(dto);
                     UsersEntity userEntity = userRepository.findByUserId(userId);
 
                     if(userEntity == null) return ResponseDto.noExistUserId();

@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,5 +26,10 @@ public class RecommendFoodEntity {
     private Integer recommendId;
     private String foodName;
     private String foodContent;
+
+    public RecommendFoodEntity(PostRecommendFoodRequestDto dto) {
+        this.foodName = dto.getFoodName();
+        this.foodContent = dto.getFoodContent();
+    }
 
 }
