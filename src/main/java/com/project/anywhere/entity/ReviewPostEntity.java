@@ -24,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity(name="review_posts")
 @Table(name = "review_posts")
-public class ReviewEntity {
+public class ReviewPostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,17 +34,11 @@ public class ReviewEntity {
     private String reviewCreatedAt;
     private Integer reviewLikeCount = 0;
 
-    
-
-    public ReviewEntity(PostReviewRequestDto dto) {
+    public ReviewPostEntity(PostReviewRequestDto dto) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm");
         this.reviewCreatedAt = simpleDateFormat.format(now);
         this.reviewContent = dto.getReviewContent();
     }
-    
-
-
-
     
 }
