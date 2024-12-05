@@ -34,7 +34,6 @@ public class RecommendPostEntity {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm");
         this.recommendCreatedAt = simpleDateFormat.format(now);
-        
     }
 
 }

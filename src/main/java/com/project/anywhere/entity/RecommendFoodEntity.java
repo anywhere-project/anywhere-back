@@ -23,5 +23,6 @@ public class RecommendFoodEntity {
     private Integer foodId;
     private Integer recommendId;
     private String foodName;
-    
+    private String foodContent;
+
 }

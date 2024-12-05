@@ -12,5 +12,7 @@ public class PostRecommendFoodRequestDto {
     
     @NotBlank
     private String foodName;
+    @NotBlank
+    private String foodContent;
 
 }
