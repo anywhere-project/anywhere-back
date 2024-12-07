@@ -8,4 +8,8 @@ import com.project.anywhere.entity.RecommendPostEntity;
 @Repository
 public interface RecommendPostRepository extends JpaRepository<RecommendPostEntity, Integer> {
     
+    boolean existsByRecommendId(Integer recommendId);
+    RecommendPostEntity findByRecommendId(Integer recommendId);
+    void deleteByRecommendId(Integer recommendId);
+    
 }

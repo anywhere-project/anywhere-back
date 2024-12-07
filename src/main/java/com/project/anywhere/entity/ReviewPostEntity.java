@@ -1,11 +1,8 @@
 package com.project.anywhere.entity;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 
 import jakarta.persistence.Entity;

@@ -7,5 +7,9 @@ import com.project.anywhere.entity.RecommendFoodEntity;
 
 @Repository
 public interface RecommendFoodRepository extends JpaRepository<RecommendFoodEntity, Integer> {
-    
+
+    boolean existsByRecommendId(Integer recommendId);
+    RecommendFoodEntity findByRecommendId(Integer recommendId);
+    void deleteByRecommendId(Integer recommendId);
+
 }

@@ -10,6 +10,10 @@ public interface ResponseCode {
 
     String NO_EXIST_USER_ID = "NI";
     String NO_EXIST_TEL_NUMBER = "NT";
+    String NO_EXIST_RECOMMEND_POST = "NRC";
+    String NO_EXIST_RECOMMEND_ATTRACTION = "NRA";
+    String NO_EXIST_RECOMMEND_FOOD = "NRF";
+    String NO_EXIST_RECOMMEND_MISSION = "NRM";
 
     String SIGN_IN_FAIL = "SF";
     String AUTHENTICATION_FAIL = "AF";

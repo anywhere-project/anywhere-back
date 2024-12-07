@@ -1,5 +1,6 @@
 package com.project.anywhere.dto.request.recommend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -11,8 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostRecommendPostRequestDto {
     
-    private List<PostRecommendFoodRequestDto> foods;
-    private List<PostRecommendAttractionRequestDto> attractions;
-    private List<PostRecommendMissionRequestDto> missions;
+    private List<PostRecommendFoodRequestDto> foods = new ArrayList<>();
+    private List<PostRecommendAttractionRequestDto> attractions = new ArrayList<>();
+    private List<PostRecommendMissionRequestDto> missions = new ArrayList<>();
 
 }

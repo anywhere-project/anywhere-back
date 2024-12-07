@@ -3,6 +3,7 @@ package com.project.anywhere.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 
 import jakarta.persistence.Entity;
@@ -33,6 +34,12 @@ public class RecommendPostEntity {
     public RecommendPostEntity(PostRecommendPostRequestDto dto) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm");
+        this.recommendCreatedAt = simpleDateFormat.format(now);
+    }
+
+    public void patch(PatchRecommendPostRequestDto dto) {
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         this.recommendCreatedAt = simpleDateFormat.format(now);
     }
 

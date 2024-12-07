@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRecommendMissionRequestDto {
+public class PatchRecommendMissionRequestDto {
     
     private String missionName;
     private String missionContent;

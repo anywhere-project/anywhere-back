@@ -38,6 +38,25 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistRecommendPost() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_POST, ResponseMessage.NO_EXIST_RECOMMEND_POST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistRecommendAttraction() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_ATTRACTION, ResponseMessage.NO_EXIST_RECOMMEND_ATTRACTION);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistRecommendFood() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_FOOD, ResponseMessage.NO_EXIST_RECOMMEND_FOOD);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistRecommendMission() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_MISSION, ResponseMessage.NO_EXIST_RECOMMEND_MISSION);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
 
     public static ResponseEntity<ResponseDto> duplicatedTelNumber() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TEL_NUMBER, ResponseMessage.DUPLICATED_TEL_NUMBER);

@@ -10,6 +10,11 @@ public interface ResponseMessage {
 
     String NO_EXIST_USER_ID = "No exist user id.";
     String NO_EXIST_TEL_NUMBER = "No exist tel number.";
+    String NO_EXIST_RECOMMEND_POST = "No exist recommend post.";
+    String NO_EXIST_RECOMMEND_ATTRACTION = "No exist recommend attraction.";
+    String NO_EXIST_RECOMMEND_FOOD = "No exist recommend food.";
+    String NO_EXIST_RECOMMEND_MISSION = "No exist recommend mission.";
+
     String SIGN_IN_FAIL = "Sign in fail.";
     String AUTHENTICATION_FAIL = "Authentication fail.";
 

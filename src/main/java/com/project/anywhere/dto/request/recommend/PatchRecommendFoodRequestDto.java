@@ -7,9 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRecommendMissionRequestDto {
+public class PatchRecommendFoodRequestDto {
     
-    private String missionName;
-    private String missionContent;
+    private String foodName;
+    private String foodContent;
 
 }
+
