@@ -46,7 +46,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchRecommendFood(PatchRecommendFoodRequestDto dto, Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> patchRecommendFood(PatchRecommendFoodRequestDto dto, Integer recommendId, Integer foodId, String userId) {
 
         try {
 
@@ -57,10 +57,10 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            RecommendFoodEntity foodEntity = foodRepository.findByRecommendId(recommendId);
+            RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
             if (foodEntity == null) return ResponseDto.noExistRecommendFood();
 
-            foodEntity.patch(dto, recommendId);
+            foodEntity.patch(dto, foodId);
             foodRepository.save(foodEntity);
 
         } catch (Exception exception) {
@@ -72,7 +72,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteRecommendFood(Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> deleteRecommendFood(Integer recommendId, Integer foodId, String userId) {
 
         try {
 
@@ -83,10 +83,10 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            RecommendFoodEntity foodEntity = foodRepository.findByRecommendId(recommendId);
+            RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
             if (foodEntity == null) return ResponseDto.noExistRecommendFood();
 
-            foodRepository.deleteByRecommendId(recommendId);
+            foodRepository.deleteByFoodId(foodId);
 
         } catch (Exception exception) {
             exception.printStackTrace();

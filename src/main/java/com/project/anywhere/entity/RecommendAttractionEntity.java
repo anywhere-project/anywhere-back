@@ -36,20 +36,11 @@ public class RecommendAttractionEntity {
         this.recommendId = recommendId;
     }
 
-    
-    public RecommendAttractionEntity(PatchRecommendAttractionRequestDto dto, Integer recommendId) {
+    public void patch(PatchRecommendAttractionRequestDto dto, Integer attarctionId) {
         this.attractionName = dto.getAttractionName();
         this.attractionAddress = dto.getAttractionAddress();
         this.attractionContent = dto.getAttractionContent();
-        this.recommendId = recommendId;
+        this.attractionId = attarctionId;
     }
-
-    public void patch(PatchRecommendAttractionRequestDto dto, Integer recommendId) {
-        this.attractionName = dto.getAttractionName();
-        this.attractionAddress = dto.getAttractionAddress();
-        this.attractionContent = dto.getAttractionContent();
-        this.recommendId = recommendId;
-    }
-
 
 }

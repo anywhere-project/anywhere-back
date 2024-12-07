@@ -9,7 +9,7 @@ import com.project.anywhere.dto.response.ResponseDto;
 public interface RecommendAttractionService {
 
     ResponseEntity<ResponseDto> postRecommendAttraction(PostRecommendAttractionRequestDto dto, Integer recommendId, String userId);
-    ResponseEntity<ResponseDto> patchRecommendAttraction(PatchRecommendAttractionRequestDto dto, Integer recommendId, String userId);
-    ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, String userId);
+    ResponseEntity<ResponseDto> patchRecommendAttraction(PatchRecommendAttractionRequestDto dto, Integer recommendId, Integer attractionId, String userId);
+    ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, Integer attractionId, String userId);
 
 }

@@ -34,16 +34,10 @@ public class RecommendMissionEntity {
         this.recommendId = recommendId;
     }
 
-    public RecommendMissionEntity(PatchRecommendMissionRequestDto dto, Integer recommendId) {
+    public void patch(PatchRecommendMissionRequestDto dto, Integer missionId) {
         this.missionName = dto.getMissionName();
         this.missionContent = dto.getMissionContent();
-        this.recommendId = recommendId;
-    }
-
-    public void patch(PatchRecommendMissionRequestDto dto, Integer recommendId) {
-        this.missionName = dto.getMissionName();
-        this.missionContent = dto.getMissionContent();
-        this.recommendId = recommendId;
+        this.missionId = missionId;
     }
 
 }

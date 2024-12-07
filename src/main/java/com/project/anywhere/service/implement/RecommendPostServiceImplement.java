@@ -3,9 +3,6 @@ package com.project.anywhere.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionRequestDto;
-import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
-import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
@@ -88,24 +85,6 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             postEntity.patch(dto);
             postRepository.save(postEntity);
 
-            if (dto.getAttractions() != null) {
-                for (PatchRecommendAttractionRequestDto attractionDto: dto.getAttractions()) {
-                    attractionService.patchRecommendAttraction(attractionDto, recommendId, userId);
-                }
-            }
-
-            if (dto.getFoods() != null) {
-                for (PatchRecommendFoodRequestDto foodDto: dto.getFoods()) {
-                    foodService.patchRecommendFood(foodDto, recommendId, userId);
-                }
-            }
-
-            if (dto.getMissions() != null) {
-                for (PatchRecommendMissionRequestDto missionDto: dto.getMissions()) {
-                    missionService.patchRecommendMission(missionDto, recommendId, userId);
-                }
-            }
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -129,9 +108,6 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            attractionService.deleteRecommendAttraction(recommendId, userId);
-            foodService.deleteRecommendFood(recommendId, userId);
-            missionService.deleteRecommendMission(recommendId, userId);
             postRepository.deleteByRecommendId(recommendId);
 
         } catch(Exception exception) {

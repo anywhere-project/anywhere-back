@@ -46,7 +46,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchRecommendAttraction(PatchRecommendAttractionRequestDto dto, Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> patchRecommendAttraction(PatchRecommendAttractionRequestDto dto, Integer attractionId, Integer recommendId, String userId) {
 
         try {
 
@@ -60,19 +60,10 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
             
-            RecommendAttractionEntity attractionEntity = attractionRepository.findByRecommendId(recommendId);
+            RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
+            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
 
-            // for (PatchRecommendAttractionRequestDto attractionDto : dto.getAttractions()) {
-            //     if (attractionEntity == null) {
-            //         RecommendAttractionEntity addEntity = new RecommendAttractionEntity(attractionDto, recommendId);
-            //         attractionRepository.save(addEntity);
-            //     } else {
-            //         attractionEntity.patch(attractionDto, recommendId);
-            //         attractionRepository.save(attractionEntity);
-            //     }
-            // }
-
-            attractionEntity.patch(dto, recommendId);
+            attractionEntity.patch(dto, attractionId);
             attractionRepository.save(attractionEntity);
 
         } catch(Exception exception) {
@@ -84,7 +75,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, Integer attractionId, String userId) {
         
         try {
 
@@ -97,10 +88,10 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission(); 
 
-            RecommendAttractionEntity attractionEntity = attractionRepository.findByRecommendId(recommendId);
+            RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
             if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
 
-            attractionRepository.deleteByRecommendId(recommendId);
+            attractionRepository.deleteByAttractionId(attractionId);
 
         } catch(Exception exception) {
             exception.printStackTrace();

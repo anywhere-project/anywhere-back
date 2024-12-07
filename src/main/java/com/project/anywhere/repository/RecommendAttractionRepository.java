@@ -9,7 +9,7 @@ import com.project.anywhere.entity.RecommendAttractionEntity;
 public interface RecommendAttractionRepository extends JpaRepository<RecommendAttractionEntity, Integer> {
     
     boolean existsByRecommendId(Integer recommendId);
-    RecommendAttractionEntity findByRecommendId(Integer recommendId);
-    void deleteByRecommendId(Integer recommendId);
+    RecommendAttractionEntity findByAttractionId(Integer attractionId);
+    void deleteByAttractionId(Integer attractionId);
 
 }

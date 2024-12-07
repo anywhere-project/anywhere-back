@@ -56,64 +56,88 @@ public class RecommendController {
         return response;
     }
 
-    @PostMapping("/attraction/{recommendId}")
-    public ResponseEntity<ResponseDto> postRecommendAttraction(@RequestBody @Valid PostRecommendAttractionRequestDto requset,
-    @PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = attractionService.postRecommendAttraction(requset, recommendId, userId);
+    @PostMapping("/{recommendId}/attraction")
+    public ResponseEntity<ResponseDto> postRecommendAttraction(
+            @RequestBody @Valid PostRecommendAttractionRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = attractionService.postRecommendAttraction(request, recommendId, userId);
         return response;
     }
 
-    @PatchMapping("/attraction/{recommendId}")
-    public ResponseEntity<ResponseDto> patchRecommendAttraction(@RequestBody @Valid PatchRecommendAttractionRequestDto request, 
-    @PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = attractionService.patchRecommendAttraction(request, recommendId, userId);
+    @PatchMapping("/{recommendId}/attraction/{attractionId}")
+    public ResponseEntity<ResponseDto> patchRecommendAttraction(
+            @RequestBody @Valid PatchRecommendAttractionRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("attractionId") Integer attractionId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = attractionService.patchRecommendAttraction(request, recommendId, attractionId, userId);
         return response;
     }
 
-    @DeleteMapping("/attraction/{recommendId}")
-    public ResponseEntity<ResponseDto> deleteRecommendAttraction(@AuthenticationPrincipal String userId, @PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<ResponseDto> response = attractionService.deleteRecommendAttraction(recommendId, userId);
+    @DeleteMapping("/{recommendId}/attraction/{attractionId}")
+    public ResponseEntity<ResponseDto> deleteRecommendAttraction(
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("attractionId") Integer attractionId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = attractionService.deleteRecommendAttraction(recommendId, attractionId, userId);
         return response;
     }
-
-    @PostMapping("/food/{recommendId}")
-    public ResponseEntity<ResponseDto> postRecommendFood(@RequestBody @Valid PostRecommendFoodRequestDto request, @AuthenticationPrincipal String userId,
-    @PathVariable("reommendId") Integer recommendId) {
+    
+    @PostMapping("/{recommendId}/food")
+    public ResponseEntity<ResponseDto> postRecommendFood(
+            @RequestBody @Valid PostRecommendFoodRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = foodService.postRecommendFood(request, recommendId, userId);
         return response;
     }
 
-    @PatchMapping("/food/{recommendId}")
-    public ResponseEntity<ResponseDto> patchRecommendFood(@RequestBody @Valid PatchRecommendFoodRequestDto request, @AuthenticationPrincipal String userId,
-    @PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<ResponseDto> response = foodService.patchRecommendFood(request, recommendId, userId);
+    @PatchMapping("/{recommendId}/food/{foodId}")
+    public ResponseEntity<ResponseDto> patchRecommendFood(
+            @RequestBody @Valid PatchRecommendFoodRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("foodId") Integer foodId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = foodService.patchRecommendFood(request, recommendId, foodId, userId);
         return response;
     }
 
-    @DeleteMapping("/food/{recommendId}")
-    public ResponseEntity<ResponseDto> deleteRecommendFood(@PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = foodService.deleteRecommendFood(recommendId, userId);
+    @DeleteMapping("/{recommendId}/food/{foodId}")
+    public ResponseEntity<ResponseDto> deleteRecommendFood(
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("foodId") Integer foodId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = foodService.deleteRecommendFood(recommendId, foodId, userId);
         return response;
     }
 
-    @PostMapping("/mission/{recommendId}")
-    public ResponseEntity<ResponseDto> postRecommendMission(@RequestBody @Valid PostRecommendMissionRequestDto request, @AuthenticationPrincipal String userId,
-    @PathVariable("reommendId") Integer recommendId) {
+    @PostMapping("/{recommendId}/mission")
+    public ResponseEntity<ResponseDto> postRecommendMission(
+            @RequestBody @Valid PostRecommendMissionRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = missionService.postRecommendMission(request, recommendId, userId);
         return response;
     }
 
-    @PatchMapping("/mission/{recommendId}")
-    public ResponseEntity<ResponseDto> patchRecommendMission(@RequestBody @Valid PatchRecommendMissionRequestDto request, @AuthenticationPrincipal String userId,
-    @PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<ResponseDto> response = missionService.patchRecommendMission(request, recommendId, userId);
+    @PatchMapping("/{recommendId}/mission/{missionId}")
+    public ResponseEntity<ResponseDto> patchRecommendMission(
+            @RequestBody @Valid PatchRecommendMissionRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("missionId") Integer missionId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = missionService.patchRecommendMission(request, recommendId, missionId, userId);
         return response;
     }
 
-    @DeleteMapping("/mission/{recommendId}")
-    public ResponseEntity<ResponseDto> deleteRecommendMission(@PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = missionService.deleteRecommendMission(recommendId, userId);
+    @DeleteMapping("/{recommendId}/mission/{missionId}")
+    public ResponseEntity<ResponseDto> deleteRecommendMission(
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("missionId") Integer missionId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = missionService.deleteRecommendMission(recommendId, missionId, userId);
         return response;
     }
-    
+
 }

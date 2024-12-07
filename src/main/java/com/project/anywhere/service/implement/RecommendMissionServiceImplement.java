@@ -46,7 +46,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchRecommendMission(PatchRecommendMissionRequestDto dto, Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> patchRecommendMission(PatchRecommendMissionRequestDto dto, Integer recommendId, Integer missionId, String userId) {
 
         try {
 
@@ -57,20 +57,10 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            RecommendMissionEntity missionEntity = missionRepository.findByRecommendId(recommendId);
+            RecommendMissionEntity missionEntity = missionRepository.findByMissionId(missionId);
             if (missionEntity == null) return ResponseDto.noExistRecommendMission();
 
-            // for (PatchRecommendMissionRequestDto missionDto : dto.getMissions()) {
-            //     if (missionEntity == null) {
-            //         missionEntity = new RecommendMissionEntity(missionDto, recommendId);
-            //         missionRepository.save(missionEntity);
-            //     } else {
-            //         missionEntity.patch(missionDto, recommendId);
-            //         missionRepository.save(missionEntity);
-            //     }
-            // }
-
-            missionEntity.patch(dto, recommendId);
+            missionEntity.patch(dto, missionId);
             missionRepository.save(missionEntity);
 
         } catch (Exception exception) {
@@ -82,7 +72,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteRecommendMission(Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> deleteRecommendMission(Integer recommendId, Integer missionId, String userId) {
 
         try {
 
@@ -93,10 +83,10 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            RecommendMissionEntity missionEntity = missionRepository.findByRecommendId(recommendId);
+            RecommendMissionEntity missionEntity = missionRepository.findByMissionId(missionId);
             if (missionEntity == null) return ResponseDto.noExistRecommendMission();
 
-            missionRepository.deleteByRecommendId(recommendId);
+            missionRepository.deleteByMissionId(missionId);
 
         } catch (Exception exception) {
             exception.printStackTrace();
