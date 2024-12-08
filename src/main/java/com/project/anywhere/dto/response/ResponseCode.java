@@ -18,6 +18,7 @@ public interface ResponseCode {
     String NO_EXIST_RECOMMEND_ATTRACTION = "NRA";
     String NO_EXIST_RECOMMEND_FOOD = "NRF";
     String NO_EXIST_RECOMMEND_MISSION = "NRM";
+    String NO_EXIST_REVIEW_POST = "NRV";
 
     String SIGN_IN_FAIL = "SF";
     String AUTHENTICATION_FAIL = "AF";

@@ -18,6 +18,7 @@ public interface ResponseMessage {
     String NO_EXIST_RECOMMEND_ATTRACTION = "No exist recommend attraction.";
     String NO_EXIST_RECOMMEND_FOOD = "No exist recommend food.";
     String NO_EXIST_RECOMMEND_MISSION = "No exist recommend mission.";
+    String NO_EXIST_REVIEW_POST = "No exist review post.";
 
     String SIGN_IN_FAIL = "Sign in fail.";
     String AUTHENTICATION_FAIL = "Authentication fail.";
