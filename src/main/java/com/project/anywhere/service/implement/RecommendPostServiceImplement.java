@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.anywhere.common.object.RecommendPost;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
-import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
 import com.project.anywhere.entity.RecommendAttractionEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 import com.project.anywhere.entity.RecommendImageEntity;
@@ -141,7 +141,7 @@ public class RecommendPostServiceImplement implements RecommendPostService {
     public ResponseEntity<? super GetRecommendPostListResponseDto> getRecommendPosts() {
 
         List<RecommendPostEntity> postEntities = postRepository.findAllByOrderByRecommendIdDesc();
-        List<GetRecommendPostResponseDto> responseList = new ArrayList<>();
+        List<RecommendPost> recommendPosts = new ArrayList<>();
 
         try {
 
@@ -151,17 +151,16 @@ public class RecommendPostServiceImplement implements RecommendPostService {
                 RecommendMissionEntity missionEntity = missionRepository.findByRecommendId(postEntity.getRecommendId());
                 List<RecommendImageEntity> imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
 
-                GetRecommendPostResponseDto responseDto = new GetRecommendPostResponseDto(postEntity, attractionEntity, foodEntity, missionEntity, imageEntities);
-                responseList.add(responseDto);
+                RecommendPost recommendPost = new RecommendPost(postEntity, attractionEntity, foodEntity, missionEntity, imageEntities);
+                recommendPosts.add(recommendPost);
             }
 
-        } catch(Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendPostListResponseDto.success(responseList);
+    return GetRecommendPostListResponseDto.success(recommendPosts);
     }
-
 
 }
