@@ -10,6 +10,7 @@ public interface RecommendMissionRepository extends JpaRepository<RecommendMissi
 
     boolean existsByRecommendId(Integer recommendId);
     RecommendMissionEntity findByMissionId(Integer missionId);
+    RecommendMissionEntity findByRecommendId(Integer recommendId);
     void deleteByMissionId(Integer missionId);
     
 }

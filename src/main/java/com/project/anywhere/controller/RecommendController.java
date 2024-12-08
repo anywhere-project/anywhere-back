@@ -3,6 +3,7 @@ package com.project.anywhere.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,10 @@ import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
+import com.project.anywhere.service.RecommendLikeService;
 import com.project.anywhere.service.RecommendMissionService;
 import com.project.anywhere.service.RecommendPostService;
 
@@ -32,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecommendController {
 
+    private final RecommendLikeService likeService;
     private final RecommendFoodService foodService;
     private final RecommendMissionService missionService;
     private final RecommendPostService recommendPostService;
@@ -137,6 +141,18 @@ public class RecommendController {
             @PathVariable("missionId") Integer missionId,
             @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = missionService.deleteRecommendMission(recommendId, missionId, userId);
+        return response;
+    }
+
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<? super GetRecommendPostListResponseDto> getRecommendPosts() {
+        ResponseEntity<? super GetRecommendPostListResponseDto> response = recommendPostService.getRecommendPosts();
+        return response;
+    }
+
+    @PostMapping("/{recommendId}/like")
+    public ResponseEntity<ResponseDto> recommendLike(@AuthenticationPrincipal String userId, @PathVariable("recommendId") Integer recommendId) {
+        ResponseEntity<ResponseDto> response = likeService.recommendLike(userId, recommendId);
         return response;
     }
 

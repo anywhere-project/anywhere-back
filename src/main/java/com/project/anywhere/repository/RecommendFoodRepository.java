@@ -10,6 +10,7 @@ public interface RecommendFoodRepository extends JpaRepository<RecommendFoodEnti
 
     boolean existsByRecommendId(Integer recommendId);
     RecommendFoodEntity findByFoodId(Integer foodId);
+    RecommendFoodEntity findByRecommendId(Integer recommendId);
     void deleteByFoodId(Integer foodId);
 
 }

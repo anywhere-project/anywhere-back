@@ -10,6 +10,7 @@ public interface RecommendAttractionRepository extends JpaRepository<RecommendAt
     
     boolean existsByRecommendId(Integer recommendId);
     RecommendAttractionEntity findByAttractionId(Integer attractionId);
+    RecommendAttractionEntity findByRecommendId(Integer recommendId);
     void deleteByAttractionId(Integer attractionId);
 
 }

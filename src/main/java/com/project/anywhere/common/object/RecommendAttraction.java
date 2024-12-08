@@ -24,13 +24,14 @@ public class RecommendAttraction {
         this.attractionContent = attractionEntity.getAttractionContent();
     }
 
-    public static List<RecommendAttraction> getList(List<RecommendAttractionEntity> attractionEntities) {
+    public static List<RecommendAttraction> getList(List<RecommendAttractionEntity> attractionEntities, Integer recommendId) {
         List<RecommendAttraction> recommendAttractions = new ArrayList<>();
-        for (RecommendAttractionEntity attractionEntity: attractionEntities) {
-            RecommendAttraction recommendAttraction = new RecommendAttraction(attractionEntity);
-            recommendAttractions.add(recommendAttraction);
+        for (RecommendAttractionEntity attractionEntity : attractionEntities) {
+            if (attractionEntity.getRecommendId().equals(recommendId)) {
+                RecommendAttraction recommendAttraction = new RecommendAttraction(attractionEntity);
+                recommendAttractions.add(recommendAttraction);
+            }
         }
-
         return recommendAttractions;
     }
 

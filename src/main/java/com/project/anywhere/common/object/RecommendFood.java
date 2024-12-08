@@ -22,11 +22,13 @@ public class RecommendFood {
         this.foodContent = foodEntity.getFoodContent();
     }
 
-    public static List<RecommendFood> getList(List<RecommendFoodEntity> foodEntities) {
+    public static List<RecommendFood> getList(List<RecommendFoodEntity> foodEntities, Integer recommendId) {
         List<RecommendFood> recommendFoods = new ArrayList<>();
-        for (RecommendFoodEntity foodEntity: foodEntities) {
-            RecommendFood recommendFood = new RecommendFood(foodEntity);
-            recommendFoods.add(recommendFood);
+        for (RecommendFoodEntity foodEntity : foodEntities) {
+            if (foodEntity.getRecommendId().equals(recommendId)) {
+                RecommendFood recommendFood = new RecommendFood(foodEntity);
+                recommendFoods.add(recommendFood);
+            }
         }
         return recommendFoods;
     }

@@ -13,6 +13,7 @@ import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendFoodService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -72,6 +73,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<ResponseDto> deleteRecommendFood(Integer recommendId, Integer foodId, String userId) {
 
         try {

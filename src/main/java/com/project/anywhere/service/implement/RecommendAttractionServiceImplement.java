@@ -13,6 +13,7 @@ import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendAttractionService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -57,9 +58,11 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
-            if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
-            
+
+            System.out.println("recommendId : " + recommendId);
+            System.out.println("attractionId : " + attractionId);
+
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
             if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
 
@@ -75,6 +78,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
+    @Transactional
     public ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, Integer attractionId, String userId) {
         
         try {

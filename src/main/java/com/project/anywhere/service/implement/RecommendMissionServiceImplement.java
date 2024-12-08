@@ -13,6 +13,7 @@ import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendMissionService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -72,6 +73,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     }
 
     @Override
+    @Transactional
     public ResponseEntity<ResponseDto> deleteRecommendMission(Integer recommendId, Integer missionId, String userId) {
 
         try {
@@ -95,4 +97,5 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
 
         return ResponseDto.success();
     }
+
 }

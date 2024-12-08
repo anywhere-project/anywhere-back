@@ -3,6 +3,10 @@ package com.project.anywhere.dto.response;
 public interface ResponseCode {
     
     String SUCCESS = "SU";
+    String LIKE_CLICK = "LC";
+    String LIKE_UNCLICK = "LUC";
+    String SCRAP_CLICK = "SC";
+    String SCRAP_UNCLICK = "SUC";
     
     String VALIDATION_FAILED = "VF";
     String DUPLICATED_USER_ID = "DI";

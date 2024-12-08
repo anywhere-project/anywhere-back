@@ -22,11 +22,13 @@ public class RecommendMission {
         this.missionContent = missionEntity.getMissionContent();
     }
 
-    public static List<RecommendMission> getList(List<RecommendMissionEntity> missionEntities) {
+    public static List<RecommendMission> getList(List<RecommendMissionEntity> missionEntities, Integer recommendId) {
         List<RecommendMission> recommendMissions = new ArrayList<>();
-        for (RecommendMissionEntity missionEntity: missionEntities) {
-            RecommendMission recommendMission = new RecommendMission(missionEntity);
-            recommendMissions.add(recommendMission);
+        for (RecommendMissionEntity missionEntity : missionEntities) {
+            if (missionEntity.getRecommendId().equals(recommendId)) {
+                RecommendMission recommendMission = new RecommendMission(missionEntity);
+                recommendMissions.add(recommendMission);
+            }
         }
         return recommendMissions;
     }
