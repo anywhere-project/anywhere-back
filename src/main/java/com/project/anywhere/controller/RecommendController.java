@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
+import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
+import com.project.anywhere.service.RecommendImageService;
 import com.project.anywhere.service.RecommendLikeService;
 import com.project.anywhere.service.RecommendMissionService;
 import com.project.anywhere.service.RecommendPostService;
@@ -37,6 +40,7 @@ public class RecommendController {
 
     private final RecommendLikeService likeService;
     private final RecommendFoodService foodService;
+    private final RecommendImageService imageService;
     private final RecommendMissionService missionService;
     private final RecommendPostService recommendPostService;
     private final RecommendAttractionService attractionService;
@@ -155,5 +159,35 @@ public class RecommendController {
         ResponseEntity<ResponseDto> response = likeService.recommendLike(userId, recommendId);
         return response;
     }
+
+    @PostMapping("/{recommendId}/image")
+public ResponseEntity<ResponseDto> postRecommendImage(
+        @RequestBody @Valid PostRecommendImageRequestDto request,
+        @PathVariable("recommendId") Integer recommendId,
+        @AuthenticationPrincipal String userId) {
+    ResponseEntity<ResponseDto> response = imageService.postRecommendImage(request, recommendId, userId);
+    return response;
+}
+
+// 이미지 수정
+@PatchMapping("/{recommendId}/image/{imageId}")
+public ResponseEntity<ResponseDto> patchRecommendImage(
+        @RequestBody @Valid PatchRecommendImageRequestDto request,
+        @PathVariable("recommendId") Integer recommendId,
+        @PathVariable("imageId") Integer imageId,
+        @AuthenticationPrincipal String userId) {
+    ResponseEntity<ResponseDto> response = imageService.patchRecommendImage(request, recommendId, imageId, userId);
+    return response;
+}
+
+// 이미지 삭제
+@DeleteMapping("/{recommendId}/image/{imageId}")
+public ResponseEntity<ResponseDto> deleteRecommendImage(
+        @PathVariable("recommendId") Integer recommendId,
+        @PathVariable("imageId") Integer imageId,
+        @AuthenticationPrincipal String userId) {
+    ResponseEntity<ResponseDto> response = imageService.deleteRecommendImage(recommendId, imageId, userId);
+    return response;
+}
 
 }

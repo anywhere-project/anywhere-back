@@ -88,6 +88,11 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistRecommendImage() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_IMAGE, ResponseMessage.NO_EXIST_RECOMMEND_IMAGE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistReviewPost() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_POST, ResponseMessage.NO_EXIST_REVIEW_POST);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);

@@ -3,29 +3,28 @@ package com.project.anywhere.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionRequestDto;
-import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
+import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
-import com.project.anywhere.entity.RecommendAttractionEntity;
+import com.project.anywhere.entity.RecommendImageEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
-import com.project.anywhere.repository.RecommendAttractionRepository;
+import com.project.anywhere.repository.RecommendImageRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
-import com.project.anywhere.service.RecommendAttractionService;
+import com.project.anywhere.service.RecommendImageService;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RecommendAttractionServiceImplement implements RecommendAttractionService {
+public class RecommendImageServiceImplement implements RecommendImageService {
 
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
-    private final RecommendAttractionRepository attractionRepository;
-    
+    private final RecommendImageRepository imageRepository;
+
     @Override
-    public ResponseEntity<ResponseDto> postRecommendAttraction(PostRecommendAttractionRequestDto dto, Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> postRecommendImage(PostRecommendImageRequestDto dto, Integer recommendId, String userId) {
 
         try {
 
@@ -35,11 +34,9 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
-            boolean isAlreadyRecommended = attractionRepository.existsByRecommendId(recommendId);
-            if (isAlreadyRecommended) return ResponseDto.alreadyRecommend();
+            RecommendImageEntity imageEntity = new RecommendImageEntity(dto, recommendId);
+            imageRepository.save(imageEntity);
 
-            RecommendAttractionEntity attractionEntity = new RecommendAttractionEntity(dto, recommendId);
-            attractionRepository.save(attractionEntity);
 
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -50,7 +47,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchRecommendAttraction(PatchRecommendAttractionRequestDto dto, Integer recommendId, Integer attractionId, String userId) {
+    public ResponseEntity<ResponseDto> patchRecommendImage(PatchRecommendImageRequestDto dto, Integer recommendId, Integer imageId, String userId) {
 
         try {
 
@@ -63,11 +60,11 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
-            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
+            RecommendImageEntity imageEntity = imageRepository.findByImageId(imageId);
+            if (imageEntity == null) return ResponseDto.noExistRecommendImage();
 
-            attractionEntity.patch(dto, attractionId);
-            attractionRepository.save(attractionEntity);
+            imageEntity.patch(dto);
+            imageRepository.save(imageEntity);
 
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -78,9 +75,8 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    @Transactional
-    public ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, Integer attractionId, String userId) {
-        
+    public ResponseEntity<ResponseDto> deleteRecommendImage(Integer recommendId, Integer imageId, String userId) {
+
         try {
 
             boolean isExistedUserId = userRepository.existsByUserId(userId);
@@ -92,10 +88,10 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission(); 
 
-            RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
-            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
+            RecommendImageEntity imageEntity = imageRepository.findByImageId(imageId);
+            if (imageEntity == null) return ResponseDto.noExistRecommendImage();
 
-            attractionRepository.deleteByAttractionId(attractionId);
+            imageRepository.deleteByImageId(imageId);
 
         } catch(Exception exception) {
             exception.printStackTrace();
