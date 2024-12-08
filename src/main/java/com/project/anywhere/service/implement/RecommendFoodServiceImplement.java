@@ -35,6 +35,9 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
+            boolean isAlreadyRecommended = foodRepository.existsByRecommendId(recommendId);
+            if (isAlreadyRecommended) return ResponseDto.alreadyRecommend();
+
             RecommendFoodEntity foodEntity = new RecommendFoodEntity(dto, recommendId);
             foodRepository.save(foodEntity);
 

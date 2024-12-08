@@ -53,6 +53,16 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> duplicatedTelNumber() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TEL_NUMBER, ResponseMessage.DUPLICATED_TEL_NUMBER);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> alreadyRecommend() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.ALREADY_RECOMMEND, ResponseMessage.ALREADY_RECOMMEND);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistUserId() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_USER_ID, ResponseMessage.NO_EXIST_USER_ID);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
@@ -80,11 +90,6 @@ public class ResponseDto {
 
     public static ResponseEntity<ResponseDto> noExistReviewPost() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_POST, ResponseMessage.NO_EXIST_REVIEW_POST);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
-    }
-
-    public static ResponseEntity<ResponseDto> duplicatedTelNumber() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TEL_NUMBER, ResponseMessage.DUPLICATED_TEL_NUMBER);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 

@@ -35,6 +35,9 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
+            boolean isAlreadyRecommended = missionRepository.existsByRecommendId(recommendId);
+            if (isAlreadyRecommended) return ResponseDto.alreadyRecommend();
+
             RecommendMissionEntity missionEntity = new RecommendMissionEntity(dto, recommendId);
             missionRepository.save(missionEntity);
 

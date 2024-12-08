@@ -35,6 +35,9 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
+            boolean isAlreadyRecommended = attractionRepository.existsByRecommendId(recommendId);
+            if (isAlreadyRecommended) return ResponseDto.alreadyRecommend();
+
             RecommendAttractionEntity attractionEntity = new RecommendAttractionEntity(dto, recommendId);
             attractionRepository.save(attractionEntity);
 
