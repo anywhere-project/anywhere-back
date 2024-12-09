@@ -2,6 +2,7 @@ package com.project.anywhere.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +53,15 @@ public class ReviewController {
         @RequestBody @Valid PatchReviewRequestDto requestBody
     ){
         ResponseEntity<ResponseDto> response = reviewService.patchReview(reviewId, userId, requestBody);
+        return response;
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<ResponseDto> deleteReview(
+        @PathVariable("reviewId") Integer reviewId,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = reviewService.deleteReview(reviewId, userId);
         return response;
     }
 
