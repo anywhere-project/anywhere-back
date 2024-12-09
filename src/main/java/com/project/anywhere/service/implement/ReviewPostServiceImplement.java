@@ -33,6 +33,7 @@ public class ReviewPostServiceImplement implements ReviewPostService{
 
     @Override
     public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, String userId) {
+  
         try {
 
             ReviewPostEntity reviewEntity = new ReviewPostEntity(dto);
@@ -47,17 +48,17 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             reviewImagesEntity.setReviewId(reviewEntity.getReviewId());
             reviewImagesRepository.save(reviewImagesEntity);
 
-        for (String tagName: dto.getHashtags()) {
-            HashTagEntity hashTagEntity = new HashTagEntity(tagName, reviewEntity.getReviewId());
-            hashTagRepository.save(hashTagEntity);
+            for (String tagName: dto.getHashtags()) {
+                HashTagEntity hashTagEntity = new HashTagEntity(tagName, reviewEntity.getReviewId());
+                hashTagRepository.save(hashTagEntity);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
         }
-
-    } catch (Exception exception) {
-        exception.printStackTrace();
-        return ResponseDto.databaseError();
-    }
-    return ResponseDto.success();
-
+  
+        return ResponseDto.success();
     }
     
     @Override
@@ -71,7 +72,7 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             reviewPostEntities = reviewRepository.findByOrderByReviewIdDesc();
             reviewImagesEntities = reviewImagesRepository.findAll();
             hashTagEntities = hashTagRepository.findAll();
-
+          
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -102,6 +103,25 @@ public class ReviewPostServiceImplement implements ReviewPostService{
                 reviewImagesEntity.setImageUrl(dto.getImageUrl());
                 reviewImagesRepository.save(reviewImagesEntity);
             }
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteReview(Integer reviewId, String userId) {
+        try {
+            ReviewPostEntity reviewPostEntity = reviewRepository.findByReviewId(reviewId);
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+
+            if(usersEntity == null) return ResponseDto.noExistUserId();
+            if(reviewPostEntity == null) return ResponseDto.noExistReview();
+            
+            reviewRepository.delete(reviewPostEntity);
+
             
         } catch (Exception exception) {
             exception.printStackTrace();

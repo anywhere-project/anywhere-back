@@ -12,8 +12,8 @@ import lombok.Setter;
 public class PostReviewImagesRequestDto {
 
     @NotBlank
-    private String imageUrl;    
+    private String imageUrl;
     @NotNull
-    @NotBlank Integer imageOrder;
-    
+    private Integer imageOrder;
+
 }

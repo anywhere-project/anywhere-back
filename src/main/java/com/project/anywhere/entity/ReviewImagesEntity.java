@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
 
 import jakarta.persistence.Entity;
