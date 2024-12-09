@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
 
 import jakarta.persistence.Entity;
@@ -27,8 +29,11 @@ public class ReviewImagesEntity {
     private String imageUrl;
     private Integer imageOrder=0;
 
-    public ReviewImagesEntity(PostReviewImagesRequestDto dto){
+    public ReviewImagesEntity(PostReviewImagesRequestDto dto, Integer reviewId){
         this.imageUrl = dto.getImageUrl();
+        this.imageOrder = dto.getImageOrder();
+        this.reviewId = reviewId;
+
     }
 
 

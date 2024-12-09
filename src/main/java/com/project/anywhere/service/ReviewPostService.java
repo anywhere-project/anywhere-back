@@ -14,4 +14,6 @@ public interface ReviewPostService {
     ResponseEntity<? super GetReviewListResponseDto> getReviewList();
     
     ResponseEntity<ResponseDto> patchReview(Integer reviewId, String userId, PatchReviewRequestDto dto);
+
+    ResponseEntity<ResponseDto> deleteReview(Integer reviewId, String userId);
 }

@@ -50,7 +50,6 @@ public class ReviewPostServiceImplement implements ReviewPostService{
                     return ResponseDto.databaseError();
                 }
                 return ResponseDto.success();
-
     }
     
     @Override
@@ -60,10 +59,12 @@ public class ReviewPostServiceImplement implements ReviewPostService{
 
         try {
             reviewPostEntities = reviewRepository.findByOrderByReviewIdDesc();
+            reviewImagesEntities = reviewImagesRepository.findAll();
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        
         return GetReviewListResponseDto.success(reviewPostEntities, reviewImagesEntities);
 
     }
@@ -90,6 +91,25 @@ public class ReviewPostServiceImplement implements ReviewPostService{
                 reviewImagesEntity.setImageUrl(dto.getImageUrl());
                 reviewImagesRepository.save(reviewImagesEntity);
             }
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteReview(Integer reviewId, String userId) {
+        try {
+            ReviewPostEntity reviewPostEntity = reviewRepository.findByReviewId(reviewId);
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+
+            if(usersEntity == null) return ResponseDto.noExistUserId();
+            if(reviewPostEntity == null) return ResponseDto.noExistReview();
+            
+            reviewRepository.delete(reviewPostEntity);
+
             
         } catch (Exception exception) {
             exception.printStackTrace();
