@@ -1,15 +1,22 @@
 package com.project.anywhere.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.hashtag.GetHashTagListResponseDto;
 import com.project.anywhere.entity.HashTagEntity;
 import com.project.anywhere.repository.HashTagRepository;
 import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.UserRepository;
+import com.project.anywhere.repository.resultset.GetHashTagResultSet;
 import com.project.anywhere.service.HashTagService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,7 +28,7 @@ public class HashTagServiceImplement implements HashTagService {
     private final HashTagRepository hashTagRepository;
     
     @Override
-    public ResponseEntity<ResponseDto> postHashTag(String tagName, Integer reviewId, String userId) {
+    public ResponseEntity<ResponseDto> postHashTag(PostHashTagRequestDto dto, Integer reviewId, String userId) {
 
         try {
 
@@ -31,7 +38,7 @@ public class HashTagServiceImplement implements HashTagService {
             boolean isExistedReviewPost = postRespsitory.existsByReviewId(reviewId);
             if (!isExistedReviewPost) return ResponseDto.noExistReviewPost();
 
-            HashTagEntity hashTagEntity = new HashTagEntity(tagName, reviewId);
+            HashTagEntity hashTagEntity = new HashTagEntity(dto.getTagName(), reviewId);
             hashTagRepository.save(hashTagEntity);
 
         } catch(Exception exception) {
@@ -43,6 +50,7 @@ public class HashTagServiceImplement implements HashTagService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<ResponseDto> deleteHashTag(Integer reviewId, Integer tagId, String userId) {
 
         try {
@@ -61,6 +69,22 @@ public class HashTagServiceImplement implements HashTagService {
         }
 
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetHashTagListResponseDto> getHashTags() {
+        List<GetHashTagResultSet> resultSets = new ArrayList<>();
+        
+        try {
+
+            resultSets = hashTagRepository.getHashTagList();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        } 
+
+        return GetHashTagListResponseDto.success(resultSets);
     }
     
 }
