@@ -9,5 +9,6 @@ import com.project.anywhere.entity.ReviewPostEntity;
 public interface ReviewPostRespsitory extends JpaRepository<ReviewPostEntity, Integer> {
 
     ReviewPostEntity findByReviewId(Integer reviewId);
+    boolean existsByReviewId(Integer reviewId);
 
 }

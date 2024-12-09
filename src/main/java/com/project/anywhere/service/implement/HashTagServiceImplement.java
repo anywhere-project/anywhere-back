@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.entity.HashTagEntity;
 import com.project.anywhere.repository.HashTagRepository;
 import com.project.anywhere.repository.ReviewPostRespsitory;
 import com.project.anywhere.repository.UserRepository;
@@ -22,16 +23,43 @@ public class HashTagServiceImplement implements HashTagService {
     
     @Override
     public ResponseEntity<ResponseDto> postHashTag(PostHashTagRequestDto dto, Integer reviewId, String userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'postHashTag'");
+
+        try {
+
+            boolean isExistedUserId = userRepository.existsByUserId(userId);
+            if (!isExistedUserId) return ResponseDto.noExistUserId();
+
+            boolean isExistedReviewPost = postRespsitory.existsByReviewId(reviewId);
+            if (!isExistedReviewPost) return ResponseDto.noExistReviewPost();
+
+            HashTagEntity hashTagEntity = new HashTagEntity(dto);
+            hashTagRepository.save(hashTagEntity);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
     }
 
     @Override
     public ResponseEntity<ResponseDto> deleteHashTag(Integer reviewId, String userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteHashTag'");
-    }
-    
 
+        try {
+
+            boolean isExistedUserId = userRepository.existsByUserId(userId);
+            if (!isExistedUserId) return ResponseDto.noExistUserId();
+
+            boolean isExistedReviewPost = postRespsitory.existsByReviewId(reviewId);
+            if (!isExistedReviewPost) return ResponseDto.noExistReviewPost();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
     
 }

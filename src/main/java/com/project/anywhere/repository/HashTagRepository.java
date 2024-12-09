@@ -8,4 +8,6 @@ import com.project.anywhere.entity.HashTagEntity;
 @Repository
 public interface HashTagRepository extends JpaRepository<HashTagEntity, Integer> {
     
+    void deleteByTagId(Integer tagId);
+
 }
