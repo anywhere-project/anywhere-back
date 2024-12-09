@@ -8,7 +8,7 @@ import com.project.anywhere.entity.ReviewLikeEntity;
 import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.repository.ReviewLikeRepository;
-import com.project.anywhere.repository.ReviewPostRespsitory;
+import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.ReviewLikeService;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class ReviewLikeServiceImplement implements ReviewLikeService {
 
     private final UserRepository userRepository;
-    private final ReviewPostRespsitory postRepository;
+    private final ReviewPostRepository postRepository;
     private final ReviewLikeRepository likeRepository;
     
     @Override

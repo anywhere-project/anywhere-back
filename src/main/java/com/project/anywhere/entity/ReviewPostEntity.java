@@ -3,6 +3,7 @@ package com.project.anywhere.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 
 import jakarta.persistence.Entity;
@@ -32,6 +33,13 @@ public class ReviewPostEntity {
     private Integer reviewLikeCount = 0;
 
     public ReviewPostEntity(PostReviewRequestDto dto) {
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm");
+        this.reviewCreatedAt = simpleDateFormat.format(now);
+        this.reviewContent = dto.getReviewContent();
+    }
+
+    public void ReviewPatchEntity(PatchReviewRequestDto dto){
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm");
         this.reviewCreatedAt = simpleDateFormat.format(now);

@@ -7,7 +7,7 @@ import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.entity.HashTagEntity;
 import com.project.anywhere.repository.HashTagRepository;
-import com.project.anywhere.repository.ReviewPostRespsitory;
+import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.HashTagService;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class HashTagServiceImplement implements HashTagService {
 
     private final UserRepository userRepository;
-    private final ReviewPostRespsitory postRespsitory;
+    private final ReviewPostRepository postRespsitory;
     private final HashTagRepository hashTagRepository;
     
     @Override

@@ -7,7 +7,7 @@ import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.ReviewScrapEntity;
 import com.project.anywhere.entity.UsersEntity;
-import com.project.anywhere.repository.ReviewPostRespsitory;
+import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.ReviewScrapRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.ReviewScrapService;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class ReviewScrapServiceImplement implements ReviewScrapService {
     
     private final UserRepository userRepository;
-    private final ReviewPostRespsitory postRepository;
+    private final ReviewPostRepository postRepository;
     private final ReviewScrapRepository scrapRepository;
 
     @Override
