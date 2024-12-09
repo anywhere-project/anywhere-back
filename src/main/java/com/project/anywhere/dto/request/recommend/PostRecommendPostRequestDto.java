@@ -10,9 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostRecommendPostRequestDto {
-    
     private List<PostRecommendFoodRequestDto> foods;
     private List<PostRecommendAttractionRequestDto> attractions;
     private List<PostRecommendMissionRequestDto> missions;
-
 }
