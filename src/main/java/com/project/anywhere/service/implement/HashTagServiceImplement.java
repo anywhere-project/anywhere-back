@@ -3,7 +3,6 @@ package com.project.anywhere.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.entity.HashTagEntity;
 import com.project.anywhere.repository.HashTagRepository;
@@ -22,7 +21,7 @@ public class HashTagServiceImplement implements HashTagService {
     private final HashTagRepository hashTagRepository;
     
     @Override
-    public ResponseEntity<ResponseDto> postHashTag(PostHashTagRequestDto dto, Integer reviewId, String userId) {
+    public ResponseEntity<ResponseDto> postHashTag(String tagName, Integer reviewId, String userId) {
 
         try {
 
@@ -32,7 +31,7 @@ public class HashTagServiceImplement implements HashTagService {
             boolean isExistedReviewPost = postRespsitory.existsByReviewId(reviewId);
             if (!isExistedReviewPost) return ResponseDto.noExistReviewPost();
 
-            HashTagEntity hashTagEntity = new HashTagEntity(dto);
+            HashTagEntity hashTagEntity = new HashTagEntity(tagName, reviewId);
             hashTagRepository.save(hashTagEntity);
 
         } catch(Exception exception) {
@@ -44,7 +43,7 @@ public class HashTagServiceImplement implements HashTagService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteHashTag(Integer reviewId, String userId) {
+    public ResponseEntity<ResponseDto> deleteHashTag(Integer reviewId, Integer tagId, String userId) {
 
         try {
 
@@ -53,6 +52,8 @@ public class HashTagServiceImplement implements HashTagService {
 
             boolean isExistedReviewPost = postRespsitory.existsByReviewId(reviewId);
             if (!isExistedReviewPost) return ResponseDto.noExistReviewPost();
+
+            hashTagRepository.deleteByTagId(tagId);
 
         } catch(Exception exception) {
             exception.printStackTrace();

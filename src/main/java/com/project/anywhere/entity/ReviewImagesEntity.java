@@ -27,10 +27,10 @@ public class ReviewImagesEntity {
     private String imageUrl;
     private Integer imageOrder=0;
 
-    public ReviewImagesEntity(PostReviewImagesRequestDto dto){
+    public ReviewImagesEntity(PostReviewImagesRequestDto dto, Integer reviewId){
         this.imageUrl = dto.getImageUrl();
+        this.imageOrder = dto.getImageOrder();
+        this.reviewId = reviewId;
     }
 
-
-    
 }

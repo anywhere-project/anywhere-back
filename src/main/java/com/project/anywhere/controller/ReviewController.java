@@ -67,4 +67,7 @@ public class ReviewController {
         return response;
     }
 
+    // @PostMapping("/{reviewId}/hash-tag")
+    // public ResponseEntity<ResponseDto> postHashTag(@PathVariable("reviewId") Integer reviewId, )
+
 }
