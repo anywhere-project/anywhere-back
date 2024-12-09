@@ -1,7 +1,5 @@
 package com.project.anywhere.entity;
 
-import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,10 +21,12 @@ public class HashTagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tagId;
+    private Integer reviewId;
     private String tagName;
 
-    public HashTagEntity(PostHashTagRequestDto dto) {
-        this.tagName = dto.getTagName();
+    public HashTagEntity(String tagName, Integer reviewId) {
+        this.tagName = tagName;
+        this.reviewId = reviewId;
     }
 
 }

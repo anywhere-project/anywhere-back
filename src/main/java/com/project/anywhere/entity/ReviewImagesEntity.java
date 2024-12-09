@@ -33,9 +33,6 @@ public class ReviewImagesEntity {
         this.imageUrl = dto.getImageUrl();
         this.imageOrder = dto.getImageOrder();
         this.reviewId = reviewId;
-
     }
 
-
-    
 }

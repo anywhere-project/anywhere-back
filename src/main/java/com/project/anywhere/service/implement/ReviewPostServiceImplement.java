@@ -12,7 +12,9 @@ import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
 import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.UsersEntity;
+import com.project.anywhere.entity.HashTagEntity;
 import com.project.anywhere.entity.ReviewImagesEntity;
+import com.project.anywhere.repository.HashTagRepository;
 import com.project.anywhere.repository.ReviewImagesRepository;
 import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -27,46 +29,56 @@ public class ReviewPostServiceImplement implements ReviewPostService{
     private final UserRepository userRepository;
     private final ReviewPostRepository reviewRepository;
     private final ReviewImagesRepository reviewImagesRepository;
+    private final HashTagRepository hashTagRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto,
-            String userId) {
-                try {
+    public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, String userId) {
+  
+        try {
 
-                    ReviewPostEntity reviewEntity = new ReviewPostEntity(dto);
-                    ReviewImagesEntity reviewImagesEntity = new ReviewImagesEntity();
-                    UsersEntity userEntity = userRepository.findByUserId(userId);
+            ReviewPostEntity reviewEntity = new ReviewPostEntity(dto);
+            ReviewImagesEntity reviewImagesEntity = new ReviewImagesEntity();
+            UsersEntity userEntity = userRepository.findByUserId(userId);
 
-                    if(userEntity == null) return ResponseDto.noExistUserId();
-                    
-                    reviewEntity.setReviewWriter(userId);
-                    reviewRepository.save(reviewEntity);
-                    reviewImagesEntity.setImageUrl(dto.getImageUrl());
-                    reviewImagesEntity.setReviewId(reviewEntity.getReviewId());
-                    reviewImagesRepository.save(reviewImagesEntity);
+            if(userEntity == null) return ResponseDto.noExistUserId();
+            
+            reviewEntity.setReviewWriter(userId);
+            reviewRepository.save(reviewEntity);
+            reviewImagesEntity.setImageUrl(dto.getImageUrl());
+            reviewImagesEntity.setReviewId(reviewEntity.getReviewId());
+            reviewImagesRepository.save(reviewImagesEntity);
 
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                    return ResponseDto.databaseError();
-                }
-                return ResponseDto.success();
+            for (String tagName: dto.getHashtags()) {
+                HashTagEntity hashTagEntity = new HashTagEntity(tagName, reviewEntity.getReviewId());
+                hashTagRepository.save(hashTagEntity);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+  
+        return ResponseDto.success();
     }
     
     @Override
     public ResponseEntity<? super GetReviewListResponseDto> getReviewList() {
         List<ReviewPostEntity> reviewPostEntities = new ArrayList<>();
         List<ReviewImagesEntity> reviewImagesEntities = new ArrayList<>();
+        List<HashTagEntity> hashTagEntities = new ArrayList<>();
 
         try {
+
             reviewPostEntities = reviewRepository.findByOrderByReviewIdDesc();
             reviewImagesEntities = reviewImagesRepository.findAll();
+            hashTagEntities = hashTagRepository.findAll();
+          
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        
-        return GetReviewListResponseDto.success(reviewPostEntities, reviewImagesEntities);
 
+        return GetReviewListResponseDto.success(reviewPostEntities, reviewImagesEntities, hashTagEntities);
     }
 
     @Override

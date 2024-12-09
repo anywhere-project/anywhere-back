@@ -160,7 +160,7 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             return ResponseDto.databaseError();
         }
 
-    return GetRecommendPostListResponseDto.success(recommendPosts);
+        return GetRecommendPostListResponseDto.success(recommendPosts);
     }
 
 }
