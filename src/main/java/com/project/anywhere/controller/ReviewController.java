@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.service.ReviewLikeService;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
 import com.project.anywhere.service.ReviewPostService;
+import com.project.anywhere.service.ReviewScrapService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class ReviewController {
 
     private final ReviewPostService reviewService;
+    private final ReviewLikeService likeService;
+    private final ReviewScrapService scrapService;
 
     @PostMapping(value = { "", "/" })
     public ResponseEntity<ResponseDto> postReview(
@@ -50,5 +54,17 @@ public class ReviewController {
         ResponseEntity<ResponseDto> response = reviewService.patchReview(reviewId, userId, requestBody);
         return response;
     }
+
+    @PostMapping("/{reviewId}/like")
+    public ResponseEntity<ResponseDto> reviewLike(@AuthenticationPrincipal String userId, @PathVariable("reviewId") Integer reviewId) {
+        ResponseEntity<ResponseDto> response = likeService.reviewLike(userId, reviewId);
+        return response;
+    }
     
+    @PostMapping("/{reviewId}/scrap")
+    public ResponseEntity<ResponseDto> reviewScrap(@AuthenticationPrincipal String userId, @PathVariable("reviewId") Integer reviewId) {
+        ResponseEntity<ResponseDto> response = scrapService.reviewScrap(userId, reviewId);
+        return response;
+    }
+
 }

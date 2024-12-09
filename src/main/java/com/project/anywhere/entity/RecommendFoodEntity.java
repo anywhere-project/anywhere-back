@@ -1,5 +1,6 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 
 import jakarta.persistence.Entity;
@@ -27,9 +28,16 @@ public class RecommendFoodEntity {
     private String foodName;
     private String foodContent;
 
-    public RecommendFoodEntity(PostRecommendFoodRequestDto dto) {
+    public RecommendFoodEntity(PostRecommendFoodRequestDto dto, Integer recommendId) {
         this.foodName = dto.getFoodName();
         this.foodContent = dto.getFoodContent();
+        this.recommendId = recommendId;
+    }
+
+    public void patch(PatchRecommendFoodRequestDto dto, Integer foodId) {
+        this.foodName = dto.getFoodName();
+        this.foodContent = dto.getFoodContent();
+        this.foodId = foodId;
     }
 
 }

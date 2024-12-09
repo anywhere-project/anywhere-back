@@ -1,4 +1,4 @@
-package com.project.anywhere.dto.request.recommend;
+package com.project.anywhere.dto.request.hashtag;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -8,11 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRecommendFoodRequestDto {
-
+public class PostHashTagRequestDto {
+    
     @NotBlank
-    private String foodName;
-    @NotBlank
-    private String foodContent;
+    private String tagName;
 
 }

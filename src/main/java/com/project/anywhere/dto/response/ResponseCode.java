@@ -3,14 +3,25 @@ package com.project.anywhere.dto.response;
 public interface ResponseCode {
     
     String SUCCESS = "SU";
+    String LIKE_CLICK = "LC";
+    String LIKE_UNCLICK = "LUC";
+    String SCRAP_CLICK = "SC";
+    String SCRAP_UNCLICK = "SUC";
     
     String VALIDATION_FAILED = "VF";
     String DUPLICATED_USER_ID = "DI";
     String DUPLICATED_TEL_NUMBER = "DT";
+    String ALREADY_RECOMMEND = "AR";
     String NO_EXIST_REVIEW = "NRV";
 
     String NO_EXIST_USER_ID = "NI";
     String NO_EXIST_TEL_NUMBER = "NT";
+    String NO_EXIST_RECOMMEND_POST = "NRC";
+    String NO_EXIST_RECOMMEND_ATTRACTION = "NRA";
+    String NO_EXIST_RECOMMEND_FOOD = "NRF";
+    String NO_EXIST_RECOMMEND_MISSION = "NRM";
+    String NO_EXIST_RECOMMEND_IMAGE = "NRI";
+    String NO_EXIST_REVIEW_POST = "NRV";
 
     String SIGN_IN_FAIL = "SF";
     String AUTHENTICATION_FAIL = "AF";

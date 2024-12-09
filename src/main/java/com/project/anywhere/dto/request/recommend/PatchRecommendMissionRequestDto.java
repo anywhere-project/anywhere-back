@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostRecommendFoodRequestDto {
+public class PatchRecommendMissionRequestDto {
 
     @NotBlank
-    private String foodName;
+    private String missionName;
     @NotBlank
-    private String foodContent;
+    private String missionContent;
 
 }

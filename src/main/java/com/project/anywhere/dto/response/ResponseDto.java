@@ -18,6 +18,26 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> likeClick() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.LIKE_CLICK, ResponseMessage.LIKE_CLICK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> likeUnclick() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.LIKE_UNCLICK, ResponseMessage.LIKE_UNCLICK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> scrapClick() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.SCRAP_CLICK, ResponseMessage.SCRAP_CLICK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> scrapUnclick() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.SCRAP_UNCLICK, ResponseMessage.SCRAP_UNCLICK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> validationFail() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.VALIDATION_FAILED, ResponseMessage.VALIDATION_FAILED);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
@@ -33,14 +53,48 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> duplicatedTelNumber() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TEL_NUMBER, ResponseMessage.DUPLICATED_TEL_NUMBER);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> alreadyRecommend() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.ALREADY_RECOMMEND, ResponseMessage.ALREADY_RECOMMEND);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistUserId() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_USER_ID, ResponseMessage.NO_EXIST_USER_ID);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistRecommendPost() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_POST, ResponseMessage.NO_EXIST_RECOMMEND_POST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
 
-    public static ResponseEntity<ResponseDto> duplicatedTelNumber() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TEL_NUMBER, ResponseMessage.DUPLICATED_TEL_NUMBER);
+    public static ResponseEntity<ResponseDto> noExistRecommendAttraction() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_ATTRACTION, ResponseMessage.NO_EXIST_RECOMMEND_ATTRACTION);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistRecommendFood() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_FOOD, ResponseMessage.NO_EXIST_RECOMMEND_FOOD);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistRecommendMission() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_MISSION, ResponseMessage.NO_EXIST_RECOMMEND_MISSION);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistRecommendImage() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_IMAGE, ResponseMessage.NO_EXIST_RECOMMEND_IMAGE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistReviewPost() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_POST, ResponseMessage.NO_EXIST_REVIEW_POST);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 

@@ -11,6 +11,7 @@ import com.project.anywhere.entity.ReviewPostEntity;
 public interface ReviewPostRepository extends JpaRepository<ReviewPostEntity, Integer>{
 
     List<ReviewPostEntity> findByOrderByReviewIdDesc();
-
     ReviewPostEntity findByReviewId(Integer reviewId);
+    boolean existsByReviewId(Integer reviewId);
+    
 }
