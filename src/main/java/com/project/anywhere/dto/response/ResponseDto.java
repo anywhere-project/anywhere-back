@@ -68,6 +68,11 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistAreaId() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_AREA_ID, ResponseMessage.NO_EXIST_AREA_ID);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistRecommendPost() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_POST, ResponseMessage.NO_EXIST_RECOMMEND_POST);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
