@@ -161,33 +161,31 @@ public class RecommendController {
     }
 
     @PostMapping("/{recommendId}/image")
-public ResponseEntity<ResponseDto> postRecommendImage(
-        @RequestBody @Valid PostRecommendImageRequestDto request,
-        @PathVariable("recommendId") Integer recommendId,
-        @AuthenticationPrincipal String userId) {
-    ResponseEntity<ResponseDto> response = imageService.postRecommendImage(request, recommendId, userId);
-    return response;
-}
+    public ResponseEntity<ResponseDto> postRecommendImage(
+            @RequestBody @Valid PostRecommendImageRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = imageService.postRecommendImage(request, recommendId, userId);
+        return response;
+    }
 
-// 이미지 수정
-@PatchMapping("/{recommendId}/image/{imageId}")
-public ResponseEntity<ResponseDto> patchRecommendImage(
-        @RequestBody @Valid PatchRecommendImageRequestDto request,
-        @PathVariable("recommendId") Integer recommendId,
-        @PathVariable("imageId") Integer imageId,
-        @AuthenticationPrincipal String userId) {
-    ResponseEntity<ResponseDto> response = imageService.patchRecommendImage(request, recommendId, imageId, userId);
-    return response;
-}
+    @PatchMapping("/{recommendId}/image/{imageId}")
+    public ResponseEntity<ResponseDto> patchRecommendImage(
+            @RequestBody @Valid PatchRecommendImageRequestDto request,
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("imageId") Integer imageId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = imageService.patchRecommendImage(request, recommendId, imageId, userId);
+        return response;
+    }
 
-// 이미지 삭제
-@DeleteMapping("/{recommendId}/image/{imageId}")
-public ResponseEntity<ResponseDto> deleteRecommendImage(
-        @PathVariable("recommendId") Integer recommendId,
-        @PathVariable("imageId") Integer imageId,
-        @AuthenticationPrincipal String userId) {
-    ResponseEntity<ResponseDto> response = imageService.deleteRecommendImage(recommendId, imageId, userId);
-    return response;
-}
+    @DeleteMapping("/{recommendId}/image/{imageId}")
+    public ResponseEntity<ResponseDto> deleteRecommendImage(
+            @PathVariable("recommendId") Integer recommendId,
+            @PathVariable("imageId") Integer imageId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = imageService.deleteRecommendImage(recommendId, imageId, userId);
+        return response;
+    }
 
 }
