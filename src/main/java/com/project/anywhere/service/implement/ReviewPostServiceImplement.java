@@ -33,7 +33,7 @@ public class ReviewPostServiceImplement implements ReviewPostService{
 
     @Override
     public ResponseEntity<ResponseDto> postReview(PostReviewRequestDto dto, String userId) {
-  
+
         try {
 
             ReviewPostEntity reviewEntity = new ReviewPostEntity(dto);
@@ -57,7 +57,6 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ResponseDto.success();
     }
     
     @Override
@@ -71,6 +70,7 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             reviewPostEntities = reviewRepository.findByOrderByReviewIdDesc();
             reviewImagesEntities = reviewImagesRepository.findAll();
             hashTagEntities = hashTagRepository.findAll();
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
