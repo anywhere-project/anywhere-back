@@ -19,6 +19,7 @@ import com.project.anywhere.dto.response.hashtag.GetHashTagListResponseDto;
 import com.project.anywhere.service.HashTagService;
 import com.project.anywhere.service.ReviewLikeService;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
+import com.project.anywhere.dto.response.review.GetReviewResponseDto;
 import com.project.anywhere.service.ReviewPostService;
 import com.project.anywhere.service.ReviewScrapService;
 
@@ -47,6 +48,14 @@ public class ReviewController {
     @GetMapping(value = { "", "/"})
     public ResponseEntity<? super GetReviewListResponseDto> getReviewList(){
         ResponseEntity<? super GetReviewListResponseDto> response = reviewService.getReviewList();
+        return response;
+    }
+
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<? super GetReviewResponseDto> getReview(
+        @PathVariable("reviewId") Integer reviewId
+    ){
+        ResponseEntity<? super GetReviewResponseDto> response = reviewService.getReview(reviewId);
         return response;
     }
 
