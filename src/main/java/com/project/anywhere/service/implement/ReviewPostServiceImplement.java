@@ -10,6 +10,7 @@ import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
+import com.project.anywhere.dto.response.review.GetReviewResponseDto;
 import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.entity.HashTagEntity;
@@ -18,6 +19,7 @@ import com.project.anywhere.repository.HashTagRepository;
 import com.project.anywhere.repository.ReviewImagesRepository;
 import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.UserRepository;
+import com.project.anywhere.repository.resultset.GetReviewResultSet;
 import com.project.anywhere.service.ReviewPostService;
 
 import lombok.RequiredArgsConstructor;
@@ -58,6 +60,7 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
+
     }
     
     @Override
@@ -127,6 +130,28 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetReviewResponseDto> getReview(Integer reviewId) {
+        GetReviewResultSet resultSet = null;
+
+        try {
+            resultSet = reviewRepository.getReview(reviewId);
+            if(resultSet == null) {
+                return ResponseDto.noExistReview();
+            }
+
+            ReviewPostEntity reviewPostEntity = reviewRepository.findByReviewId(reviewId);
+            if(reviewPostEntity==null)return ResponseDto.noExistReview();
+
+            reviewRepository.save(reviewPostEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetReviewResponseDto.success(resultSet);
     }
 
     

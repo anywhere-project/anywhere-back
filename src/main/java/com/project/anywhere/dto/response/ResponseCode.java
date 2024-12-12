@@ -14,6 +14,7 @@ public interface ResponseCode {
     String ALREADY_RECOMMEND = "AR";
     String NO_EXIST_REVIEW = "NRV";
 
+    // 400 BAD REQUEST
     String NO_EXIST_USER_ID = "NI";
     String NO_EXIST_AREA_ID = "NA";
     String NO_EXIST_TEL_NUMBER = "NT";
