@@ -51,29 +51,38 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
     @Override
     public ResponseEntity<ResponseDto> patchRecommendFood(PatchRecommendFoodRequestDto dto, Integer recommendId, Integer foodId, String userId) {
-
+    
         try {
 
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
-
+    
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
+
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
             RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
-            if (foodEntity == null) return ResponseDto.noExistRecommendFood();
-
-            foodEntity.patch(dto, foodId);
-            foodRepository.save(foodEntity);
-
+    
+            if (foodEntity == null) {
+                PostRecommendFoodRequestDto postDto = new PostRecommendFoodRequestDto();
+                postDto.setFoodName(dto.getFoodName());
+                postDto.setFoodContent(dto.getFoodContent());
+                RecommendFoodEntity newFood = new RecommendFoodEntity(postDto, recommendId);
+                foodRepository.save(newFood);
+            } else {
+                foodEntity.patch(dto);
+                foodRepository.save(foodEntity);
+            }
+    
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
+    
         return ResponseDto.success();
     }
+    
 
     @Override
     @Transactional
