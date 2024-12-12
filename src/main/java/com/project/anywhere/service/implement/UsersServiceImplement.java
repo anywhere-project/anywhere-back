@@ -31,7 +31,7 @@ public class UsersServiceImplement implements UsersService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return GetUsersResponseDto.sucess(usersEntity);
+        return GetUsersResponseDto.success(usersEntity);
     }
 
     @Override

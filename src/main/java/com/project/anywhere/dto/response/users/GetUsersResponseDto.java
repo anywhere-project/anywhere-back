@@ -34,7 +34,7 @@ public class GetUsersResponseDto extends ResponseDto{
         
     }
 
-    public static ResponseEntity<GetUsersResponseDto> sucess(UsersEntity usersEntity){
+    public static ResponseEntity<GetUsersResponseDto> success(UsersEntity usersEntity){
         GetUsersResponseDto responseBody = new GetUsersResponseDto(usersEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
