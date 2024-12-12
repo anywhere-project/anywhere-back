@@ -13,7 +13,7 @@ import lombok.Getter;
 
 @Getter
 public class RecommendPost {
-    
+
     private Integer recommendId;
     private String recommendCreatedAt;
     private String recommendWriter;
@@ -42,17 +42,25 @@ public class RecommendPost {
 
     public static List<RecommendPost> getList(
         List<RecommendPostEntity> postEntities,
-        RecommendAttractionEntity attraction, 
-        RecommendFoodEntity food, 
-        RecommendMissionEntity mission,
-        List<RecommendImageEntity> images) {
+        List<RecommendAttractionEntity> attractions,
+        List<RecommendFoodEntity> foods,
+        List<RecommendMissionEntity> missions,
+        List<List<RecommendImageEntity>> images) {
+        
         List<RecommendPost> recommendPosts = new ArrayList<>();
-        for(RecommendPostEntity postEntity: postEntities) {
-            RecommendPost recommendPost = new RecommendPost(postEntity, attraction, food, mission, images);
+
+        for (int i = 0; i < postEntities.size(); i++) {
+            RecommendPostEntity postEntity = postEntities.get(i);
+
+            RecommendAttractionEntity attraction = attractions.get(i);
+            RecommendFoodEntity food = foods.get(i);
+            RecommendMissionEntity mission = missions.get(i);
+            List<RecommendImageEntity> imageList = images.get(i);
+
+            RecommendPost recommendPost = new RecommendPost(postEntity, attraction, food, mission, imageList);
             recommendPosts.add(recommendPost);
         }
 
         return recommendPosts;
     }
-
 }

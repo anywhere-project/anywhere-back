@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.project.anywhere.common.object.RecommendPost;
+import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
 import com.project.anywhere.entity.RecommendAttractionEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 import com.project.anywhere.entity.RecommendImageEntity;
@@ -103,6 +104,31 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             postEntity.patch(dto);
             postRepository.save(postEntity);
 
+            RecommendAttractionEntity attractionEntity = attractionRepository.findByRecommendId(recommendId);
+            RecommendFoodEntity foodEntity = foodRepository.findByRecommendId(recommendId);
+            RecommendMissionEntity missionEntity = missionRepository.findByRecommendId(recommendId);
+            List<RecommendImageEntity> imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
+
+            if (dto.getAttraction() != null) {
+                attractionService.patchRecommendAttraction(dto.getAttraction(), recommendId, attractionEntity.getAttractionId(), userId);
+            }
+
+            if (dto.getFood() != null) {
+                foodService.patchRecommendFood(dto.getFood(), recommendId, foodEntity.getFoodId(), userId);
+            }
+
+            if (dto.getMission() != null) {
+                missionService.patchRecommendMission(dto.getMission(), recommendId, missionEntity.getMissionId(), userId);
+            }
+
+            if (dto.getImages() != null) {
+                for (PatchRecommendImageRequestDto imageDto : dto.getImages()) {
+                    for (RecommendImageEntity imageEntity : imageEntities) {
+                        imageService.patchRecommendImage(imageDto, recommendId, imageEntity.getImageId(), userId);
+                    }
+                }
+            }
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -138,21 +164,55 @@ public class RecommendPostServiceImplement implements RecommendPostService {
     }
 
     @Override
+    public ResponseEntity<? super GetRecommendPostResponseDto> getRecommendPost(Integer recommendId) {
+    
+        RecommendPostEntity recommendPostEntity = null;
+        RecommendAttractionEntity recommendAttractionEntity = null;
+        RecommendFoodEntity recommendFoodEntity = null;
+        RecommendMissionEntity recommendMissionEntity = null;
+        List<RecommendImageEntity> recommendImageEntities = new ArrayList<>();
+    
+        try {
+
+            recommendPostEntity = postRepository.findByRecommendId(recommendId);
+            if (recommendPostEntity == null) return ResponseDto.noExistRecommendPost();
+    
+            recommendAttractionEntity = attractionRepository.findByRecommendId(recommendId);
+            recommendFoodEntity = foodRepository.findByRecommendId(recommendId);
+            recommendMissionEntity = missionRepository.findByRecommendId(recommendId);
+            recommendImageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
+    
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    
+        return GetRecommendPostResponseDto.success(recommendPostEntity, recommendAttractionEntity, recommendFoodEntity, recommendMissionEntity, recommendImageEntities);
+    }
+
+    @Override
     public ResponseEntity<? super GetRecommendPostListResponseDto> getRecommendPosts() {
 
-        List<RecommendPostEntity> postEntities = postRepository.findAllByOrderByRecommendIdDesc();
-        List<RecommendPost> recommendPosts = new ArrayList<>();
+        List<RecommendPostEntity> postEntities = new ArrayList<>();
+        List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
+        List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<RecommendMissionEntity> missionEntities = new ArrayList<>();
+        List<List<RecommendImageEntity>> imageEntities = new ArrayList<>();
 
         try {
 
-            for (RecommendPostEntity postEntity : postEntities) {
-                RecommendAttractionEntity attractionEntity = attractionRepository.findByRecommendId(postEntity.getRecommendId());
-                RecommendFoodEntity foodEntity = foodRepository.findByRecommendId(postEntity.getRecommendId());
-                RecommendMissionEntity missionEntity = missionRepository.findByRecommendId(postEntity.getRecommendId());
-                List<RecommendImageEntity> imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
+            postEntities = postRepository.findAllByOrderByRecommendIdDesc();
 
-                RecommendPost recommendPost = new RecommendPost(postEntity, attractionEntity, foodEntity, missionEntity, imageEntities);
-                recommendPosts.add(recommendPost);
+            for (RecommendPostEntity postEntity : postEntities) {
+                RecommendAttractionEntity attraction = attractionRepository.findByRecommendId(postEntity.getRecommendId());
+                RecommendFoodEntity food = foodRepository.findByRecommendId(postEntity.getRecommendId());
+                RecommendMissionEntity mission = missionRepository.findByRecommendId(postEntity.getRecommendId());
+                List<RecommendImageEntity> images = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
+
+                attractionEntities.add(attraction);
+                foodEntities.add(food);
+                missionEntities.add(mission);
+                imageEntities.add(images); 
             }
 
         } catch (Exception exception) {
@@ -160,7 +220,7 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendPostListResponseDto.success(recommendPosts);
+        return GetRecommendPostListResponseDto.success(postEntities, attractionEntities, foodEntities, missionEntities, imageEntities);
     }
 
 }

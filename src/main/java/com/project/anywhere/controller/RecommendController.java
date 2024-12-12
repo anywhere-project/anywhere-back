@@ -23,6 +23,7 @@ import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
 import com.project.anywhere.service.RecommendImageService;
@@ -145,6 +146,12 @@ public class RecommendController {
             @PathVariable("missionId") Integer missionId,
             @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = missionService.deleteRecommendMission(recommendId, missionId, userId);
+        return response;
+    }
+
+    @GetMapping("/{recommendId}")
+    public ResponseEntity<? super GetRecommendPostResponseDto> getRecommendPost(@PathVariable("recommendId") Integer recommendId) {
+        ResponseEntity<? super GetRecommendPostResponseDto> response = recommendPostService.getRecommendPost(recommendId);
         return response;
     }
 

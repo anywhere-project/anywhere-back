@@ -64,10 +64,18 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
-            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
-
-            attractionEntity.patch(dto, attractionId);
-            attractionRepository.save(attractionEntity);
+            
+            if (attractionEntity == null) {
+                PostRecommendAttractionRequestDto postDto = new PostRecommendAttractionRequestDto();
+                postDto.setAttractionName(dto.getAttractionName());
+                postDto.setAttractionAddress(dto.getAttractionAddress());
+                postDto.setAttractionContent(dto.getAttractionContent());
+                RecommendAttractionEntity newAttraction = new RecommendAttractionEntity(postDto, recommendId);
+                attractionRepository.save(newAttraction);
+            } else {
+                attractionEntity.patch(dto);
+                attractionRepository.save(attractionEntity);
+            }
 
         } catch(Exception exception) {
             exception.printStackTrace();

@@ -34,10 +34,9 @@ public class RecommendFoodEntity {
         this.recommendId = recommendId;
     }
 
-    public void patch(PatchRecommendFoodRequestDto dto, Integer foodId) {
+    public void patch(PatchRecommendFoodRequestDto dto) {
         this.foodName = dto.getFoodName();
         this.foodContent = dto.getFoodContent();
-        this.foodId = foodId;
     }
 
 }

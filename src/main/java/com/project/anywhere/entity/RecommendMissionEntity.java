@@ -34,10 +34,9 @@ public class RecommendMissionEntity {
         this.recommendId = recommendId;
     }
 
-    public void patch(PatchRecommendMissionRequestDto dto, Integer missionId) {
+    public void patch(PatchRecommendMissionRequestDto dto) {
         this.missionName = dto.getMissionName();
         this.missionContent = dto.getMissionContent();
-        this.missionId = missionId;
     }
 
 }

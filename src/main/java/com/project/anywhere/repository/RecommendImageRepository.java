@@ -11,6 +11,7 @@ import com.project.anywhere.entity.RecommendImageEntity;
 public interface RecommendImageRepository extends JpaRepository<RecommendImageEntity, Integer> {
     
     boolean existsByRecommendId(Integer recommendId);
+    RecommendImageEntity findByRecommendId(Integer recommendId);
     RecommendImageEntity findByImageId(Integer imageId);
     List<RecommendImageEntity> findByRecommendIdOrderByImageOrderAsc(Integer recommendId);
     void deleteByImageId(Integer imageId);
