@@ -1,6 +1,7 @@
 package com.project.anywhere.entity;
 
 import com.project.anywhere.dto.request.auth.SignUpRequestDto;
+import com.project.anywhere.dto.request.users.PatchUsersRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,6 +34,13 @@ public class UsersEntity {
         this.password = dto.getPassword();
         this.name = dto.getName();
         this.nickname = dto.getNickname();
+    }
+
+    public void patch(PatchUsersRequestDto dto){
+        this.profileImage = dto.getProfileImage();
+        this.nickname = dto.getNickname();
+        this.name = dto.getName();
+        this.telNumber = dto.getTelNumber();
     }
     
 }
