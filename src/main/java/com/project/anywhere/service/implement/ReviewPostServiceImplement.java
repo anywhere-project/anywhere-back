@@ -57,6 +57,7 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        return ResponseDto.success();
     }
     
     @Override

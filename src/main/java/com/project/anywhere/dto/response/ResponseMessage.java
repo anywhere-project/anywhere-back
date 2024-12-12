@@ -37,3 +37,4 @@ public interface ResponseMessage {
     String DATABASE_ERROR = "Database error.";
 
 }
+
