@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
 import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
+import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.hashtag.GetHashTagListResponseDto;
 import com.project.anywhere.service.HashTagService;
+import com.project.anywhere.service.ReviewCommentService;
 import com.project.anywhere.service.ReviewLikeService;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewResponseDto;
@@ -35,6 +37,7 @@ public class ReviewController {
     private final ReviewLikeService likeService;
     private final ReviewScrapService scrapService;
     private final HashTagService hashTagService;
+    private final ReviewCommentService reviewCommentService;
 
     @PostMapping(value = { "", "/" })
     public ResponseEntity<ResponseDto> postReview(
@@ -108,4 +111,13 @@ public class ReviewController {
         return response;
     }
 
+    @PostMapping("/{reviewId}/comment")
+    public ResponseEntity<ResponseDto> postReviewComment(
+        @RequestBody @Valid PostReviewCommentRequestDto requestBody,
+        @PathVariable("reviewId") Integer reviewId,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = reviewCommentService.postReviewComment(requestBody, reviewId, userId);
+        return response;
+    }
 }

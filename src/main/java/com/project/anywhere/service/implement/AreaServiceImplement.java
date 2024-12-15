@@ -1,7 +1,5 @@
 package com.project.anywhere.service.implement;
 
-import java.rmi.server.ExportException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.common.object.Areas;
-import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.area.GetAreaResponseDto;
 import com.project.anywhere.entity.AreasEntity;
 import com.project.anywhere.repository.AreaRepository;

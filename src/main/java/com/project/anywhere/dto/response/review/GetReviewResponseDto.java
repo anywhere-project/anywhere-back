@@ -1,7 +1,5 @@
 package com.project.anywhere.dto.response.review;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
