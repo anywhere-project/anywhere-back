@@ -12,5 +12,6 @@ public interface ReviewCommentService {
     ResponseEntity<ResponseDto> postReviewComment(PostReviewCommentRequestDto dto, Integer reviewId, String userId);
     ResponseEntity<? super GetReviewCommentListResponseDto> getReviewCommentList(Integer reviewId);
     ResponseEntity<ResponseDto> patchReviewComment(PatchReviewCommentRequestDto dto, Integer reviewId, Integer reviewCommentId, String userId);
+    ResponseEntity<ResponseDto> deleteReviewComment(Integer reviewId, Integer reviewCommentId, String userId);
 
 }

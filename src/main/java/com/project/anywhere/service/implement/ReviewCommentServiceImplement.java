@@ -105,5 +105,30 @@ public class ReviewCommentServiceImplement implements ReviewCommentService{
         return ResponseDto.success();
         
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteReviewComment(Integer reviewId, Integer reviewCommentId, String userId) {
+
+        try {
+
+            ReviewCommentEntity reviewCommentEntity = reviewCommentRepository.findByReviewCommentId(reviewCommentId);
+            if(reviewCommentEntity == null) return ResponseDto.noExistReviewComment();
+
+            if(!reviewCommentEntity.getReviewId().equals(reviewId)) return ResponseDto.noExistReviewPost();
+            if(!reviewCommentEntity.getReviewCommentWriter().equals(userId)) return ResponseDto.noPermission();
+
+            reviewCommentEntity.delete();
+            reviewCommentEntity.setReviewCommentCreatedAt();
+
+            reviewCommentRepository.save(reviewCommentEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+        
+    }
     
 }

@@ -66,5 +66,9 @@ public class ReviewCommentEntity {
     public void patch(PatchReviewCommentRequestDto dto) {
         this.reviewCommentContent = dto.getReviewCommentContent();
     }
+
+    public void delete() {
+        this.isDeleted = true;
+    }
     
 }

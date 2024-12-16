@@ -141,4 +141,14 @@ public class ReviewController {
         ResponseEntity<ResponseDto> response = reviewCommentService.patchReviewComment(requestBody, reviewId, reviewCommentId, userId);
         return response;
     }
+
+    @DeleteMapping("/{reviewId}/comment/{reviewCommentId}")
+    public ResponseEntity<ResponseDto> deleteReviewComment(
+        @PathVariable("reviewId") Integer reviewId,
+        @PathVariable("reviewCommentId") Integer reviewCommentId,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = reviewCommentService.deleteReviewComment(reviewId, reviewCommentId, userId);
+        return response;
+    };
 }
