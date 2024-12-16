@@ -3,6 +3,7 @@ package com.project.anywhere.entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.project.anywhere.dto.request.review.PatchReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 
 import jakarta.persistence.Entity;
@@ -56,6 +57,14 @@ public class ReviewCommentEntity {
         this.isNextComment = true;
         this.depth = parentCommentEntity.getDepth() + 1;
         this.orderNumber = parentCommentEntity.getOrderNumber();
+    }
+
+    public void setReviewCommentCreatedAt() {
+        this.reviewCommentCreatedAt = LocalDateTime.now().format(Formatter);
+    }
+
+    public void patch(PatchReviewCommentRequestDto dto) {
+        this.reviewCommentContent = dto.getReviewCommentContent();
     }
     
 }

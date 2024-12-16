@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.anywhere.dto.request.review.PatchReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewCommentListResponseDto;
@@ -77,6 +78,31 @@ public class ReviewCommentServiceImplement implements ReviewCommentService{
         }
 
         return GetReviewCommentListResponseDto.success(reviewCommentEntities);
+        
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchReviewComment(PatchReviewCommentRequestDto dto, Integer reviewId, Integer reviewCommentId, String userId) {
+
+        try {
+
+            ReviewCommentEntity reviewCommentEntity = reviewCommentRepository.findByReviewCommentId(reviewCommentId);
+            if(reviewCommentEntity == null) return ResponseDto.noExistReviewComment();
+
+            if(!reviewCommentEntity.getReviewId().equals(reviewId)) return ResponseDto.noExistReviewPost();
+            if(!reviewCommentEntity.getReviewCommentWriter().equals(userId)) return ResponseDto.noPermission();
+
+            reviewCommentEntity.patch(dto);
+            reviewCommentEntity.setReviewCommentCreatedAt();
+
+            reviewCommentRepository.save(reviewCommentEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
         
     }
     

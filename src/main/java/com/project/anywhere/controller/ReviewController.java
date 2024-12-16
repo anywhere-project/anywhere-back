@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
+import com.project.anywhere.dto.request.review.PatchReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
@@ -127,6 +128,17 @@ public class ReviewController {
         @PathVariable("reviewId") Integer reviewId
     ){
         ResponseEntity<? super GetReviewCommentListResponseDto> response = reviewCommentService.getReviewCommentList(reviewId);
+        return response;
+    }
+
+    @PatchMapping("/{reviewId}/comment/{reviewCommentId}")
+    public ResponseEntity<ResponseDto> patchReviewComment(
+        @PathVariable("reviewId") Integer reviewId,
+        @PathVariable("reviewCommentId") Integer reviewCommentId,
+        @AuthenticationPrincipal String userId,
+        @RequestBody @Valid PatchReviewCommentRequestDto requestBody
+    ){
+        ResponseEntity<ResponseDto> response = reviewCommentService.patchReviewComment(requestBody, reviewId, reviewCommentId, userId);
         return response;
     }
 }

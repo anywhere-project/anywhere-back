@@ -108,6 +108,11 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistReviewComment(){
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_COMMENT, ResponseMessage.NO_EXIST_REVIEW_COMMENT);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistParentComment(){
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_PARENT_COMMENT, ResponseMessage.NO_EXIST_PARENT_COMMENT);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);

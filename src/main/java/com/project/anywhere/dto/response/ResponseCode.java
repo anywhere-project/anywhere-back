@@ -18,12 +18,13 @@ public interface ResponseCode {
     String NO_EXIST_USER_ID = "NI";
     String NO_EXIST_AREA_ID = "NA";
     String NO_EXIST_TEL_NUMBER = "NT";
-    String NO_EXIST_RECOMMEND_POST = "NRC";
+    String NO_EXIST_RECOMMEND_POST = "NRP";
     String NO_EXIST_RECOMMEND_ATTRACTION = "NRA";
     String NO_EXIST_RECOMMEND_FOOD = "NRF";
     String NO_EXIST_RECOMMEND_MISSION = "NRM";
     String NO_EXIST_RECOMMEND_IMAGE = "NRI";
     String NO_EXIST_REVIEW_POST = "NRV";
+    String NO_EXIST_REVIEW_COMMENT = "NRC";
     String NO_EXIST_PARENT_COMMENT = "NPC";
 
     String SIGN_IN_FAIL = "SF";
