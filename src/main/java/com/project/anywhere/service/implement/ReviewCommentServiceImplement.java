@@ -1,10 +1,14 @@
 package com.project.anywhere.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.review.GetReviewCommentListResponseDto;
 import com.project.anywhere.entity.ReviewCommentEntity;
 import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.UsersEntity;
@@ -52,6 +56,27 @@ public class ReviewCommentServiceImplement implements ReviewCommentService{
         }
 
         return ResponseDto.success();
+        
+    }
+
+    @Override
+    public ResponseEntity<? super GetReviewCommentListResponseDto> getReviewCommentList(Integer reviewId) {
+
+        List<ReviewCommentEntity> reviewCommentEntities = new ArrayList<>();
+
+        try {
+
+            boolean isExistedReviewPost = reviewPostRepository.existsByReviewId(reviewId);
+            if(!isExistedReviewPost) return ResponseDto.noExistReviewPost();
+
+            reviewCommentEntities = reviewCommentRepository.findByReviewIdOrderByReviewCommentIdAsc(reviewId);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetReviewCommentListResponseDto.success(reviewCommentEntities);
         
     }
     

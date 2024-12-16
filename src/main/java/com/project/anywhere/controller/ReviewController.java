@@ -20,6 +20,7 @@ import com.project.anywhere.dto.response.hashtag.GetHashTagListResponseDto;
 import com.project.anywhere.service.HashTagService;
 import com.project.anywhere.service.ReviewCommentService;
 import com.project.anywhere.service.ReviewLikeService;
+import com.project.anywhere.dto.response.review.GetReviewCommentListResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewResponseDto;
 import com.project.anywhere.service.ReviewPostService;
@@ -118,6 +119,14 @@ public class ReviewController {
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<ResponseDto> response = reviewCommentService.postReviewComment(requestBody, reviewId, userId);
+        return response;
+    }
+
+    @GetMapping("/{reviewId}/comment")
+    public ResponseEntity<? super GetReviewCommentListResponseDto> getReviewCommentList(
+        @PathVariable("reviewId") Integer reviewId
+    ){
+        ResponseEntity<? super GetReviewCommentListResponseDto> response = reviewCommentService.getReviewCommentList(reviewId);
         return response;
     }
 }
