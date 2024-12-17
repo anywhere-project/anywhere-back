@@ -17,6 +17,7 @@ public interface ResponseCode {
     // 400 BAD REQUEST
     String NO_EXIST_USER_ID = "NI";
     String NO_EXIST_AREA_ID = "NA";
+    String NO_EXIST_ATTRACTION_ID = "NAT";
     String NO_EXIST_TEL_NUMBER = "NT";
     String NO_EXIST_RECOMMEND_POST = "NRP";
     String NO_EXIST_RECOMMEND_ATTRACTION = "NRA";
