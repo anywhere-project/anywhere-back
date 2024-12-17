@@ -33,4 +33,12 @@ public class FileController {
         return fileService.getFiles(fileNames);
     }
 
+    @GetMapping(value="/{fileName}", produces={MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+    public Resource getImageFile(
+        @PathVariable("fileName") String fileName
+    ) {
+        Resource resource = fileService.getFile(fileName);
+        return resource;
+    }
+
 }
