@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
+import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
@@ -110,15 +113,52 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             List<RecommendImageEntity> imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
 
             if (dto.getAttraction() != null) {
-                attractionService.patchRecommendAttraction(dto.getAttraction(), recommendId, attractionEntity.getAttractionId(), userId);
+                if (attractionEntity == null) {
+                    PostRecommendAttractionRequestDto postDto = new PostRecommendAttractionRequestDto();
+                    postDto.setAttractionName(dto.getAttraction().getAttractionName());
+                    postDto.setAttractionAddress(dto.getAttraction().getAttractionAddress());
+                    postDto.setAttractionContent(dto.getAttraction().getAttractionContent());
+                    RecommendAttractionEntity newAttraction = new RecommendAttractionEntity(postDto, recommendId);
+                    attractionRepository.save(newAttraction);
+                } else {
+                    attractionService.patchRecommendAttraction(dto.getAttraction(), recommendId, attractionEntity.getAttractionId(), userId);
+                }
+            } else {
+                if (attractionEntity != null) {
+                    attractionService.deleteRecommendAttraction(recommendId, attractionEntity.getAttractionId(), userId);
+                }
             }
 
             if (dto.getFood() != null) {
-                foodService.patchRecommendFood(dto.getFood(), recommendId, foodEntity.getFoodId(), userId);
+                if (foodEntity == null) {
+                    PostRecommendFoodRequestDto postDto = new PostRecommendFoodRequestDto();
+                    postDto.setFoodName(dto.getFood().getFoodName());
+                    postDto.setFoodContent(dto.getFood().getFoodContent());
+                    RecommendFoodEntity newFood = new RecommendFoodEntity(postDto, recommendId);
+                    foodRepository.save(newFood);
+                } else {
+                    foodService.patchRecommendFood(dto.getFood(), recommendId, foodEntity.getFoodId(), userId);
+                }
+            } else {
+                if (foodEntity != null) {
+                    foodService.deleteRecommendFood(recommendId, foodEntity.getFoodId(), userId);
+                }
             }
 
             if (dto.getMission() != null) {
-                missionService.patchRecommendMission(dto.getMission(), recommendId, missionEntity.getMissionId(), userId);
+                if (missionEntity == null) {
+                    PostRecommendMissionRequestDto postMissionDto = new PostRecommendMissionRequestDto();
+                    postMissionDto.setMissionName(dto.getMission().getMissionName());
+                    postMissionDto.setMissionContent(dto.getMission().getMissionContent());
+                    RecommendMissionEntity newMission = new RecommendMissionEntity(postMissionDto, recommendId);
+                    missionRepository.save(newMission);
+                } else {
+                    missionService.patchRecommendMission(dto.getMission(), recommendId, missionEntity.getMissionId(), userId);
+                }
+            } else {
+                if (missionEntity != null) {
+                    missionService.deleteRecommendMission(recommendId, missionEntity.getMissionId(), userId);
+                }
             }
 
             if (dto.getImages() != null) {

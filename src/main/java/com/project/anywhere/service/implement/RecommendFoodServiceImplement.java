@@ -64,16 +64,8 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
             RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
     
-            if (foodEntity == null) {
-                PostRecommendFoodRequestDto postDto = new PostRecommendFoodRequestDto();
-                postDto.setFoodName(dto.getFoodName());
-                postDto.setFoodContent(dto.getFoodContent());
-                RecommendFoodEntity newFood = new RecommendFoodEntity(postDto, recommendId);
-                foodRepository.save(newFood);
-            } else {
-                foodEntity.patch(dto);
-                foodRepository.save(foodEntity);
-            }
+            foodEntity.patch(dto);
+            foodRepository.save(foodEntity);
     
         } catch (Exception exception) {
             exception.printStackTrace();

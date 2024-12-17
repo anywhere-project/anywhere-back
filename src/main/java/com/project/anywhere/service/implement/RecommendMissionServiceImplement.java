@@ -63,16 +63,8 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
 
             RecommendMissionEntity missionEntity = missionRepository.findByMissionId(missionId);
 
-            if (missionEntity == null) {
-                PostRecommendMissionRequestDto postDto = new PostRecommendMissionRequestDto();
-                postDto.setMissionName(dto.getMissionName());
-                postDto.setMissionContent(dto.getMissionContent());
-                RecommendMissionEntity newMission = new RecommendMissionEntity(postDto, recommendId);
-                missionRepository.save(newMission);
-            } else {
-                missionEntity.patch(dto);
-                missionRepository.save(missionEntity);
-            }
+            missionEntity.patch(dto);
+            missionRepository.save(missionEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();

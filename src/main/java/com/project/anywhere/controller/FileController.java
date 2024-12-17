@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/file")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class FileController {
     
     private final FileService fileService;
@@ -28,8 +30,8 @@ public class FileController {
         return urls;
     }
 
-    @GetMapping(value="/files", produces={MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
-    public List<Resource> getImageFiles(@RequestParam List<String> fileNames) {
+    @GetMapping(value = "/{fileName}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+    public List<Resource> getImageFiles(@RequestParam("fileName") List<String> fileNames) {
         return fileService.getFiles(fileNames);
     }
 
