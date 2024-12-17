@@ -31,10 +31,10 @@ public class FileController {
         return urls;
     }
 
-    @GetMapping(value = "/{fileName}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
-    public List<Resource> getImageFiles(@RequestParam("fileName") List<String> fileNames) {
-        return fileService.getFiles(fileNames);
-    }
+    // @GetMapping(value = "/{fileName}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+    // public List<Resource> getImageFiles(@RequestParam("fileName") List<String> fileNames) {
+    //     return fileService.getFiles(fileNames);
+    // }
 
     @GetMapping(value="/{fileName}", produces={MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
     public Resource getImageFile(
