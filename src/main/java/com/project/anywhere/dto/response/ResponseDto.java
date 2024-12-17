@@ -73,6 +73,11 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistAttractionId() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_ATTRACTION_ID, ResponseMessage.NO_EXIST_ATTRACTION_ID);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistRecommendPost() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RECOMMEND_POST, ResponseMessage.NO_EXIST_RECOMMEND_POST);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
