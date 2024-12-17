@@ -76,5 +76,19 @@ public class FileServiceImplement implements FileService {
 
         return resources;
     }
-    
+
+    @Override
+    public Resource getFile(String fileName) {
+        
+        Resource resource = null;
+
+        try {
+            resource = new UrlResource("file:" + filePath + fileName);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+
+        return resource;
+    }
 }

@@ -10,7 +10,7 @@ public class Users {
     private String name;
     private String nickname;
     private String profileImage;
-    private Integer isAdmin;
+    private Boolean isAdmin;
     private String userStatus;
 
 }

@@ -23,6 +23,8 @@ public interface ResponseMessage {
     String NO_EXIST_RECOMMEND_MISSION = "No exist recommend mission.";
     String NO_EXIST_RECOMMEND_IMAGE = "No exist recommend image.";
     String NO_EXIST_REVIEW_POST = "No exist review post.";
+    String NO_EXIST_REVIEW_COMMENT = "No exist review comment.";
+    String NO_EXIST_PARENT_COMMENT = "No exist parent comment.";
 
     String SIGN_IN_FAIL = "Sign in fail.";
     String AUTHENTICATION_FAIL = "Authentication fail.";
@@ -37,3 +39,4 @@ public interface ResponseMessage {
     String DATABASE_ERROR = "Database error.";
 
 }
+

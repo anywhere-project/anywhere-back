@@ -6,7 +6,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +33,14 @@ public class FileController {
     @GetMapping(value = "/{fileName}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
     public List<Resource> getImageFiles(@RequestParam("fileName") List<String> fileNames) {
         return fileService.getFiles(fileNames);
+    }
+
+    @GetMapping(value="/{fileName}", produces={MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+    public Resource getImageFile(
+        @PathVariable("fileName") String fileName
+    ) {
+        Resource resource = fileService.getFile(fileName);
+        return resource;
     }
 
 }

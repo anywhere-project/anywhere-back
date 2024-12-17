@@ -12,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.hashtag.PostHashTagRequestDto;
+import com.project.anywhere.dto.request.review.PatchReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
+import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.hashtag.GetHashTagListResponseDto;
 import com.project.anywhere.service.HashTagService;
+import com.project.anywhere.service.ReviewCommentService;
 import com.project.anywhere.service.ReviewLikeService;
+import com.project.anywhere.dto.response.review.GetReviewCommentListResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
+import com.project.anywhere.dto.response.review.GetReviewResponseDto;
 import com.project.anywhere.service.ReviewPostService;
 import com.project.anywhere.service.ReviewScrapService;
 
@@ -34,6 +39,7 @@ public class ReviewController {
     private final ReviewLikeService likeService;
     private final ReviewScrapService scrapService;
     private final HashTagService hashTagService;
+    private final ReviewCommentService reviewCommentService;
 
     @PostMapping(value = { "", "/" })
     public ResponseEntity<ResponseDto> postReview(
@@ -47,6 +53,14 @@ public class ReviewController {
     @GetMapping(value = { "", "/"})
     public ResponseEntity<? super GetReviewListResponseDto> getReviewList(){
         ResponseEntity<? super GetReviewListResponseDto> response = reviewService.getReviewList();
+        return response;
+    }
+
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<? super GetReviewResponseDto> getReview(
+        @PathVariable("reviewId") Integer reviewId
+    ){
+        ResponseEntity<? super GetReviewResponseDto> response = reviewService.getReview(reviewId);
         return response;
     }
 
@@ -99,4 +113,42 @@ public class ReviewController {
         return response;
     }
 
+    @PostMapping("/{reviewId}/comment")
+    public ResponseEntity<ResponseDto> postReviewComment(
+        @RequestBody @Valid PostReviewCommentRequestDto requestBody,
+        @PathVariable("reviewId") Integer reviewId,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = reviewCommentService.postReviewComment(requestBody, reviewId, userId);
+        return response;
+    }
+
+    @GetMapping("/{reviewId}/comment")
+    public ResponseEntity<? super GetReviewCommentListResponseDto> getReviewCommentList(
+        @PathVariable("reviewId") Integer reviewId
+    ){
+        ResponseEntity<? super GetReviewCommentListResponseDto> response = reviewCommentService.getReviewCommentList(reviewId);
+        return response;
+    }
+
+    @PatchMapping("/{reviewId}/comment/{reviewCommentId}")
+    public ResponseEntity<ResponseDto> patchReviewComment(
+        @PathVariable("reviewId") Integer reviewId,
+        @PathVariable("reviewCommentId") Integer reviewCommentId,
+        @AuthenticationPrincipal String userId,
+        @RequestBody @Valid PatchReviewCommentRequestDto requestBody
+    ){
+        ResponseEntity<ResponseDto> response = reviewCommentService.patchReviewComment(requestBody, reviewId, reviewCommentId, userId);
+        return response;
+    }
+
+    @DeleteMapping("/{reviewId}/comment/{reviewCommentId}")
+    public ResponseEntity<ResponseDto> deleteReviewComment(
+        @PathVariable("reviewId") Integer reviewId,
+        @PathVariable("reviewCommentId") Integer reviewCommentId,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = reviewCommentService.deleteReviewComment(reviewId, reviewCommentId, userId);
+        return response;
+    };
 }
