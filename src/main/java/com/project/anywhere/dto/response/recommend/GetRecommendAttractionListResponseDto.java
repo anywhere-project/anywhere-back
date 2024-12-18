@@ -10,22 +10,23 @@ import com.project.anywhere.dto.response.ResponseCode;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.ResponseMessage;
 import com.project.anywhere.entity.RecommendAttractionEntity;
+import com.project.anywhere.entity.RecommendImageEntity;
+import com.project.anywhere.entity.RecommendPostEntity;
 
 import lombok.Getter;
 
 @Getter
 public class GetRecommendAttractionListResponseDto extends ResponseDto {
-    
+
     private List<RecommendAttraction> attractions;
 
-    private GetRecommendAttractionListResponseDto(List<RecommendAttractionEntity> attractions) {
+    private GetRecommendAttractionListResponseDto(List<RecommendPostEntity> postEntities, List<RecommendAttractionEntity> attractionEntities, List<RecommendImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.attractions = RecommendAttraction.getList(attractions);
+        this.attractions = RecommendAttraction.getList(postEntities, attractionEntities, imageEntities);
     }
 
-    public static ResponseEntity<GetRecommendAttractionListResponseDto> success(List<RecommendAttractionEntity> attractionEntities) {
-        GetRecommendAttractionListResponseDto responseBody = new GetRecommendAttractionListResponseDto(attractionEntities);
+    public static ResponseEntity<GetRecommendAttractionListResponseDto> success(List<RecommendPostEntity> postEntities, List<RecommendAttractionEntity> attractionEntities, List<RecommendImageEntity> imageEntities) {
+        GetRecommendAttractionListResponseDto responseBody = new GetRecommendAttractionListResponseDto(postEntities, attractionEntities, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

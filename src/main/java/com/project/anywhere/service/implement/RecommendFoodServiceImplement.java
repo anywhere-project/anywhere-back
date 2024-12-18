@@ -10,9 +10,12 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendFoodPostResponseDto;
 import com.project.anywhere.entity.RecommendFoodEntity;
+import com.project.anywhere.entity.RecommendImageEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendFoodRepository;
+import com.project.anywhere.repository.RecommendImageRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendFoodService;
@@ -27,6 +30,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendFoodRepository foodRepository;
+    private final RecommendImageRepository imageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendFood(PostRecommendFoodRequestDto dto, Integer recommendId, String userId) {
@@ -34,10 +38,6 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
         try {
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
-
-            RecommendPostEntity postEntity = new RecommendPostEntity();
-            postEntity.setRecommendWriter(userId);
-            postRepository.save(postEntity);
 
             RecommendFoodEntity foodEntity = new RecommendFoodEntity(dto, recommendId);
             foodRepository.save(foodEntity);
@@ -59,13 +59,11 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
-
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
             RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
             if (foodEntity == null) return ResponseDto.noExistRecommendFood();
 
-            postEntity.patch();
             foodEntity.patch(dto);
             foodRepository.save(foodEntity);
 
@@ -103,22 +101,32 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoods(Integer recommendId) {
+    public ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFoodPost(Integer recommendId) {
+        RecommendPostEntity postEntity = null;
         List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<RecommendImageEntity> imageEntities = new ArrayList<>();
 
         try {
-            
+
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
+            postEntity = postRepository.findByRecommendId(recommendId);
             foodEntities = foodRepository.findByRecommendId(recommendId);
+            imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendFoodListResponseDto.success(foodEntities);
+        return GetRecommendFoodPostResponseDto.success(postEntity, foodEntities, imageEntities);
+    }
+
+    @Override
+    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRecommendFoodPosts'");
     }
     
 }

@@ -10,6 +10,8 @@ import com.project.anywhere.dto.response.ResponseCode;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.ResponseMessage;
 import com.project.anywhere.entity.RecommendFoodEntity;
+import com.project.anywhere.entity.RecommendImageEntity;
+import com.project.anywhere.entity.RecommendPostEntity;
 
 import lombok.Getter;
 
@@ -18,13 +20,13 @@ public class GetRecommendFoodListResponseDto extends ResponseDto {
 
     private List<RecommendFood> foods;
 
-    private GetRecommendFoodListResponseDto(List<RecommendFoodEntity> foodEntities) {
+    private GetRecommendFoodListResponseDto(List<RecommendPostEntity> postEntities, List<RecommendFoodEntity> foodEntities, List<RecommendImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.foods = RecommendFood.getList(foodEntities);
+        this.foods = RecommendFood.getList(postEntities, foodEntities, imageEntities);
     }
 
-    public static ResponseEntity<GetRecommendFoodListResponseDto> success(List<RecommendFoodEntity> foodEntities) {
-        GetRecommendFoodListResponseDto responseBody = new GetRecommendFoodListResponseDto(foodEntities);
+    public static ResponseEntity<GetRecommendFoodListResponseDto> success(List<RecommendPostEntity> postEntities, List<RecommendFoodEntity> foodEntities, List<RecommendImageEntity> imageEntities) {
+        GetRecommendFoodListResponseDto responseBody = new GetRecommendFoodListResponseDto(postEntities, foodEntities, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

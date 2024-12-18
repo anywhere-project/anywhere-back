@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.project.anywhere.entity.RecommendAttractionEntity;
+import com.project.anywhere.entity.RecommendImageEntity;
+import com.project.anywhere.entity.RecommendPostEntity;
 
 import lombok.Getter;
 
@@ -14,27 +16,45 @@ public class RecommendAttraction {
     private String recommendCreatedAt;
     private String recommendWriter;
     private Integer recommendLikeCount;
-    private Integer attractionId;
-    private String attractionName;
-    private String attractionAddress;
-    private String attractionContent;
+    private String recommendCategory;
+    private List<RecommendAttractionEntity> attractions;
+    private List<RecommendImageEntity> images;
 
-    public RecommendAttraction(RecommendAttractionEntity attractionEntity) {
-        this.attractionId = attractionEntity.getAttractionId();
-        this.attractionName = attractionEntity.getAttractionName();
-        this.attractionAddress = attractionEntity.getAttractionAddress();
-        this.attractionContent = attractionEntity.getAttractionContent();
+    // Constructor
+    public RecommendAttraction(RecommendPostEntity postEntity, List<RecommendAttractionEntity> attractionEntities, List<RecommendImageEntity> imageEntities) {
+        this.recommendId = postEntity.getRecommendId();
+        this.recommendCreatedAt = postEntity.getRecommendCreatedAt();
+        this.recommendWriter = postEntity.getRecommendWriter();
+        this.recommendLikeCount = postEntity.getRecommendLikeCount();
+        this.recommendCategory = postEntity.getRecommendCategory();
+        this.attractions = attractionEntities;
+        this.images = imageEntities;
     }
 
-    public static List<RecommendAttraction> getList(List<RecommendAttractionEntity> attractionEntities) {
-        List<RecommendAttraction> attractions = new ArrayList<>();
+    public static List<RecommendAttraction> getList(List<RecommendPostEntity> postEntities, List<RecommendAttractionEntity> attractionEntities, List<RecommendImageEntity> imageEntities) {
+        List<RecommendAttraction> recommendAttractions = new ArrayList<>();
 
-        for (RecommendAttractionEntity attractionEntity: attractionEntities) {
-            RecommendAttraction attraction = new RecommendAttraction(attractionEntity);
-            attractions.add(attraction);
+        for (RecommendPostEntity postEntity : postEntities) {
+            Integer recommendId = postEntity.getRecommendId();
+
+            List<RecommendAttractionEntity> filteredAttractions = new ArrayList<>();
+            for (RecommendAttractionEntity attraction : attractionEntities) {
+                if (attraction.getRecommendId().equals(recommendId)) {
+                    filteredAttractions.add(attraction);
+                }
+            }
+
+            List<RecommendImageEntity> filteredImages = new ArrayList<>();
+            for (RecommendImageEntity image : imageEntities) {
+                if (image.getRecommendId().equals(recommendId)) {
+                    filteredImages.add(image);
+                }
+            }
+
+            RecommendAttraction recommendAttraction = new RecommendAttraction(postEntity, filteredAttractions, filteredImages);
+            recommendAttractions.add(recommendAttraction);
         }
 
-        return attractions;
+        return recommendAttractions;
     }
-    
 }

@@ -10,9 +10,12 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionReques
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendAttractionPostResponseDto;
 import com.project.anywhere.entity.RecommendAttractionEntity;
+import com.project.anywhere.entity.RecommendImageEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendAttractionRepository;
+import com.project.anywhere.repository.RecommendImageRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendAttractionService;
@@ -26,6 +29,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
 
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
+    private final RecommendImageRepository imageRepository;
     private final RecommendAttractionRepository attractionRepository;
     
     @Override
@@ -36,11 +40,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
-            RecommendPostEntity postEntity = new RecommendPostEntity();
-            postEntity.setRecommendWriter(userId);
-            postRepository.save(postEntity);
-
-            RecommendAttractionEntity attractionEntity = new RecommendAttractionEntity(dto, postEntity.getRecommendId());
+            RecommendAttractionEntity attractionEntity = new RecommendAttractionEntity(dto, recommendId);
             attractionRepository.save(attractionEntity);
 
         } catch(Exception exception) {
@@ -63,11 +63,12 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
+            if (postEntity == null) return ResponseDto.noExistRecommendPost();
+
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
 
-            postEntity.patch();
             attractionEntity.patch(dto);
             attractionRepository.save(attractionEntity);
 
@@ -88,10 +89,8 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
-            boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
-            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
-
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
+            if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission(); 
 
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
@@ -108,22 +107,32 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttrations(Integer recommendId) {
+    public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttractionPost(Integer recommendId) {
+        RecommendPostEntity postEntity = null;
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
+        List<RecommendImageEntity> imageEntities = new ArrayList<>();
 
         try {
 
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
+            postEntity = postRepository.findByRecommendId(recommendId);
             attractionEntities = attractionRepository.findByRecommendId(recommendId);
-
+            imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
+    
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendAttractionListResponseDto.success(attractionEntities);
+        return GetRecommendAttractionPostResponseDto.success(postEntity, attractionEntities, imageEntities);
     }
-    
+
+    @Override
+    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionPosts() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRecommendAttractionPosts'");
+    }
+
 }

@@ -8,40 +8,34 @@ import org.springframework.http.ResponseEntity;
 import com.project.anywhere.dto.response.ResponseCode;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.ResponseMessage;
-import com.project.anywhere.entity.RecommendAttractionEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 import com.project.anywhere.entity.RecommendImageEntity;
-import com.project.anywhere.entity.RecommendMissionEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
 
 import lombok.Getter;
 
 @Getter
-public class GetRecommendPostResponseDto extends ResponseDto {
-
+public class GetRecommendFoodPostResponseDto extends ResponseDto {
+    
     private Integer recommendId;
     private String recommendCreatedAt;
     private String recommendWriter;
     private Integer recommendLikeCount;
-    private RecommendAttractionEntity attraction;
-    private RecommendFoodEntity food;
-    private RecommendMissionEntity mission;
+    private List<RecommendFoodEntity> foods;
     private List<RecommendImageEntity> images;
 
-    private GetRecommendPostResponseDto(RecommendPostEntity postEntity, RecommendAttractionEntity attractionEntity, RecommendFoodEntity foodEntity, RecommendMissionEntity missionEntity, List<RecommendImageEntity> imageEntities) {
+    public GetRecommendFoodPostResponseDto(RecommendPostEntity postEntity, List<RecommendFoodEntity> foodEntities, List<RecommendImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.recommendId = postEntity.getRecommendId();
         this.recommendCreatedAt = postEntity.getRecommendCreatedAt();
         this.recommendWriter = postEntity.getRecommendWriter();
         this.recommendLikeCount = postEntity.getRecommendLikeCount();
-        this.attraction = attractionEntity;
-        this.food = foodEntity;
-        this.mission = missionEntity;
+        this.foods = foodEntities;
         this.images = imageEntities;
     }
 
-    public static ResponseEntity<GetRecommendPostResponseDto> success(RecommendPostEntity postEntity, RecommendAttractionEntity attractionEntity, RecommendFoodEntity foodEntity, RecommendMissionEntity missionEntity, List<RecommendImageEntity> imageEntities) {
-        GetRecommendPostResponseDto responseBody = new GetRecommendPostResponseDto(postEntity, attractionEntity, foodEntity, missionEntity, imageEntities);
+    public static ResponseEntity<GetRecommendFoodPostResponseDto> success(RecommendPostEntity postEntity, List<RecommendFoodEntity> foodEntities, List<RecommendImageEntity> imageEntities) {
+        GetRecommendFoodPostResponseDto responseBody = new GetRecommendFoodPostResponseDto(postEntity, foodEntities, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
