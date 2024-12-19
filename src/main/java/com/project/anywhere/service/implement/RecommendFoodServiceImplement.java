@@ -125,8 +125,28 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
     @Override
     public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecommendFoodPosts'");
+        List<RecommendPostEntity> postEntities = new ArrayList<>();
+        List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<RecommendImageEntity> imageEntities = new ArrayList<>();
+    
+        try {
+
+            postEntities = postRepository.findAll();
+            
+            for (RecommendPostEntity postEntity : postEntities) {
+                List<RecommendFoodEntity> foods = foodRepository.findByRecommendId(postEntity.getRecommendId());
+                foodEntities.addAll(foods);
+                
+                List<RecommendImageEntity> images = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
+                imageEntities.addAll(images);
+            }
+    
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    
+        return GetRecommendFoodListResponseDto.success(postEntities, foodEntities, imageEntities);
     }
     
 }

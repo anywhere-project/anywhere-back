@@ -131,8 +131,29 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
 
     @Override
     public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionPosts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecommendAttractionPosts'");
+        List<RecommendPostEntity> postEntities = new ArrayList<>();
+        List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
+        List<RecommendImageEntity> imageEntities = new ArrayList<>();
+    
+        try {
+
+            postEntities = postRepository.findAll();
+            
+            for (RecommendPostEntity postEntity : postEntities) {
+                List<RecommendAttractionEntity> attractions = attractionRepository.findByRecommendId(postEntity.getRecommendId());
+                attractionEntities.addAll(attractions);
+                
+                List<RecommendImageEntity> images = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
+                imageEntities.addAll(images);
+            }
+    
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    
+        return GetRecommendAttractionListResponseDto.success(postEntities, attractionEntities, imageEntities);
     }
+    
 
 }

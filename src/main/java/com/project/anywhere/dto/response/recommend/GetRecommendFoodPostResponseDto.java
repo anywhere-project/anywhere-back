@@ -21,6 +21,7 @@ public class GetRecommendFoodPostResponseDto extends ResponseDto {
     private String recommendCreatedAt;
     private String recommendWriter;
     private Integer recommendLikeCount;
+    private String recommendCategory;
     private List<RecommendFoodEntity> foods;
     private List<RecommendImageEntity> images;
 
@@ -30,6 +31,7 @@ public class GetRecommendFoodPostResponseDto extends ResponseDto {
         this.recommendCreatedAt = postEntity.getRecommendCreatedAt();
         this.recommendWriter = postEntity.getRecommendWriter();
         this.recommendLikeCount = postEntity.getRecommendLikeCount();
+        this.recommendCategory = postEntity.getRecommendCategory();
         this.foods = foodEntities;
         this.images = imageEntities;
     }

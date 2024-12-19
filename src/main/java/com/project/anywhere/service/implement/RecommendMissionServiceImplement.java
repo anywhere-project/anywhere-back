@@ -128,8 +128,26 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
 
     @Override
     public ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionPosts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecommendMissionPosts'");
-    }
+        List<RecommendPostEntity> postEntities = new ArrayList<>();
+        List<RecommendMissionEntity> missionEntities = new ArrayList<>();
+        List<RecommendImageEntity> imageEntities = new ArrayList<>();
+        
+        try {
+            postEntities = postRepository.findAll();
+            
+            for (RecommendPostEntity postEntity : postEntities) {
+                List<RecommendMissionEntity> missions = missionRepository.findByRecommendId(postEntity.getRecommendId());
+                missionEntities.addAll(missions);
+                
+                List<RecommendImageEntity> images = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
+                imageEntities.addAll(images);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+        return GetRecommendMissionListResponseDto.success(postEntities, missionEntities, imageEntities);
+    }    
 
 }

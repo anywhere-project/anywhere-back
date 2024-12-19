@@ -21,6 +21,7 @@ public class GetRecommendAttractionPostResponseDto extends ResponseDto {
     private String recommendCreatedAt;
     private String recommendWriter;
     private Integer recommendLikeCount;
+    private String recommendCategory;
     private List<RecommendAttractionEntity> attractions;
     private List<RecommendImageEntity> images;
 
@@ -30,6 +31,7 @@ public class GetRecommendAttractionPostResponseDto extends ResponseDto {
         this.recommendCreatedAt = postEntity.getRecommendCreatedAt();
         this.recommendWriter = postEntity.getRecommendWriter();
         this.recommendLikeCount = postEntity.getRecommendLikeCount();
+        this.recommendCategory = postEntity.getRecommendCategory();
         this.attractions = attractionEntities;
         this.images = imageEntities;
     }
