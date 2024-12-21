@@ -3,7 +3,7 @@ package com.project.anywhere.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
@@ -75,7 +75,7 @@ public class RecommendPostServiceImplement implements RecommendPostService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchRecommendPost(Integer recommendId, String userId) {
+    public ResponseEntity<ResponseDto> patchRecommendPost(PatchRecommendPostRequestDto dto, String category, Integer recommendId, String userId) {
 
         try {
 
@@ -89,8 +89,26 @@ public class RecommendPostServiceImplement implements RecommendPostService {
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
-            postEntity.patch();
+            postEntity.patch(dto);
             postRepository.save(postEntity);
+
+            if ("attraction".equals(category)) {
+                for (PostRecommendAttractionRequestDto postDto: dto.getAttractions()) {
+                    attractionService.postRecommendAttraction(postDto, postEntity.getRecommendId(), userId);
+                }
+            } else if ("food".equals(category)) {
+                for (PostRecommendFoodRequestDto postDto: dto.getFoods()) {
+                    foodService.postRecommendFood(postDto, postEntity.getRecommendId(), userId);
+                }
+            } else if ("mission".equals(category)) {
+                for (PostRecommendMissionRequestDto postDto: dto.getMissions()) {
+                    missionService.postRecommendMission(postDto, postEntity.getRecommendId(), userId);
+                }
+            }
+
+            for (PostRecommendImageRequestDto imageDto : dto.getImages()) {
+                imageService.postRecommendImage(imageDto, postEntity.getRecommendId(), userId);
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();

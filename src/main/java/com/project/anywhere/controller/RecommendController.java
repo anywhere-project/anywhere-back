@@ -15,6 +15,7 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionReques
 import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDto;
+import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
@@ -53,9 +54,9 @@ public class RecommendController {
         return response;
     }
 
-    @PatchMapping("/{recommendId}")
-    public ResponseEntity<ResponseDto> patchRecommendPost(@PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = recommendPostService.patchRecommendPost(recommendId, userId);
+    @PatchMapping("/{recommendId}/{category}")
+    public ResponseEntity<ResponseDto> patchRecommendPost(@RequestBody @Valid PatchRecommendPostRequestDto request, @PathVariable("category") String category, @PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = recommendPostService.patchRecommendPost(request, category, recommendId, userId);
         return response;
     }
 
