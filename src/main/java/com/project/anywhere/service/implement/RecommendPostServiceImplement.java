@@ -10,6 +10,7 @@ import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -123,6 +124,23 @@ public class RecommendPostServiceImplement implements RecommendPostService {
         }
 
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetRecommendPostResponseDto> getRecommendPost(Integer recommendId) {
+        RecommendPostEntity postEntity = null;
+
+        try {
+
+            postEntity = postRepository.findByRecommendId(recommendId);
+            if (postEntity == null) return ResponseDto.noExistRecommendPost();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRecommendPostResponseDto.success(postEntity);
     }
 
 }

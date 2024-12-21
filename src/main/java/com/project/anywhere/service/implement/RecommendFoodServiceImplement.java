@@ -10,12 +10,9 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
-import com.project.anywhere.dto.response.recommend.GetRecommendFoodPostResponseDto;
 import com.project.anywhere.entity.RecommendFoodEntity;
-import com.project.anywhere.entity.RecommendImageEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendFoodRepository;
-import com.project.anywhere.repository.RecommendImageRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendFoodService;
@@ -30,7 +27,6 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendFoodRepository foodRepository;
-    private final RecommendImageRepository imageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendFood(PostRecommendFoodRequestDto dto, Integer recommendId, String userId) {
@@ -101,52 +97,24 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFoodPost(Integer recommendId) {
-        RecommendPostEntity postEntity = null;
+    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts(Integer recommendId) {
+    
         List<RecommendFoodEntity> foodEntities = new ArrayList<>();
-        List<RecommendImageEntity> imageEntities = new ArrayList<>();
-
+        
         try {
 
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
-
-            postEntity = postRepository.findByRecommendId(recommendId);
+    
             foodEntities = foodRepository.findByRecommendId(recommendId);
-            imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetRecommendFoodPostResponseDto.success(postEntity, foodEntities, imageEntities);
-    }
-
-    @Override
-    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts() {
-        List<RecommendPostEntity> postEntities = new ArrayList<>();
-        List<RecommendFoodEntity> foodEntities = new ArrayList<>();
-        List<RecommendImageEntity> imageEntities = new ArrayList<>();
-    
-        try {
-
-            postEntities = postRepository.findAll();
-            
-            for (RecommendPostEntity postEntity : postEntities) {
-                List<RecommendFoodEntity> foods = foodRepository.findByRecommendId(postEntity.getRecommendId());
-                foodEntities.addAll(foods);
-                
-                List<RecommendImageEntity> images = imageRepository.findByRecommendIdOrderByImageOrderAsc(postEntity.getRecommendId());
-                imageEntities.addAll(images);
-            }
     
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
     
-        return GetRecommendFoodListResponseDto.success(postEntities, foodEntities, imageEntities);
+        return GetRecommendFoodListResponseDto.success(foodEntities);
     }
+    
     
 }
