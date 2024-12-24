@@ -29,12 +29,14 @@ public class RecommendPostEntity {
     private Integer recommendId;
     private String recommendCreatedAt;
     private String recommendWriter;
+    private String recommendCategory;
     private Integer recommendLikeCount = 0;
 
     public RecommendPostEntity(PostRecommendPostRequestDto dto) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm");
         this.recommendCreatedAt = simpleDateFormat.format(now);
+        this.recommendCategory = dto.getRecommendCategory();
     }
 
     public void patch(PatchRecommendPostRequestDto dto) {
