@@ -1,11 +1,15 @@
 package com.project.anywhere.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendImageListResponseDto;
 import com.project.anywhere.entity.RecommendImageEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendImageRepository;
@@ -13,6 +17,7 @@ import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendImageService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -75,6 +80,7 @@ public class RecommendImageServiceImplement implements RecommendImageService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<ResponseDto> deleteRecommendImage(Integer recommendId, Integer imageId, String userId) {
 
         try {
@@ -99,6 +105,25 @@ public class RecommendImageServiceImplement implements RecommendImageService {
         }
 
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetRecommendImageListResponseDto> getRecommendImages(Integer recommendId) {
+        List<RecommendImageEntity> imageEntities = new ArrayList<>();
+
+        try {
+
+            boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
+            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
+
+            imageEntities = imageRepository.findByRecommendIdOrderByImageOrderAsc(recommendId);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRecommendImageListResponseDto.success(imageEntities);
     }
     
 }

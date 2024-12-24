@@ -24,6 +24,7 @@ import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendImageListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
 import com.project.anywhere.service.RecommendAttractionService;
@@ -150,21 +151,15 @@ public class RecommendController {
         return response;
     }
 
-    @PostMapping("/{recommendId}/image")
-    public ResponseEntity<ResponseDto> postRecommendImage(@RequestBody @Valid PostRecommendImageRequestDto request, @PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = imageService.postRecommendImage(request, recommendId, userId);
-        return response;
-    }
-
-    @PatchMapping("/{recommendId}/image/{imageId}")
-    public ResponseEntity<ResponseDto> patchRecommendImage(@RequestBody @Valid PatchRecommendImageRequestDto request, @PathVariable("recommendId") Integer recommendId, @PathVariable("imageId") Integer imageId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = imageService.patchRecommendImage(request, recommendId, imageId, userId);
-        return response;
-    }
-
     @DeleteMapping("/{recommendId}/image/{imageId}")
     public ResponseEntity<ResponseDto> deleteRecommendImage(@PathVariable("recommendId") Integer recommendId, @PathVariable("imageId") Integer imageId, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = imageService.deleteRecommendImage(recommendId, imageId, userId);
+        return response;
+    }
+
+    @GetMapping("/{recommendId}/images")
+    public ResponseEntity<? super GetRecommendImageListResponseDto> getRecommendImages(@PathVariable("recommendId") Integer recommendId) {
+        ResponseEntity<? super GetRecommendImageListResponseDto> response = imageService.getRecommendImages(recommendId);
         return response;
     }
 
