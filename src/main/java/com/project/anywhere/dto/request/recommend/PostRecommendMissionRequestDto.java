@@ -1,5 +1,8 @@
 package com.project.anywhere.dto.request.recommend;
 
+import java.util.List;
+
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +17,7 @@ public class PostRecommendMissionRequestDto {
     private String missionName;
     @NotBlank
     private String missionContent;
+    @Valid
+    private List<PostMissionImageRequestDto> images;
 
 }

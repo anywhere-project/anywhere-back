@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
+import com.project.anywhere.dto.request.recommend.PostFoodImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
@@ -15,6 +16,7 @@ import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendFoodRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
+import com.project.anywhere.service.FoodImageService;
 import com.project.anywhere.service.RecommendFoodService;
 
 import jakarta.transaction.Transactional;
@@ -27,6 +29,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendFoodRepository foodRepository;
+    private final FoodImageService imageService;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendFood(PostRecommendFoodRequestDto dto, Integer recommendId, String userId) {
@@ -37,6 +40,10 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
             RecommendFoodEntity foodEntity = new RecommendFoodEntity(dto, recommendId);
             foodRepository.save(foodEntity);
+
+            for (PostFoodImageRequestDto imageDto: dto.getImages()) {
+                imageService.postFoodImage(imageDto, foodEntity.getFoodId(), userId);
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();

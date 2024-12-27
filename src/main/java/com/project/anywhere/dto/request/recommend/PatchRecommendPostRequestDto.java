@@ -18,7 +18,5 @@ public class PatchRecommendPostRequestDto {
     private List<PostRecommendAttractionRequestDto> attractions;
     @Valid
     private List<PostRecommendMissionRequestDto> missions;
-    @Valid
-    private List<PostRecommendImageRequestDto> images;
     
 }

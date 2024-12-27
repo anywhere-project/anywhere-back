@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
-import com.project.anywhere.dto.request.recommend.PatchRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
-import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;

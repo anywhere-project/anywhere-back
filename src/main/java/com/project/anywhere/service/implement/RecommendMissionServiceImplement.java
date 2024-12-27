@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDto;
+import com.project.anywhere.dto.request.recommend.PostMissionImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionListResponseDto;
@@ -15,6 +16,7 @@ import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendMissionRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
+import com.project.anywhere.service.MissionImageService;
 import com.project.anywhere.service.RecommendMissionService;
 
 import jakarta.transaction.Transactional;
@@ -27,6 +29,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendMissionRepository missionRepository;
+    private final MissionImageService imageService;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendMission(PostRecommendMissionRequestDto dto, Integer recommendId, String userId) {
@@ -38,6 +41,10 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
 
             RecommendMissionEntity missionEntity = new RecommendMissionEntity(dto, recommendId);
             missionRepository.save(missionEntity);
+
+            for (PostMissionImageRequestDto imageDto: dto.getImages()) {
+                imageService.postMissionImage(imageDto, missionEntity.getMissionId(), userId);
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();

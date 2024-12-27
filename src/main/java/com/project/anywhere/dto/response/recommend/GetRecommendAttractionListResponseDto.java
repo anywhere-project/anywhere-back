@@ -9,6 +9,7 @@ import com.project.anywhere.common.object.RecommendAttraction;
 import com.project.anywhere.dto.response.ResponseCode;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.ResponseMessage;
+import com.project.anywhere.entity.AttractionImageEntity;
 import com.project.anywhere.entity.RecommendAttractionEntity;
 
 import lombok.Getter;
@@ -18,13 +19,13 @@ public class GetRecommendAttractionListResponseDto extends ResponseDto {
 
     private List<RecommendAttraction> attractions;
 
-    private GetRecommendAttractionListResponseDto(List<RecommendAttractionEntity> attractionEntities) {
+    private GetRecommendAttractionListResponseDto(List<RecommendAttractionEntity> attractionEntities, List<AttractionImageEntity> imageEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.attractions = RecommendAttraction.getList(attractionEntities);
+        this.attractions = RecommendAttraction.getList(attractionEntities, imageEntities);
     }
 
-    public static ResponseEntity<GetRecommendAttractionListResponseDto> success(List<RecommendAttractionEntity> attractionEntities) {
-        GetRecommendAttractionListResponseDto responseBody = new GetRecommendAttractionListResponseDto(attractionEntities);
+    public static ResponseEntity<GetRecommendAttractionListResponseDto> success(List<RecommendAttractionEntity> attractionEntities, List<AttractionImageEntity> imageEntities) {
+        GetRecommendAttractionListResponseDto responseBody = new GetRecommendAttractionListResponseDto(attractionEntities, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
