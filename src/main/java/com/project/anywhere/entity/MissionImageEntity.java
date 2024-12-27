@@ -1,7 +1,5 @@
 package com.project.anywhere.entity;
 
-import com.project.anywhere.dto.request.recommend.PostMissionImageRequestDto;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,9 +24,9 @@ public class MissionImageEntity {
     private Integer missionId;
     private String imageUrl;
 
-    public MissionImageEntity(PostMissionImageRequestDto dto, Integer missionId) {
-        this.imageUrl = dto.getImageUrl();
+    public MissionImageEntity(String image, Integer missionId) {
         this.missionId = missionId;
+        this.imageUrl = image;
     }
     
 }

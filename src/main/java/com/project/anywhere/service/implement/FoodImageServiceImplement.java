@@ -33,7 +33,7 @@ public class FoodImageServiceImplement implements FoodImageService {
             RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
             if (foodEntity == null) return ResponseDto.noExistRecommendFood();
 
-            FoodImageEntity imageEntity = new FoodImageEntity(dto, foodId);
+            FoodImageEntity imageEntity = new FoodImageEntity(dto.getImageUrl(), foodId);
             imageRepository.save(imageEntity);
 
         } catch(Exception exception) {

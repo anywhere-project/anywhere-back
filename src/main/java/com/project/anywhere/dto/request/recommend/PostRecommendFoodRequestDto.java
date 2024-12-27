@@ -2,8 +2,8 @@ package com.project.anywhere.dto.request.recommend;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class PostRecommendFoodRequestDto {
     private String foodName;
     @NotBlank
     private String foodContent;
-    @Valid
-    private List<PostFoodImageRequestDto> images;
+    @NotEmpty
+    private List<String> images;
 
 }

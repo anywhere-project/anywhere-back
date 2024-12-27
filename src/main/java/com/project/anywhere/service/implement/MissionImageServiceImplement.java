@@ -34,7 +34,7 @@ public class MissionImageServiceImplement implements MissionImageService {
             RecommendMissionEntity missionEntity = missionRepository.findByMissionId(missionId);
             if (missionEntity == null) return ResponseDto.noExistRecommendMission();
 
-            MissionImageEntity imageEntity = new MissionImageEntity(dto, missionId);
+            MissionImageEntity imageEntity = new MissionImageEntity(dto.getImageUrl(), missionId);
             imageRepository.save(imageEntity);
 
         } catch(Exception exception) {
