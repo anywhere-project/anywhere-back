@@ -40,7 +40,6 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
             RecommendAttractionEntity attractionEntity = new RecommendAttractionEntity(dto, recommendId);
-            attractionEntity.setRecommendId(recommendId);
             attractionRepository.save(attractionEntity);
 
             for (String image: dto.getImages()) {

@@ -110,6 +110,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     @Override
     public ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionPosts(Integer recommendId) {
         List<RecommendMissionEntity> missionEntities = new ArrayList<>();
+        List<MissionImageEntity> imageEntities = new ArrayList<>();
         
         try {
 
@@ -117,13 +118,14 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
             missionEntities = missionRepository.findByRecommendId(recommendId);
+            imageEntities = imageRepository.findAll();
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        return GetRecommendMissionListResponseDto.success(missionEntities);
+        return GetRecommendMissionListResponseDto.success(missionEntities, imageEntities);
     }    
 
 }

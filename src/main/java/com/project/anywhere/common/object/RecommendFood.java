@@ -3,6 +3,7 @@ package com.project.anywhere.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.anywhere.entity.FoodImageEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 
 import lombok.Getter;
@@ -14,19 +15,29 @@ public class RecommendFood {
     private Integer recommendId;
     private String foodName;
     private String foodContent;
+    private List<String> images;
 
-    public RecommendFood(RecommendFoodEntity foodEntity) {
+    public RecommendFood(RecommendFoodEntity foodEntity, List<String> images) {
         this.foodId = foodEntity.getFoodId();
         this.recommendId = foodEntity.getRecommendId();
         this.foodName = foodEntity.getFoodName();
         this.foodContent = foodEntity.getFoodContent();
+        this.images = images;
     }
 
-    public static List<RecommendFood> getList(List<RecommendFoodEntity> foodEntities) {
+    public static List<RecommendFood> getList(List<RecommendFoodEntity> foodEntities, List<FoodImageEntity> imageEntities) {
         List<RecommendFood> recommendFoods = new ArrayList<>();
 
         for(RecommendFoodEntity foodEntity: foodEntities) {
-            RecommendFood recommendFood = new RecommendFood(foodEntity);
+            List<String> filteredImages = new ArrayList<>();
+
+            for (FoodImageEntity imageEntity : imageEntities) {
+                if (imageEntity.getFoodId().equals(foodEntity.getFoodId())) {
+                    filteredImages.add(imageEntity.getImageUrl());
+                }
+            }
+            
+            RecommendFood recommendFood = new RecommendFood(foodEntity, filteredImages);
             recommendFoods.add(recommendFood);
         }
 

@@ -106,22 +106,23 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
     @Override
     public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts(Integer recommendId) {
-    
         List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<FoodImageEntity> imageEntities = new ArrayList<>();
         
         try {
 
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
-            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
+            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();;
     
             foodEntities = foodRepository.findByRecommendId(recommendId);
+            imageEntities = imageRepository.findAll();
     
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
     
-        return GetRecommendFoodListResponseDto.success(foodEntities);
+        return GetRecommendFoodListResponseDto.success(foodEntities, imageEntities);
     }
     
     

@@ -20,6 +20,7 @@ public class RecommendAttraction {
 
     public RecommendAttraction(RecommendAttractionEntity attractionEntity, List<String> images) {
         this.attractionId = attractionEntity.getAttractionId();
+        this.recommendId = attractionEntity.getRecommendId();
         this.attractionName = attractionEntity.getAttractionName();
         this.attractionAddress = attractionEntity.getAttractionAddress();
         this.attractionContent = attractionEntity.getAttractionContent();
