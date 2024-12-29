@@ -15,9 +15,9 @@ public class RecommendMission {
     private Integer recommendId;
     private String missionName;
     private String missionContent;
-    private List<String> images;
+    private List<MissionImageEntity> images;
 
-    public RecommendMission(RecommendMissionEntity missionEntity, List<String> images) {
+    public RecommendMission(RecommendMissionEntity missionEntity, List<MissionImageEntity> images) {
         this.missionId = missionEntity.getMissionId();
         this.recommendId = missionEntity.getRecommendId();
         this.missionName = missionEntity.getMissionName();
@@ -29,11 +29,11 @@ public class RecommendMission {
         List<RecommendMission> recommendMissions = new ArrayList<>();
 
         for (RecommendMissionEntity missionEntity : missionEntities) {
-            List<String> filteredImages = new ArrayList<>();
+            List<MissionImageEntity> filteredImages = new ArrayList<>();
 
             for (MissionImageEntity imageEntity : imageEntities) {
                 if (imageEntity.getMissionId().equals(missionEntity.getMissionId())) {
-                    filteredImages.add(imageEntity.getImageUrl());
+                    filteredImages.add(imageEntity); // Add the whole MissionImageEntity
                 }
             }
 

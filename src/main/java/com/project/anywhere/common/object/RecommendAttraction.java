@@ -16,9 +16,9 @@ public class RecommendAttraction {
     private String attractionName;
     private String attractionAddress;
     private String attractionContent;
-    private List<String> images;  
+    private List<AttractionImageEntity> images;
 
-    public RecommendAttraction(RecommendAttractionEntity attractionEntity, List<String> images) {
+    public RecommendAttraction(RecommendAttractionEntity attractionEntity, List<AttractionImageEntity> images) {
         this.attractionId = attractionEntity.getAttractionId();
         this.recommendId = attractionEntity.getRecommendId();
         this.attractionName = attractionEntity.getAttractionName();
@@ -31,11 +31,11 @@ public class RecommendAttraction {
         List<RecommendAttraction> recommendAttractions = new ArrayList<>();
 
         for (RecommendAttractionEntity attractionEntity : attractionEntities) {
-            List<String> filteredImages = new ArrayList<>();
+            List<AttractionImageEntity> filteredImages = new ArrayList<>(); 
 
             for (AttractionImageEntity imageEntity : imageEntities) {
                 if (imageEntity.getAttractionId().equals(attractionEntity.getAttractionId())) {
-                    filteredImages.add(imageEntity.getImageUrl());
+                    filteredImages.add(imageEntity);
                 }
             }
 

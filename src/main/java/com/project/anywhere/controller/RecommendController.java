@@ -15,6 +15,9 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionReques
 import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
+import com.project.anywhere.dto.request.recommend.PostAttractionImageRequestDto;
+import com.project.anywhere.dto.request.recommend.PostFoodImageRequestDto;
+import com.project.anywhere.dto.request.recommend.PostMissionImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
@@ -22,12 +25,13 @@ import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
-import com.project.anywhere.dto.response.recommend.GetRecommendImageListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
+import com.project.anywhere.service.AttractionImageService;
+import com.project.anywhere.service.FoodImageService;
+import com.project.anywhere.service.MissionImageService;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
-import com.project.anywhere.service.RecommendImageService;
 import com.project.anywhere.service.RecommendLikeService;
 import com.project.anywhere.service.RecommendMissionService;
 import com.project.anywhere.service.RecommendPostService;
@@ -42,10 +46,12 @@ public class RecommendController {
 
     private final RecommendLikeService likeService;
     private final RecommendFoodService foodService;
-    private final RecommendImageService imageService;
     private final RecommendMissionService missionService;
     private final RecommendPostService recommendPostService;
     private final RecommendAttractionService attractionService;
+    private final FoodImageService foodImageService;
+    private final MissionImageService missionImageService;
+    private final AttractionImageService attractionImageService;
 
     @PostMapping(value = { "", "/" })
     public ResponseEntity<ResponseDto> postRecommendPost(@RequestBody @Valid PostRecommendPostRequestDto request, @AuthenticationPrincipal String userId) {
@@ -149,15 +155,39 @@ public class RecommendController {
         return response;
     }
 
-    @DeleteMapping("/{recommendId}/image/{imageId}")
-    public ResponseEntity<ResponseDto> deleteRecommendImage(@PathVariable("recommendId") Integer recommendId, @PathVariable("imageId") Integer imageId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> response = imageService.deleteRecommendImage(recommendId, imageId, userId);
+    @PostMapping("/attraction/{attractionId}")
+    public ResponseEntity<ResponseDto> postAttractionImage(@Valid @RequestBody PostAttractionImageRequestDto request, @PathVariable("attractionId") Integer attractionId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = attractionImageService.postAttractionImage(request, attractionId, userId);
         return response;
     }
 
-    @GetMapping("/{recommendId}/images")
-    public ResponseEntity<? super GetRecommendImageListResponseDto> getRecommendImages(@PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<? super GetRecommendImageListResponseDto> response = imageService.getRecommendImages(recommendId);
+    @DeleteMapping("/attraction/{attractionId}/image/{imageId}")
+    public ResponseEntity<ResponseDto> deleteAttractionImage(@PathVariable("imageId") Integer imageId, @PathVariable("attractionId") Integer attractionId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = attractionImageService.deleteAttractionImage(imageId, attractionId, userId);
+        return response;
+    }
+
+    @PostMapping("/food/{foodId}")
+    public ResponseEntity<ResponseDto> postFoodImage(@Valid @RequestBody PostFoodImageRequestDto request, @PathVariable("foodId") Integer foodId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = foodImageService.postFoodImage(request, foodId, userId);
+        return response;
+    }
+
+    @DeleteMapping("/food/{foodId}/image/{imageId}")
+    public ResponseEntity<ResponseDto> deleteFoodImage(@PathVariable("imageId") Integer imageId, @PathVariable("foodId") Integer foodId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = foodImageService.deleteFoodImage(imageId, foodId, userId);
+        return response;
+    }
+
+    @PostMapping("/mission/{missionId}")
+    public ResponseEntity<ResponseDto> postAttractionImage(@Valid @RequestBody PostMissionImageRequestDto request, @PathVariable("missionId") Integer missionId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = missionImageService.postMissionImage(request, missionId, userId);
+        return response;
+    }
+
+    @DeleteMapping("/mission/{missionId}/image/{imageId}")
+    public ResponseEntity<ResponseDto> deleteMissionImage(@PathVariable("imageId") Integer imageId, @PathVariable("missionId") Integer missionId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = missionImageService.deleteMissionImage(imageId, missionId, userId);
         return response;
     }
 
