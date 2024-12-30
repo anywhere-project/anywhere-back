@@ -25,9 +25,9 @@ public class AttractionServiceImplement implements AttractionService {
 
         List<AttractionsEntity> attractionsEntities = null;
 
-                try {
+        try {
 
-                    attractionsEntities = attractionRepository.findAll();
+            attractionsEntities = attractionRepository.findAll();
             if (attractionsEntities == null || attractionsEntities.isEmpty())
                 return GetAttractionResponseDto.noExistAttractionId();
 
@@ -37,15 +37,14 @@ public class AttractionServiceImplement implements AttractionService {
         }
         List<Attractions> attractions = attractionsEntities.stream()
                 .map(attractionsEntity -> new Attractions(
-                    attractionsEntity.getAttractionId(), 
-                    attractionsEntity.getAreaId(),
-                    attractionsEntity.getAttractionName(),
-                    attractionsEntity.getAttractionAddress()
-                    ))
+                        attractionsEntity.getAttractionId(),
+                        attractionsEntity.getAreaId(),
+                        attractionsEntity.getAttractionName(),
+                        attractionsEntity.getAttractionAddress()))
                 .collect(Collectors.toList());
 
         return GetAttractionResponseDto.success(attractions);
 
     }
-    
+
 }
