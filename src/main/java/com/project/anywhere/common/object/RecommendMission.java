@@ -33,7 +33,7 @@ public class RecommendMission {
 
             for (MissionImageEntity imageEntity : imageEntities) {
                 if (imageEntity.getMissionId().equals(missionEntity.getMissionId())) {
-                    filteredImages.add(imageEntity); // Add the whole MissionImageEntity
+                    filteredImages.add(imageEntity);
                 }
             }
 
