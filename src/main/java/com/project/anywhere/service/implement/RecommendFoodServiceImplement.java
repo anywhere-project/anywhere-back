@@ -10,8 +10,10 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
+import com.project.anywhere.entity.FoodImageEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
+import com.project.anywhere.repository.FoodImageRepository;
 import com.project.anywhere.repository.RecommendFoodRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -27,6 +29,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendFoodRepository foodRepository;
+    private final FoodImageRepository imageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendFood(PostRecommendFoodRequestDto dto, Integer recommendId, String userId) {
@@ -37,6 +40,11 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
             RecommendFoodEntity foodEntity = new RecommendFoodEntity(dto, recommendId);
             foodRepository.save(foodEntity);
+
+            for (String image: dto.getImages()) {
+                FoodImageEntity imageEntity = new FoodImageEntity(image, foodEntity.getFoodId());
+                imageRepository.save(imageEntity);
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -98,22 +106,23 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
     @Override
     public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts(Integer recommendId) {
-    
         List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<FoodImageEntity> imageEntities = new ArrayList<>();
         
         try {
 
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
-            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
+            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();;
     
             foodEntities = foodRepository.findByRecommendId(recommendId);
+            imageEntities = imageRepository.findAll();
     
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
     
-        return GetRecommendFoodListResponseDto.success(foodEntities);
+        return GetRecommendFoodListResponseDto.success(foodEntities, imageEntities);
     }
     
     

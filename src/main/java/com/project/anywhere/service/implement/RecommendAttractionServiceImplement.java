@@ -10,8 +10,10 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionReques
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionListResponseDto;
+import com.project.anywhere.entity.AttractionImageEntity;
 import com.project.anywhere.entity.RecommendAttractionEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
+import com.project.anywhere.repository.AttractionImageRepository;
 import com.project.anywhere.repository.RecommendAttractionRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -27,6 +29,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendAttractionRepository attractionRepository;
+    private final AttractionImageRepository imageRepository;
     
     @Override
     public ResponseEntity<ResponseDto> postRecommendAttraction(PostRecommendAttractionRequestDto dto, Integer recommendId, String userId) {
@@ -37,8 +40,12 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
             RecommendAttractionEntity attractionEntity = new RecommendAttractionEntity(dto, recommendId);
-            attractionEntity.setRecommendId(recommendId);
             attractionRepository.save(attractionEntity);
+
+            for (String image: dto.getImages()) {
+                AttractionImageEntity imageEntity = new AttractionImageEntity(image, attractionEntity.getAttractionId());
+                imageRepository.save(imageEntity);
+            }
 
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -105,24 +112,24 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
 
     @Override
     public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionPosts(Integer recommendId) {
-    
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
-        
+        List<AttractionImageEntity> imageEntities = new ArrayList<>();
+
         try {
 
             boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
-    
+
             attractionEntities = attractionRepository.findByRecommendId(recommendId);
-    
+            imageEntities = imageRepository.findAll();
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-    
-        return GetRecommendAttractionListResponseDto.success(attractionEntities);
+
+        return GetRecommendAttractionListResponseDto.success(attractionEntities, imageEntities);
     }
-    
     
 
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.project.anywhere.dto.request.recommend.PatchRecommendPostRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
-import com.project.anywhere.dto.request.recommend.PostRecommendImageRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
@@ -16,7 +15,6 @@ import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
-import com.project.anywhere.service.RecommendImageService;
 import com.project.anywhere.service.RecommendMissionService;
 import com.project.anywhere.service.RecommendPostService;
 
@@ -32,7 +30,6 @@ public class RecommendPostServiceImplement implements RecommendPostService {
     private final RecommendAttractionService attractionService;
     private final RecommendMissionService missionService;
     private final RecommendFoodService foodService;
-    private final RecommendImageService imageService;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendPost(PostRecommendPostRequestDto dto, String userId) {
@@ -60,10 +57,6 @@ public class RecommendPostServiceImplement implements RecommendPostService {
                 for (PostRecommendMissionRequestDto postDto: dto.getMissions()) {
                     missionService.postRecommendMission(postDto, postEntity.getRecommendId(), userId);
                 }
-            }
-
-            for (PostRecommendImageRequestDto imageDto : dto.getImages()) {
-                imageService.postRecommendImage(imageDto, postEntity.getRecommendId(), userId);
             }
 
         } catch(Exception exception) {
@@ -104,10 +97,6 @@ public class RecommendPostServiceImplement implements RecommendPostService {
                 for (PostRecommendMissionRequestDto postDto: dto.getMissions()) {
                     missionService.postRecommendMission(postDto, postEntity.getRecommendId(), userId);
                 }
-            }
-
-            for (PostRecommendImageRequestDto imageDto : dto.getImages()) {
-                imageService.postRecommendImage(imageDto, postEntity.getRecommendId(), userId);
             }
 
         } catch (Exception exception) {

@@ -10,8 +10,10 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDt
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionListResponseDto;
+import com.project.anywhere.entity.MissionImageEntity;
 import com.project.anywhere.entity.RecommendMissionEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
+import com.project.anywhere.repository.MissionImageRepository;
 import com.project.anywhere.repository.RecommendMissionRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -27,6 +29,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendMissionRepository missionRepository;
+    private final MissionImageRepository imageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendMission(PostRecommendMissionRequestDto dto, Integer recommendId, String userId) {
@@ -38,6 +41,11 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
 
             RecommendMissionEntity missionEntity = new RecommendMissionEntity(dto, recommendId);
             missionRepository.save(missionEntity);
+
+            for (String image: dto.getImages()) {
+                MissionImageEntity imageEntity = new MissionImageEntity(image, missionEntity.getMissionId());
+                imageRepository.save(imageEntity);
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -102,6 +110,7 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
     @Override
     public ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionPosts(Integer recommendId) {
         List<RecommendMissionEntity> missionEntities = new ArrayList<>();
+        List<MissionImageEntity> imageEntities = new ArrayList<>();
         
         try {
 
@@ -109,13 +118,14 @@ public class RecommendMissionServiceImplement implements RecommendMissionService
             if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
 
             missionEntities = missionRepository.findByRecommendId(recommendId);
+            imageEntities = imageRepository.findAll();
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        return GetRecommendMissionListResponseDto.success(missionEntities);
+        return GetRecommendMissionListResponseDto.success(missionEntities, imageEntities);
     }    
 
 }
