@@ -17,6 +17,8 @@ public interface ResponseMessage {
     String NO_EXIST_USER_ID = "No exist user id.";
     String NO_EXIST_AREA_ID = "No exist area id.";
     String NO_EXIST_ATTRACTION_ID = "No exist attraction id.";
+    String NO_EXIST_FOOD_ID = "No exist food id.";
+    String NO_EXIST_MISSION_ID = "No exist mission id.";
     String NO_EXIST_TEL_NUMBER = "No exist tel number.";
     String NO_EXIST_RECOMMEND_POST = "No exist recommend post.";
     String NO_EXIST_RECOMMEND_ATTRACTION = "No exist recommend attraction.";
