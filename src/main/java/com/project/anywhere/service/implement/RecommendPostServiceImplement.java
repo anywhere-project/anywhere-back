@@ -1,5 +1,8 @@
 package com.project.anywhere.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +12,7 @@ import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendPostRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
-import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -134,20 +137,19 @@ public class RecommendPostServiceImplement implements RecommendPostService {
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendPostResponseDto> getRecommendPost(Integer recommendId) {
-        RecommendPostEntity postEntity = null;
+    public ResponseEntity<? super GetRecommendPostListResponseDto> getRecommendPosts(String category) {
+        List<RecommendPostEntity> postEntities = new ArrayList<>();
 
         try {
 
-            postEntity = postRepository.findByRecommendId(recommendId);
-            if (postEntity == null) return ResponseDto.noExistRecommendPost();
+            postEntities = postRepository.findByRecommendCategory(category);
 
-        } catch(Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendPostResponseDto.success(postEntity);
+        return GetRecommendPostListResponseDto.success(postEntities);
     }
 
 }

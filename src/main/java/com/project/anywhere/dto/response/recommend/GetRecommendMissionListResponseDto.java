@@ -16,7 +16,7 @@ import lombok.Getter;
 
 @Getter
 public class GetRecommendMissionListResponseDto extends ResponseDto {
-
+    
     private List<RecommendMission> missions;
 
     private GetRecommendMissionListResponseDto(List<RecommendMissionEntity> missionEntities, List<MissionImageEntity> imageEntities) {

@@ -6,11 +6,13 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendMissionRequestDt
 import com.project.anywhere.dto.request.recommend.PostRecommendMissionRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendMissionPostResponseDto;
 
 public interface RecommendMissionService {
 
     ResponseEntity<ResponseDto> postRecommendMission(PostRecommendMissionRequestDto dto, Integer recommendId, String userId);
     ResponseEntity<ResponseDto> patchRecommendMission(PatchRecommendMissionRequestDto dto, Integer recommendId, Integer missionId, String userId);
     ResponseEntity<ResponseDto> deleteRecommendMission(Integer recommendId, Integer missionId, String userId);
-    ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionPosts(Integer recommendId);
+    ResponseEntity<? super GetRecommendMissionPostResponseDto> getRecommendMissionPost(Integer recommendId);
+    ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionsPosts();
 }
