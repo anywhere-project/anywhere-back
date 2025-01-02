@@ -29,6 +29,7 @@ import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseD
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodPostResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendMissionPostResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
 import com.project.anywhere.service.AttractionImageService;
 import com.project.anywhere.service.FoodImageService;
 import com.project.anywhere.service.MissionImageService;
@@ -64,6 +65,12 @@ public class RecommendController {
     @PatchMapping("/{recommendId}/{category}")
     public ResponseEntity<ResponseDto> patchRecommendPost(@RequestBody @Valid PatchRecommendPostRequestDto request, @PathVariable("category") String category, @PathVariable("recommendId") Integer recommendId, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = recommendPostService.patchRecommendPost(request, category, recommendId, userId);
+        return response;
+    }
+
+    @GetMapping("/{category}")
+    public ResponseEntity<? super GetRecommendPostListResponseDto> getRecommendPosts(@PathVariable("category") String category) {
+        ResponseEntity<? super GetRecommendPostListResponseDto> response = recommendPostService.getRecommendPosts(category);
         return response;
     }
 
