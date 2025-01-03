@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
+import com.project.anywhere.dto.request.review.PostReviewImagesRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
@@ -39,16 +40,16 @@ public class ReviewPostServiceImplement implements ReviewPostService{
         try {
 
             ReviewPostEntity reviewEntity = new ReviewPostEntity(dto);
-            ReviewImagesEntity reviewImagesEntity = new ReviewImagesEntity();
             UsersEntity userEntity = userRepository.findByUserId(userId);
 
             if(userEntity == null) return ResponseDto.noExistUserId();
             
             reviewEntity.setReviewWriter(userId);
             reviewRepository.save(reviewEntity);
-            reviewImagesEntity.setImageUrl(dto.getImageUrl());
-            reviewImagesEntity.setReviewId(reviewEntity.getReviewId());
-            reviewImagesRepository.save(reviewImagesEntity);
+            for (PostReviewImagesRequestDto image: dto.getImages()) {
+                ReviewImagesEntity reviewImagesEntity = new ReviewImagesEntity(image, reviewEntity.getReviewId());
+                reviewImagesRepository.save(reviewImagesEntity);
+            }
 
             for (String tagName: dto.getHashtags()) {
                 HashTagEntity hashTagEntity = new HashTagEntity(tagName, reviewEntity.getReviewId());
