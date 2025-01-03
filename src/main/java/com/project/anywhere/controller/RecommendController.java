@@ -69,7 +69,7 @@ public class RecommendController {
         return response;
     }
 
-    @GetMapping("/{recommendId}")
+    @GetMapping("/post/{recommendId}")
     public ResponseEntity<? super GetRecommendPostResponseDto> getRecommendPost(@PathVariable("recommendId") Integer recommendId) {
         ResponseEntity<? super GetRecommendPostResponseDto> response = recommendPostService.getRecommendPost(recommendId);
         return response;
