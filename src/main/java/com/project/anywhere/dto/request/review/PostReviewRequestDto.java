@@ -15,7 +15,7 @@ public class PostReviewRequestDto {
     @NotBlank
     private String reviewContent;
     @NotBlank
-    private String imageUrl;
+    private List<PostReviewImagesRequestDto> images;
     private List<String> hashtags;
     
 }

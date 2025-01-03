@@ -1,6 +1,6 @@
 package com.project.anywhere.entity;
 
-import com.project.anywhere.dto.request.reviewImages.PostReviewImagesRequestDto;
+import com.project.anywhere.dto.request.review.PostReviewImagesRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
