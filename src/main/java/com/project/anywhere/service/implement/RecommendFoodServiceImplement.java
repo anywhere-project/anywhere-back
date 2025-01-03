@@ -10,6 +10,7 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendFoodPostResponseDto;
 import com.project.anywhere.entity.FoodImageEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
@@ -105,7 +106,7 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts(Integer recommendId) {
+    public ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFoodPost(Integer recommendId) {
         List<RecommendFoodEntity> foodEntities = new ArrayList<>();
         List<FoodImageEntity> imageEntities = new ArrayList<>();
         
@@ -122,6 +123,24 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
             return ResponseDto.databaseError();
         }
     
+        return GetRecommendFoodPostResponseDto.success(foodEntities, imageEntities);
+    }
+
+    @Override
+    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts() {        
+        List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<FoodImageEntity> imageEntities = new ArrayList<>();
+
+        try {
+
+            foodEntities = foodRepository.findAll();
+            imageEntities = imageRepository.findAll();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
         return GetRecommendFoodListResponseDto.success(foodEntities, imageEntities);
     }
     

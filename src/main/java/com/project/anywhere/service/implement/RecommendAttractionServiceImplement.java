@@ -10,6 +10,7 @@ import com.project.anywhere.dto.request.recommend.PatchRecommendAttractionReques
 import com.project.anywhere.dto.request.recommend.PostRecommendAttractionRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendAttractionPostResponseDto;
 import com.project.anywhere.entity.AttractionImageEntity;
 import com.project.anywhere.entity.RecommendAttractionEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
@@ -111,7 +112,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionPosts(Integer recommendId) {
+    public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttractionPost(Integer recommendId) {
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
         List<AttractionImageEntity> imageEntities = new ArrayList<>();
 
@@ -124,6 +125,24 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
             imageEntities = imageRepository.findAll();
 
         } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRecommendAttractionPostResponseDto.success(attractionEntities, imageEntities);
+    }
+
+    @Override
+    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionsPosts() {
+        List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
+        List<AttractionImageEntity> imageEntities = new ArrayList<>();
+
+        try {
+
+            attractionEntities = attractionRepository.findAll();
+            imageEntities = imageRepository.findAll();
+
+        } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }

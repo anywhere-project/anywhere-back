@@ -14,5 +14,6 @@ public interface RecommendPostRepository extends JpaRepository<RecommendPostEnti
     RecommendPostEntity findByRecommendId(Integer recommendId);
     void deleteByRecommendId(Integer recommendId);
     List<RecommendPostEntity> findAllByOrderByRecommendIdDesc();
+    List<RecommendPostEntity> findByRecommendCategory(String recommendCategory);
 
 }

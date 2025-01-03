@@ -16,7 +16,7 @@ import lombok.Getter;
 
 @Getter
 public class GetRecommendAttractionListResponseDto extends ResponseDto {
-
+    
     private List<RecommendAttraction> attractions;
 
     private GetRecommendAttractionListResponseDto(List<RecommendAttractionEntity> attractionEntities, List<AttractionImageEntity> imageEntities) {
@@ -28,4 +28,5 @@ public class GetRecommendAttractionListResponseDto extends ResponseDto {
         GetRecommendAttractionListResponseDto responseBody = new GetRecommendAttractionListResponseDto(attractionEntities, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

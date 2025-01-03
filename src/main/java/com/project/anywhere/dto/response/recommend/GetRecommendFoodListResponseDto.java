@@ -15,8 +15,8 @@ import com.project.anywhere.entity.RecommendFoodEntity;
 import lombok.Getter;
 
 @Getter
-public class GetRecommendFoodListResponseDto extends ResponseDto {
-
+public class GetRecommendFoodListResponseDto extends ResponseDto  {
+    
     private List<RecommendFood> foods;
 
     private GetRecommendFoodListResponseDto(List<RecommendFoodEntity> foodEntities, List<FoodImageEntity> imageEntities) {
@@ -28,4 +28,5 @@ public class GetRecommendFoodListResponseDto extends ResponseDto {
         GetRecommendFoodListResponseDto responseBody = new GetRecommendFoodListResponseDto(foodEntities, imageEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }
