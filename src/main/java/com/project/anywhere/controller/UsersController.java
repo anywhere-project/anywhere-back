@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.anywhere.dto.request.users.PatchUsersRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.users.GetUserInfoResponseDto;
 import com.project.anywhere.dto.response.users.GetUsersResponseDto;
 import com.project.anywhere.service.UsersService;
 
@@ -33,7 +34,7 @@ public class UsersController {
 
     }
     @GetMapping("/{userId}")
-    public ResponseEntity<? super GetUsersResponseDto> getUserInfo(
+    public ResponseEntity<? super GetUsersResponseDto> getUser(
         @PathVariable("userId") String userId
     ){
         ResponseEntity<? super GetUsersResponseDto> response = usersService.getUser(userId);
@@ -47,6 +48,12 @@ public class UsersController {
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<ResponseDto> response = usersService.patchUser(request,userId);
+        return response;
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(@PathVariable("userId") String userId) {
+        ResponseEntity<? super GetUserInfoResponseDto> response = usersService.getUserInfo(userId);
         return response;
     }
     

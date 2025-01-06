@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.users.PatchUsersRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.users.GetUserInfoResponseDto;
 import com.project.anywhere.dto.response.users.GetUsersResponseDto;
 import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.repository.UserRepository;
@@ -72,6 +73,23 @@ public class UsersServiceImplement implements UsersService{
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(String userId) {
+
+        UsersEntity usersEntity = null;
+
+        try {
+
+            usersEntity = userRepository.findByUserId(userId);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetUserInfoResponseDto.success(usersEntity);
     }
 
 
