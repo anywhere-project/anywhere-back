@@ -60,24 +60,6 @@ public class FileServiceImplement implements FileService {
     }
 
     @Override
-    public List<Resource> getFiles(List<String> fileNames) {
-        List<Resource> resources = new ArrayList<>();
-
-        for (String fileName : fileNames) {
-            try {
-                // description: 파일 저장 경로에 있는 파일명에 해당하는 파일 불러오기 //
-                Resource resource = new UrlResource("file:" + filePath + fileName);
-                resources.add(resource);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                resources.add(null); // 오류 발생 시 null 추가
-            }
-        }
-
-        return resources;
-    }
-
-    @Override
     public Resource getFile(String fileName) {
         
         Resource resource = null;

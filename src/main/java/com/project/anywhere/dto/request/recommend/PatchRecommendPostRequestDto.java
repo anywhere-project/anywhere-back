@@ -13,12 +13,10 @@ import lombok.Setter;
 public class PatchRecommendPostRequestDto {
 
     @Valid
-    private PatchRecommendFoodRequestDto food;
+    private List<PostRecommendFoodRequestDto> foods;
     @Valid
-    private PatchRecommendAttractionRequestDto attraction;
+    private List<PostRecommendAttractionRequestDto> attractions;
     @Valid
-    private PatchRecommendMissionRequestDto mission;
-    @Valid
-    private List<PatchRecommendImageRequestDto> images;
-
+    private List<PostRecommendMissionRequestDto> missions;
+    
 }

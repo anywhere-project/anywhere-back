@@ -18,6 +18,8 @@ public interface ResponseCode {
     String NO_EXIST_USER_ID = "NI";
     String NO_EXIST_AREA_ID = "NA";
     String NO_EXIST_ATTRACTION_ID = "NAT";
+    String NO_EXIST_FOOD_ID = "NAF";
+    String NO_EXIST_MISSION_ID = "NAM";
     String NO_EXIST_TEL_NUMBER = "NT";
     String NO_EXIST_RECOMMEND_POST = "NRP";
     String NO_EXIST_RECOMMEND_ATTRACTION = "NRA";

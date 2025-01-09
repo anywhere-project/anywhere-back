@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.project.anywhere.common.object.Areas;
 import com.project.anywhere.common.object.Attractions;
 import com.project.anywhere.dto.response.ResponseCode;
 import com.project.anywhere.dto.response.ResponseDto;

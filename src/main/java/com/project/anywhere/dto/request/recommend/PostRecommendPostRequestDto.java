@@ -3,6 +3,7 @@ package com.project.anywhere.dto.request.recommend;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,14 +12,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostRecommendPostRequestDto {
-    
+
+    @NotBlank
+    private String recommendCategory;
     @Valid
-    private PostRecommendFoodRequestDto food;
+    private List<PostRecommendFoodRequestDto> foods;
     @Valid
-    private PostRecommendAttractionRequestDto attraction;
+    private List<PostRecommendAttractionRequestDto> attractions;
     @Valid
-    private PostRecommendMissionRequestDto mission;
-    @Valid
-    private List<PostRecommendImageRequestDto> images;
+    private List<PostRecommendMissionRequestDto> missions;
 
 }

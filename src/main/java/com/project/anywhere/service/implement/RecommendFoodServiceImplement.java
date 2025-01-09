@@ -1,13 +1,20 @@
 package com.project.anywhere.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.recommend.PatchRecommendFoodRequestDto;
 import com.project.anywhere.dto.request.recommend.PostRecommendFoodRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendFoodListResponseDto;
+import com.project.anywhere.dto.response.recommend.GetRecommendFoodPostResponseDto;
+import com.project.anywhere.entity.FoodImageEntity;
 import com.project.anywhere.entity.RecommendFoodEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
+import com.project.anywhere.repository.FoodImageRepository;
 import com.project.anywhere.repository.RecommendFoodRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -23,23 +30,22 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
     private final UserRepository userRepository;
     private final RecommendPostRepository postRepository;
     private final RecommendFoodRepository foodRepository;
+    private final FoodImageRepository imageRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postRecommendFood(PostRecommendFoodRequestDto dto, Integer recommendId, String userId) {
 
         try {
-            
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
-            boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
-            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();
-
-            boolean isAlreadyRecommended = foodRepository.existsByRecommendId(recommendId);
-            if (isAlreadyRecommended) return ResponseDto.alreadyRecommend();
-
             RecommendFoodEntity foodEntity = new RecommendFoodEntity(dto, recommendId);
             foodRepository.save(foodEntity);
+
+            for (String image: dto.getImages()) {
+                FoodImageEntity imageEntity = new FoodImageEntity(image, foodEntity.getFoodId());
+                imageRepository.save(imageEntity);
+            }
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -51,37 +57,34 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
     @Override
     public ResponseEntity<ResponseDto> patchRecommendFood(PatchRecommendFoodRequestDto dto, Integer recommendId, Integer foodId, String userId) {
-    
-        try {
 
+        try {
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
-    
+
             RecommendPostEntity postEntity = postRepository.findByRecommendId(recommendId);
             if (postEntity == null) return ResponseDto.noExistRecommendPost();
-
             if (!postEntity.getRecommendWriter().equals(userId)) return ResponseDto.noPermission();
 
             RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
-    
+            if (foodEntity == null) return ResponseDto.noExistRecommendFood();
+
             foodEntity.patch(dto);
             foodRepository.save(foodEntity);
-    
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-    
+
         return ResponseDto.success();
     }
-    
 
     @Override
     @Transactional
     public ResponseEntity<ResponseDto> deleteRecommendFood(Integer recommendId, Integer foodId, String userId) {
 
         try {
-
             boolean isExistedUserId = userRepository.existsByUserId(userId);
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
@@ -101,5 +104,45 @@ public class RecommendFoodServiceImplement implements RecommendFoodService {
 
         return ResponseDto.success();
     }
-}
 
+    @Override
+    public ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFoodPost(Integer recommendId) {
+        List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<FoodImageEntity> imageEntities = new ArrayList<>();
+        
+        try {
+
+            boolean isExistedRecommendPost = postRepository.existsByRecommendId(recommendId);
+            if (!isExistedRecommendPost) return ResponseDto.noExistRecommendPost();;
+    
+            foodEntities = foodRepository.findByRecommendId(recommendId);
+            imageEntities = imageRepository.findAll();
+    
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    
+        return GetRecommendFoodPostResponseDto.success(foodEntities, imageEntities);
+    }
+
+    @Override
+    public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts() {        
+        List<RecommendFoodEntity> foodEntities = new ArrayList<>();
+        List<FoodImageEntity> imageEntities = new ArrayList<>();
+
+        try {
+
+            foodEntities = foodRepository.findAll();
+            imageEntities = imageRepository.findAll();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRecommendFoodListResponseDto.success(foodEntities, imageEntities);
+    }
+    
+    
+}

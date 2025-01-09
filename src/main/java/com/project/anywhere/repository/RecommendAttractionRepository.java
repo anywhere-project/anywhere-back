@@ -1,5 +1,7 @@
 package com.project.anywhere.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +12,7 @@ public interface RecommendAttractionRepository extends JpaRepository<RecommendAt
     
     boolean existsByRecommendId(Integer recommendId);
     RecommendAttractionEntity findByAttractionId(Integer attractionId);
-    RecommendAttractionEntity findByRecommendId(Integer recommendId);
+    List<RecommendAttractionEntity> findByRecommendId(Integer recommendId);
     void deleteByAttractionId(Integer attractionId);
 
 }
