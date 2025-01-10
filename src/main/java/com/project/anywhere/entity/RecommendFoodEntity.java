@@ -27,6 +27,7 @@ public class RecommendFoodEntity {
     private Integer recommendId;
     private String foodName;
     private String foodContent;
+    private Integer foodLike = 0;
 
     public RecommendFoodEntity(PostRecommendFoodRequestDto dto, Integer recommendId) {
         this.foodName = dto.getFoodName();

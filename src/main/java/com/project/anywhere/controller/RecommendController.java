@@ -32,8 +32,11 @@ import com.project.anywhere.dto.response.recommend.GetRecommendMissionPostRespon
 import com.project.anywhere.dto.response.recommend.GetRecommendPostListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendPostResponseDto;
 import com.project.anywhere.service.AttractionImageService;
+import com.project.anywhere.service.AttractionLikeService;
 import com.project.anywhere.service.FoodImageService;
+import com.project.anywhere.service.FoodLikeService;
 import com.project.anywhere.service.MissionImageService;
+import com.project.anywhere.service.MissionLikeService;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
 import com.project.anywhere.service.RecommendLikeService;
@@ -56,6 +59,9 @@ public class RecommendController {
     private final FoodImageService foodImageService;
     private final MissionImageService missionImageService;
     private final AttractionImageService attractionImageService;
+    private final AttractionLikeService attractionLikeService;
+    private final FoodLikeService foodLikeService;
+    private final MissionLikeService missionLikeService;
 
     @PostMapping(value = { "", "/" })
     public ResponseEntity<ResponseDto> postRecommendPost(@RequestBody @Valid PostRecommendPostRequestDto request, @AuthenticationPrincipal String userId) {
@@ -216,6 +222,27 @@ public class RecommendController {
     @DeleteMapping("/mission/{missionId}/image/{imageId}")
     public ResponseEntity<ResponseDto> deleteMissionImage(@PathVariable("imageId") Integer imageId, @PathVariable("missionId") Integer missionId, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = missionImageService.deleteMissionImage(imageId, missionId, userId);
+        return response;
+    }
+
+    @PostMapping("/attraction/like/{attractionId}")
+    public ResponseEntity<ResponseDto> attractionLike(@PathVariable("attractionId") Integer attractionId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = attractionLikeService.attractionLike(attractionId, userId);
+        return response;
+    }
+
+    @PostMapping("/food/like/{foodId}")
+    public ResponseEntity<ResponseDto> foodLike(@PathVariable("foodId") Integer foodId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = foodLikeService.foodLike(foodId, userId);
+        return response;
+    }
+
+    @PostMapping("/mission/like/{missionId}")
+    public ResponseEntity<ResponseDto> missionLike(@PathVariable("missionId") Integer missionId,
+            @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = missionLikeService.missionLike(missionId, userId);
         return response;
     }
 
