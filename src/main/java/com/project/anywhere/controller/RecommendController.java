@@ -39,7 +39,6 @@ import com.project.anywhere.service.MissionImageService;
 import com.project.anywhere.service.MissionLikeService;
 import com.project.anywhere.service.RecommendAttractionService;
 import com.project.anywhere.service.RecommendFoodService;
-import com.project.anywhere.service.RecommendLikeService;
 import com.project.anywhere.service.RecommendMissionService;
 import com.project.anywhere.service.RecommendPostService;
 
@@ -51,7 +50,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecommendController {
 
-    private final RecommendLikeService likeService;
     private final RecommendFoodService foodService;
     private final RecommendMissionService missionService;
     private final RecommendPostService recommendPostService;
@@ -180,12 +178,6 @@ public class RecommendController {
     @DeleteMapping("/{recommendId}/mission/{missionId}")
     public ResponseEntity<ResponseDto> deleteRecommendMission(@PathVariable("recommendId") Integer recommendId, @PathVariable("missionId") Integer missionId, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> response = missionService.deleteRecommendMission(recommendId, missionId, userId);
-        return response;
-    }
-
-    @PostMapping("/{recommendId}/like")
-    public ResponseEntity<ResponseDto> recommendLike(@AuthenticationPrincipal String userId, @PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<ResponseDto> response = likeService.recommendLike(userId, recommendId);
         return response;
     }
 
