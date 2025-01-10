@@ -1,7 +1,5 @@
 package com.project.anywhere.entity;
 
-import com.project.anywhere.dto.request.review.PostReviewImagesRequestDto;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,12 +23,12 @@ public class ReviewImagesEntity {
     private Integer imageId;
     private Integer reviewId;
     private String imageUrl;
-    private Integer imageOrder=0;
+    private Integer imageOrder;
 
-    public ReviewImagesEntity(PostReviewImagesRequestDto dto, Integer reviewId){
-        this.imageUrl = dto.getImageUrl();
-        this.imageOrder = dto.getImageOrder();
+    public ReviewImagesEntity(String image, Integer reviewId, Integer imageOrder){
+        this.imageUrl = image;
         this.reviewId = reviewId;
+        this.imageOrder = (imageOrder == null) ? 0 : imageOrder;
     }
 
 }

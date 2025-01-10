@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.anywhere.dto.request.review.PatchReviewRequestDto;
-import com.project.anywhere.dto.request.review.PostReviewImagesRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
@@ -46,8 +45,10 @@ public class ReviewPostServiceImplement implements ReviewPostService{
             
             reviewEntity.setReviewWriter(userId);
             reviewRepository.save(reviewEntity);
-            for (PostReviewImagesRequestDto image: dto.getImages()) {
-                ReviewImagesEntity reviewImagesEntity = new ReviewImagesEntity(image, reviewEntity.getReviewId());
+
+            for (String image: dto.getImages()) {
+                Integer maxImageOrder = reviewImagesRepository.findMaxImageOrderByReviewId(reviewEntity.getReviewId());
+                ReviewImagesEntity reviewImagesEntity = new ReviewImagesEntity(image, reviewEntity.getReviewId(), maxImageOrder + 1);
                 reviewImagesRepository.save(reviewImagesEntity);
             }
 

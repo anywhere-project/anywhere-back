@@ -3,6 +3,7 @@ package com.project.anywhere.dto.request.review;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,8 +15,8 @@ public class PostReviewRequestDto {
 
     @NotBlank
     private String reviewContent;
-    @NotBlank
-    private List<PostReviewImagesRequestDto> images;
+    @NotEmpty
+    private List<String> images;
     private List<String> hashtags;
     
 }
