@@ -28,6 +28,7 @@ public class RecommendAttractionEntity {
     private String attractionName;
     private String attractionAddress;
     private String attractionContent;
+    private Integer attractionLike = 0;
 
     public RecommendAttractionEntity(PostRecommendAttractionRequestDto dto, Integer recommendId) {
         this.attractionName = dto.getAttractionName();

@@ -1,6 +1,6 @@
 package com.project.anywhere.entity;
 
-import com.project.anywhere.entity.pk.RecommendLikePk;
+import com.project.anywhere.entity.pk.MissionLikePk;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,19 +13,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "recommend_likes")
-@Entity(name = "recommend_likes")
-@IdClass(RecommendLikePk.class)
-public class RecommendLikeEntity {
+@Table(name = "mission_like")
+@Entity(name = "mission_like")
+@IdClass(MissionLikePk.class)
+public class MissionLikeEntity {
 
     @Id
     private String userId;
+    
     @Id
-    private Integer recommendId;
-
-    public RecommendLikeEntity(String userId, Integer recommendId) {
+    private Integer missionId;
+    
+    public MissionLikeEntity(String userId, Integer missionId) {
         this.userId = userId;
-        this.recommendId = recommendId;
+        this.missionId = missionId;
     }
     
 }

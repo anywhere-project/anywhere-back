@@ -27,6 +27,7 @@ public class RecommendMissionEntity {
     private Integer recommendId;
     private String missionName;
     private String missionContent;
+    private Integer missionLike = 0;
 
     public RecommendMissionEntity(PostRecommendMissionRequestDto dto, Integer recommendId) {
         this.missionName = dto.getMissionName();

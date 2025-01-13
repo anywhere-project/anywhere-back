@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.project.anywhere.dto.response.ResponseDto;
 
-public interface RecommendLikeService {
+public interface AttractionLikeService {
     
-    ResponseEntity<ResponseDto> recommendLike(String userId, Integer recommendId);
-    
+    ResponseEntity<ResponseDto> attractionLike(Integer attractionId, String userId);
+
 }

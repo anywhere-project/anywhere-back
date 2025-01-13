@@ -12,11 +12,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecommendLikePk implements Serializable {
+public class FoodLikePk implements Serializable {
 
     @Column(name = "user_id")
     private String userId;
-    @Column(name = "recommend_id")
-    private Integer recommendId;
+    
+    @Column(name = "food_id")
+    private Integer foodId;
     
 }
