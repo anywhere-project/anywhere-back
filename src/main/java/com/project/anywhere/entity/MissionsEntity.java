@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.roulette.PostMissionRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,4 +24,9 @@ public class MissionsEntity {
     private Integer missionId;
     private String missionName;
     private String missionContent;
+
+    public MissionsEntity(PostMissionRequestDto dto) {
+        this.missionName = dto.getMissionName();
+        this.missionContent = dto.getMissionContent();
+    }
 }

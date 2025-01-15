@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.roulette.PostFoodRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,4 +23,8 @@ public class FoodEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer foodId;
     private String foodName;
+
+    public FoodEntity(PostFoodRequestDto dto) {
+        this.foodName = dto.getFoodName();
+    }
 }

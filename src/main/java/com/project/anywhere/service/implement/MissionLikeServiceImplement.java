@@ -31,7 +31,7 @@ public class MissionLikeServiceImplement implements MissionLikeService {
             if (usersEntity == null) return ResponseDto.noExistUserId();
 
             RecommendMissionEntity missionEntity = missionRepository.findByMissionId(missionId);
-            if (missionEntity == null) return ResponseDto.noExistMissionId();
+            if (missionEntity == null) return ResponseDto.noExistRecommendMission();
 
             boolean isLiked = likeRepository.existsByUserIdAndMissionId(userId, missionId);
             if (isLiked) {
