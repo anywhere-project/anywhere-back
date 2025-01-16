@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.roulette.PostAreaRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,4 +23,8 @@ public class AreasEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer areaId;
     private String areaName;
+
+    public AreasEntity(PostAreaRequestDto dto) {
+        this.areaName = dto.getAreaName();
+    }
 }

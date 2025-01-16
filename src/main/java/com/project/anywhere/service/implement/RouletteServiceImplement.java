@@ -3,6 +3,7 @@ package com.project.anywhere.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.anywhere.dto.request.roulette.PostAreaRequestDto;
 import com.project.anywhere.dto.request.roulette.PostAttractionRequestDto;
 import com.project.anywhere.dto.request.roulette.PostFoodRequestDto;
 import com.project.anywhere.dto.request.roulette.PostMissionRequestDto;
@@ -31,7 +32,55 @@ public class RouletteServiceImplement implements RouletteService {
     private final FoodRepository foodRepository;
     private final MissionRepository missionRepository;
     private final AreaRepository areaRepository;
+    
+    @Override
+    public ResponseEntity<ResponseDto> postArea(PostAreaRequestDto dto, String userId) {
 
+        try {
+
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+            if (usersEntity == null) return ResponseDto.noExistUserId();
+
+            if (!usersEntity.getIsAdmin()) {
+                return ResponseDto.noPermission();
+            }
+
+            AreasEntity areasEntity = new AreasEntity(dto);
+            areaRepository.save(areasEntity);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<ResponseDto> deleteArea(Integer areaId, String userId) {
+
+        try {
+
+            AreasEntity areasEntity = areaRepository.findByAreaId(areaId);
+            if (areasEntity == null) return ResponseDto.noExistAreaId();
+
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+            if (usersEntity == null) return ResponseDto.noExistUserId();
+
+            if (!usersEntity.getIsAdmin()) {
+                return ResponseDto.noPermission();
+            }
+
+            areaRepository.deleteByAreaId(areaId);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
     
     @Override
     public ResponseEntity<ResponseDto> postAttraction(PostAttractionRequestDto dto, Integer areaId, String userId) {
