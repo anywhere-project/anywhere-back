@@ -32,7 +32,7 @@ public class AttractionImageServiceImplement implements AttractionImageService {
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
-            if (attractionEntity == null) return ResponseDto.noExistAttractionId();
+            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
 
             AttractionImageEntity imageEntity = new AttractionImageEntity(dto.getImageUrl(), attractionId);
             imageRepository.save(imageEntity);
@@ -55,7 +55,7 @@ public class AttractionImageServiceImplement implements AttractionImageService {
             if (!isExistedUserId) return ResponseDto.noExistUserId();
 
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
-            if (attractionEntity == null) return ResponseDto.noExistAttractionId();
+            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
 
             boolean isExistedImage = imageRepository.existsByImageId(imageId);
             if (!isExistedImage) return ResponseDto.noExistRecommendImage();

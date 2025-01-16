@@ -31,7 +31,7 @@ public class AttractionLikeServiceImplement implements AttractionLikeService {
             if (usersEntity == null) return ResponseDto.noExistUserId();
 
             RecommendAttractionEntity attractionEntity = attractionRepository.findByAttractionId(attractionId);
-            if (attractionEntity == null) return ResponseDto.noExistAttractionId();
+            if (attractionEntity == null) return ResponseDto.noExistRecommendAttraction();
 
             boolean isLiked = likeRepository.existsByUserIdAndAttractionId(userId, attractionId);
             if (isLiked) {

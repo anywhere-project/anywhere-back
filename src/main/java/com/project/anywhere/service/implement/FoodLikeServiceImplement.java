@@ -31,7 +31,7 @@ public class FoodLikeServiceImplement implements FoodLikeService {
             if (usersEntity == null) return ResponseDto.noExistUserId();
 
             RecommendFoodEntity foodEntity = foodRepository.findByFoodId(foodId);
-            if (foodEntity == null) return ResponseDto.noExistFoodId();
+            if (foodEntity == null) return ResponseDto.noExistRecommendFood();
 
             boolean isLiked = likeRepository.existsByUserIdAndFoodId(userId, foodId);
             if (isLiked) {

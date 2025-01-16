@@ -7,4 +7,7 @@ import com.project.anywhere.entity.FoodEntity;
 
 public interface FoodRepository extends JpaRepository<FoodEntity, Integer> {
     
+    FoodEntity findByFoodId(Integer foodId);
+    void deleteByFoodId(Integer foodId);
+    
 }

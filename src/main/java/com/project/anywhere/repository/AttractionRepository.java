@@ -6,4 +6,7 @@ import com.project.anywhere.entity.AttractionsEntity;
 
 public interface AttractionRepository extends JpaRepository<AttractionsEntity, Integer> {
     
+    AttractionsEntity findByAttractionId(Integer attractionId);
+    void deleteByAttractionIdAndAreaId(Integer attractionId, Integer araeId);
+
 }

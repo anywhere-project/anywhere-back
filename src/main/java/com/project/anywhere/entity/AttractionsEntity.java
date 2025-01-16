@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.roulette.PostAttractionRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,4 +25,11 @@ public class AttractionsEntity {
     private Integer areaId;
     private String attractionName;
     private String attractionAddress;
+
+    public AttractionsEntity(Integer areaId, PostAttractionRequestDto dto) {
+        this.areaId = areaId;
+        this.attractionName = dto.getAttractionName();
+        this.attractionAddress = dto.getAttractionAddress();
+    }
+
 }
