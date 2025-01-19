@@ -1,5 +1,7 @@
 package com.project.anywhere.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,6 @@ public interface AttractionLikeRepository extends JpaRepository<AttractionLikeEn
     boolean existsByUserIdAndAttractionId(String userId, Integer attractionId);
     @Transactional
     void deleteByUserIdAndAttractionId(String userId, Integer attractionId);
-    
+    List<AttractionLikeEntity> findByAttractionId(Integer attractionId);
     
 }

@@ -1,5 +1,7 @@
 package com.project.anywhere.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,6 @@ public interface MissionLikeRepository extends JpaRepository<MissionLikeEntity, 
     boolean existsByUserIdAndMissionId(String userId, Integer missionId);
     @Transactional
     void deleteByUserIdAndMissionId(String userId, Integer missionId);
-    
+    List<MissionLikeEntity> findByMissionId(Integer missionId);
+
 }

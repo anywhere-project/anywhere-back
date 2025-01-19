@@ -1,5 +1,7 @@
 package com.project.anywhere.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,6 @@ public interface FoodLikeRepository extends JpaRepository<FoodLikeEntity, FoodLi
     boolean existsByUserIdAndFoodId(String userId, Integer foodId);
     @Transactional
     void deleteByUserIdAndFoodId(String userId, Integer foodId);
-    
+    List<FoodLikeEntity> findByFoodId(Integer foodId);
+
 }
