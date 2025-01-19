@@ -115,7 +115,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttractionPost(Integer recommendId) {
+    public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttraction(Integer recommendId) {
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
         List<AttractionImageEntity> imageEntities = new ArrayList<>();
         List<AttractionLikeEntity> likeEntities = new ArrayList<>();
@@ -138,7 +138,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionsPosts() {
+    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractions() {
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
         List<AttractionImageEntity> imageEntities = new ArrayList<>();
         List<AttractionLikeEntity> likeEntities = new ArrayList<>();

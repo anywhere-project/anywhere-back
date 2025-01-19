@@ -13,6 +13,6 @@ public interface RecommendMissionService {
     ResponseEntity<ResponseDto> postRecommendMission(PostRecommendMissionRequestDto dto, Integer recommendId, String userId);
     ResponseEntity<ResponseDto> patchRecommendMission(PatchRecommendMissionRequestDto dto, Integer recommendId, Integer missionId, String userId);
     ResponseEntity<ResponseDto> deleteRecommendMission(Integer recommendId, Integer missionId, String userId);
-    ResponseEntity<? super GetRecommendMissionPostResponseDto> getRecommendMissionPost(Integer recommendId);
-    ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionsPosts();
+    ResponseEntity<? super GetRecommendMissionPostResponseDto> getRecommendMission(Integer recommendId);
+    ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissions();
 }

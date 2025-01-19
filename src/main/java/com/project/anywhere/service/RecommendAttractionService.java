@@ -13,7 +13,7 @@ public interface RecommendAttractionService {
     ResponseEntity<ResponseDto> postRecommendAttraction(PostRecommendAttractionRequestDto dto, Integer recommendId, String userId);
     ResponseEntity<ResponseDto> patchRecommendAttraction(PatchRecommendAttractionRequestDto dto, Integer recommendId, Integer attractionId, String userId);
     ResponseEntity<ResponseDto> deleteRecommendAttraction(Integer recommendId, Integer attractionId, String userId);
-    ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttractionPost(Integer recommendId);
-    ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionsPosts();
+    ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttraction(Integer recommendId);
+    ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractions();
 
 }
