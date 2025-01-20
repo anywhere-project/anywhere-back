@@ -16,6 +16,6 @@ public class PatchReviewRequestDto {
     private String reviewContent;
     @NotBlank
     private String imageUrl;  
-    private List<String> hahstags;
+    private List<String> hashtags;
     
 }
