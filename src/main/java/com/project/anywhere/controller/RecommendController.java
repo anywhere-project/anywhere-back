@@ -99,13 +99,13 @@ public class RecommendController {
 
     @GetMapping("/attractions")
     public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionPosts() {
-        ResponseEntity<? super GetRecommendAttractionListResponseDto> response = attractionService.getRecommendAttractionsPosts();
+        ResponseEntity<? super GetRecommendAttractionListResponseDto> response = attractionService.getRecommendAttractions();
         return response;
     }
 
     @GetMapping("/{recommendId}/attractions")
     public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttractionPost(@PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<? super GetRecommendAttractionPostResponseDto> response = attractionService.getRecommendAttractionPost(recommendId);
+        ResponseEntity<? super GetRecommendAttractionPostResponseDto> response = attractionService.getRecommendAttraction(recommendId);
         return response;
     }
 
@@ -129,13 +129,13 @@ public class RecommendController {
     
     @GetMapping("/foods")
     public ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts() {
-        ResponseEntity<? super GetRecommendFoodListResponseDto> response = foodService.getRecommendFoodPosts();
+        ResponseEntity<? super GetRecommendFoodListResponseDto> response = foodService.getRecommendFoods();
         return response;
     }
 
     @GetMapping("/{recommendId}/foods")
     public ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFoodPost(@PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<? super GetRecommendFoodPostResponseDto> response = foodService.getRecommendFoodPost(recommendId);
+        ResponseEntity<? super GetRecommendFoodPostResponseDto> response = foodService.getRecommendFood(recommendId);
         return response;
     }
 
@@ -159,13 +159,13 @@ public class RecommendController {
 
     @GetMapping("/missions")
     public ResponseEntity<? super GetRecommendMissionListResponseDto> getRecommendMissionPosts() {
-        ResponseEntity<? super GetRecommendMissionListResponseDto> response = missionService.getRecommendMissionsPosts();
+        ResponseEntity<? super GetRecommendMissionListResponseDto> response = missionService.getRecommendMissions();
         return response;
     }
 
     @GetMapping("/{recommendId}/missions")
     public ResponseEntity<? super GetRecommendMissionPostResponseDto> getRecommendMissionPost(@PathVariable("recommendId") Integer recommendId) {
-        ResponseEntity<? super GetRecommendMissionPostResponseDto> response = missionService.getRecommendMissionPost(recommendId);
+        ResponseEntity<? super GetRecommendMissionPostResponseDto> response = missionService.getRecommendMission(recommendId);
         return response;
     }
 

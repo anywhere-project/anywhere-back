@@ -13,7 +13,7 @@ public interface RecommendFoodService {
     ResponseEntity<ResponseDto> postRecommendFood(PostRecommendFoodRequestDto dto, Integer recommendId, String userId);
     ResponseEntity<ResponseDto> patchRecommendFood(PatchRecommendFoodRequestDto dto, Integer recommendId, Integer foodId, String userId);
     ResponseEntity<ResponseDto> deleteRecommendFood(Integer recommendId, Integer foodId, String userId);
-    ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFoodPost(Integer recommendId);
-    ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoodPosts();
+    ResponseEntity<? super GetRecommendFoodPostResponseDto> getRecommendFood(Integer recommendId);
+    ResponseEntity<? super GetRecommendFoodListResponseDto> getRecommendFoods();
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.anywhere.dto.request.roulette.PostAreaRequestDto;
 import com.project.anywhere.dto.request.roulette.PostAttractionRequestDto;
 import com.project.anywhere.dto.request.roulette.PostFoodRequestDto;
 import com.project.anywhere.dto.request.roulette.PostMissionRequestDto;
@@ -24,6 +25,18 @@ import lombok.RequiredArgsConstructor;
 public class RouletteController {
 
     private final RouletteService rouletteService;
+
+    @PostMapping("/area") 
+    ResponseEntity<ResponseDto> postArea(@RequestBody @Valid PostAreaRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.postArea(request, userId);
+        return responseBody;
+    }
+
+    @DeleteMapping("/area/{areaId}")
+    ResponseEntity<ResponseDto> deleteArea(@PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.deleteArea(areaId, userId);
+        return responseBody;
+    }
 
     @PostMapping("/attraction/{areaId}")
     ResponseEntity<ResponseDto> postAttraction(@RequestBody @Valid PostAttractionRequestDto request, @PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {

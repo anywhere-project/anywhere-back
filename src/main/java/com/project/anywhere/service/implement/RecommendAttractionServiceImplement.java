@@ -12,9 +12,11 @@ import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionListResponseDto;
 import com.project.anywhere.dto.response.recommend.GetRecommendAttractionPostResponseDto;
 import com.project.anywhere.entity.AttractionImageEntity;
+import com.project.anywhere.entity.AttractionLikeEntity;
 import com.project.anywhere.entity.RecommendAttractionEntity;
 import com.project.anywhere.entity.RecommendPostEntity;
 import com.project.anywhere.repository.AttractionImageRepository;
+import com.project.anywhere.repository.AttractionLikeRepository;
 import com.project.anywhere.repository.RecommendAttractionRepository;
 import com.project.anywhere.repository.RecommendPostRepository;
 import com.project.anywhere.repository.UserRepository;
@@ -31,6 +33,7 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     private final RecommendPostRepository postRepository;
     private final RecommendAttractionRepository attractionRepository;
     private final AttractionImageRepository imageRepository;
+    private final AttractionLikeRepository likeRepository;
     
     @Override
     public ResponseEntity<ResponseDto> postRecommendAttraction(PostRecommendAttractionRequestDto dto, Integer recommendId, String userId) {
@@ -112,9 +115,10 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttractionPost(Integer recommendId) {
+    public ResponseEntity<? super GetRecommendAttractionPostResponseDto> getRecommendAttraction(Integer recommendId) {
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
         List<AttractionImageEntity> imageEntities = new ArrayList<>();
+        List<AttractionLikeEntity> likeEntities = new ArrayList<>();
 
         try {
 
@@ -123,31 +127,34 @@ public class RecommendAttractionServiceImplement implements RecommendAttractionS
 
             attractionEntities = attractionRepository.findByRecommendId(recommendId);
             imageEntities = imageRepository.findAll();
+            likeEntities = likeRepository.findAll();
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendAttractionPostResponseDto.success(attractionEntities, imageEntities);
+        return GetRecommendAttractionPostResponseDto.success(attractionEntities, imageEntities, likeEntities);
     }
 
     @Override
-    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractionsPosts() {
+    public ResponseEntity<? super GetRecommendAttractionListResponseDto> getRecommendAttractions() {
         List<RecommendAttractionEntity> attractionEntities = new ArrayList<>();
         List<AttractionImageEntity> imageEntities = new ArrayList<>();
+        List<AttractionLikeEntity> likeEntities = new ArrayList<>();
 
         try {
 
             attractionEntities = attractionRepository.findAll();
             imageEntities = imageRepository.findAll();
+            likeEntities = likeRepository.findAll();
 
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetRecommendAttractionListResponseDto.success(attractionEntities, imageEntities);
+        return GetRecommendAttractionListResponseDto.success(attractionEntities, imageEntities, likeEntities);
     }
     
 
