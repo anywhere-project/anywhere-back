@@ -19,6 +19,7 @@ import com.project.anywhere.repository.HashTagRepository;
 import com.project.anywhere.repository.ReviewImagesRepository;
 import com.project.anywhere.repository.ReviewPostRepository;
 import com.project.anywhere.repository.UserRepository;
+import com.project.anywhere.repository.resultset.GetImageResultSet;
 import com.project.anywhere.repository.resultset.GetReviewResultSet;
 import com.project.anywhere.service.ReviewPostService;
 
@@ -137,23 +138,28 @@ public class ReviewPostServiceImplement implements ReviewPostService{
     @Override
     public ResponseEntity<? super GetReviewResponseDto> getReview(Integer reviewId) {
         GetReviewResultSet resultSet = null;
+        List<GetImageResultSet> imageResultSet = new ArrayList<>();;
+        List<String> hashTagResultSet = new ArrayList<>();;
 
         try {
             resultSet = reviewRepository.getReview(reviewId);
-            if(resultSet == null) {
-                return ResponseDto.noExistReview();
-            }
+            if(resultSet == null) return ResponseDto.noExistReview();
+
+            imageResultSet = reviewImagesRepository.getImages(reviewId);
+            if(imageResultSet == null) return ResponseDto.noExistReviewImage();
+
+            hashTagResultSet = hashTagRepository.getHashTags(reviewId);
+            if(hashTagResultSet == null) return ResponseDto.noExistReviewHashTag();
 
             ReviewPostEntity reviewPostEntity = reviewRepository.findByReviewId(reviewId);
-            if(reviewPostEntity==null)return ResponseDto.noExistReview();
+            if(reviewPostEntity==null) return ResponseDto.noExistReview();
 
-            reviewRepository.save(reviewPostEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetReviewResponseDto.success(resultSet);
+        return GetReviewResponseDto.success(resultSet, imageResultSet, hashTagResultSet);
     }
 
     

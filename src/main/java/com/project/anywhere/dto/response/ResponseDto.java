@@ -118,6 +118,16 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> noExistReviewImage() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_IMAGE, ResponseMessage.NO_EXIST_REVIEW_IMAGE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> noExistReviewHashTag() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_HASHTAG, ResponseMessage.NO_EXIST_REVIEW_HASHTAG);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
     public static ResponseEntity<ResponseDto> noExistReview(){
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW, ResponseMessage.NO_EXIST_REVIEW);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);

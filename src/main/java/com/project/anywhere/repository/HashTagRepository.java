@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.anywhere.entity.HashTagEntity;
@@ -24,5 +25,8 @@ public interface HashTagRepository extends JpaRepository<HashTagEntity, Integer>
         "LIMIT 5",
     nativeQuery = true)
     List<GetHashTagResultSet> getHashTagList();
+
+    @Query(value = "SELECT tag_name FROM hash_tag WHERE review_id = :reviewId", nativeQuery = true)
+    List<String> getHashTags(@Param("reviewId") Integer reviewId);
 
 }

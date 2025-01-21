@@ -27,6 +27,8 @@ public interface ResponseCode {
     String NO_EXIST_RECOMMEND_MISSION = "NRM";
     String NO_EXIST_RECOMMEND_IMAGE = "NRI";
     String NO_EXIST_REVIEW_POST = "NRV";
+    String NO_EXIST_REVIEW_IMAGE = "NRWI";
+    String NO_EXIST_REVIEW_HASHTAG = "NRWH";
     String NO_EXIST_REVIEW_COMMENT = "NRC";
     String NO_EXIST_PARENT_COMMENT = "NPC";
     String NO_EXIST_MY_RANDOM = "NMR";
