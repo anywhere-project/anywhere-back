@@ -137,12 +137,9 @@ public class RouletteServiceImplement implements RouletteService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> postFood(PostFoodRequestDto dto, Integer areaId, String userId) {
+    public ResponseEntity<ResponseDto> postFood(PostFoodRequestDto dto, String userId) {
 
         try {
-
-            AreasEntity areasEntity = areaRepository.findByAreaId(areaId);
-            if (areasEntity == null) return ResponseDto.noExistAreaId();
 
             UsersEntity usersEntity = userRepository.findByUserId(userId);
             if (usersEntity == null) return ResponseDto.noExistUserId();
@@ -164,12 +161,9 @@ public class RouletteServiceImplement implements RouletteService {
 
     @Override
     @Transactional
-    public ResponseEntity<ResponseDto> deleteFood(Integer foodId, Integer areaId, String userId) {
+    public ResponseEntity<ResponseDto> deleteFood(Integer foodId, String userId) {
 
         try {
-
-            AreasEntity areasEntity = areaRepository.findByAreaId(areaId);
-            if (areasEntity == null) return ResponseDto.noExistAreaId();
 
             UsersEntity usersEntity = userRepository.findByUserId(userId);
             if (usersEntity == null) return ResponseDto.noExistUserId();

@@ -50,15 +50,15 @@ public class RouletteController {
         return responseBody;
     }
 
-    @PostMapping("/food/{areaId}")
-    public ResponseEntity<ResponseDto> postFood(@RequestBody @Valid PostFoodRequestDto request, @PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> responseBody = rouletteService.postFood(request, areaId, userId);
+    @PostMapping("/food}")
+    public ResponseEntity<ResponseDto> postFood(@RequestBody @Valid PostFoodRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.postFood(request, userId);
         return responseBody;
     }
 
-    @DeleteMapping("/food/{areaId}/{foodId}")
-    public ResponseEntity<ResponseDto> deleteFood(@PathVariable("foodId") Integer foodId, @PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> responseBody = rouletteService.deleteFood(foodId, areaId, userId);
+    @DeleteMapping("/food/{foodId}")
+    public ResponseEntity<ResponseDto> deleteFood(@PathVariable("foodId") Integer foodId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.deleteFood(foodId, userId);
         return responseBody;
     }
 
