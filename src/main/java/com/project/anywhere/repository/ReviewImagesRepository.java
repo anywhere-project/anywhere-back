@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.anywhere.entity.ReviewImagesEntity;
+import com.project.anywhere.repository.resultset.GetImageResultSet;
 
 @Repository
 public interface ReviewImagesRepository extends JpaRepository<ReviewImagesEntity, Integer>{
@@ -18,5 +19,8 @@ public interface ReviewImagesRepository extends JpaRepository<ReviewImagesEntity
 
     @Query("SELECT COALESCE(MAX(r.imageOrder), 0) FROM review_images r WHERE r.reviewId = :reviewId")
     Integer findMaxImageOrderByReviewId(@Param("reviewId") Integer reviewId);
+
+    @Query(value = "SELECT * FROM review_images WHERE review_id = :reviewId", nativeQuery = true)
+    List<GetImageResultSet> getImages(@Param("reviewId") Integer reviewId);
 
 }

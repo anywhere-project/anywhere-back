@@ -26,6 +26,8 @@ public interface ResponseMessage {
     String NO_EXIST_RECOMMEND_MISSION = "No exist recommend mission.";
     String NO_EXIST_RECOMMEND_IMAGE = "No exist recommend image.";
     String NO_EXIST_REVIEW_POST = "No exist review post.";
+    String NO_EXIST_REVIEW_IMAGE = "No exist review image.";
+    String NO_EXIST_REVIEW_HASHTAG = "No exist review hashtag.";
     String NO_EXIST_REVIEW_COMMENT = "No exist review comment.";
     String NO_EXIST_PARENT_COMMENT = "No exist parent comment.";
 
