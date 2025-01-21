@@ -77,19 +77,19 @@ public class RouletteController {
         return responseBody;
     }
 
-    @PostMapping("/myrandom")
+    @PostMapping("/my-random")
     public ResponseEntity<ResponseDto> postMyRandom(@RequestBody @Valid PostRouletteRequestDto request, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> responseBody = rouletteService.postMyRandom(request, userId);
         return responseBody;
     }
 
-    @DeleteMapping("/myrandom/{randomId}")
+    @DeleteMapping("/my-random/{randomId}")
     public ResponseEntity<ResponseDto> deleteMyRandom(@PathVariable("randomId") Integer randomId, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> responseBody = rouletteService.deleteMyRandom(randomId, userId);
         return responseBody;
     }
 
-    @GetMapping("/myrandom")
+    @GetMapping("/my-random")
     public ResponseEntity<? super GetRouletteListResponseDto> getMyRandomList(@AuthenticationPrincipal String userId) {
         ResponseEntity<? super GetRouletteListResponseDto> responseBody = rouletteService.getMyRandomList(userId);
         return responseBody;
