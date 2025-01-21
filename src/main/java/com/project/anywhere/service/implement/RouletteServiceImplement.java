@@ -1,5 +1,8 @@
 package com.project.anywhere.service.implement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -7,16 +10,20 @@ import com.project.anywhere.dto.request.roulette.PostAreaRequestDto;
 import com.project.anywhere.dto.request.roulette.PostAttractionRequestDto;
 import com.project.anywhere.dto.request.roulette.PostFoodRequestDto;
 import com.project.anywhere.dto.request.roulette.PostMissionRequestDto;
+import com.project.anywhere.dto.request.roulette.PostRouletteRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.roulette.GetRouletteListResponseDto;
 import com.project.anywhere.entity.AreasEntity;
 import com.project.anywhere.entity.AttractionsEntity;
 import com.project.anywhere.entity.FoodEntity;
 import com.project.anywhere.entity.MissionsEntity;
+import com.project.anywhere.entity.MyRandomEntity;
 import com.project.anywhere.entity.UsersEntity;
 import com.project.anywhere.repository.AreaRepository;
 import com.project.anywhere.repository.AttractionRepository;
 import com.project.anywhere.repository.FoodRepository;
 import com.project.anywhere.repository.MissionRepository;
+import com.project.anywhere.repository.MyRandomRepository;
 import com.project.anywhere.repository.UserRepository;
 import com.project.anywhere.service.RouletteService;
 
@@ -32,6 +39,7 @@ public class RouletteServiceImplement implements RouletteService {
     private final FoodRepository foodRepository;
     private final MissionRepository missionRepository;
     private final AreaRepository areaRepository;
+    private final MyRandomRepository randomRepository;
     
     @Override
     public ResponseEntity<ResponseDto> postArea(PostAreaRequestDto dto, String userId) {
@@ -137,12 +145,9 @@ public class RouletteServiceImplement implements RouletteService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> postFood(PostFoodRequestDto dto, Integer areaId, String userId) {
+    public ResponseEntity<ResponseDto> postFood(PostFoodRequestDto dto, String userId) {
 
         try {
-
-            AreasEntity areasEntity = areaRepository.findByAreaId(areaId);
-            if (areasEntity == null) return ResponseDto.noExistAreaId();
 
             UsersEntity usersEntity = userRepository.findByUserId(userId);
             if (usersEntity == null) return ResponseDto.noExistUserId();
@@ -164,12 +169,9 @@ public class RouletteServiceImplement implements RouletteService {
 
     @Override
     @Transactional
-    public ResponseEntity<ResponseDto> deleteFood(Integer foodId, Integer areaId, String userId) {
+    public ResponseEntity<ResponseDto> deleteFood(Integer foodId, String userId) {
 
         try {
-
-            AreasEntity areasEntity = areaRepository.findByAreaId(areaId);
-            if (areasEntity == null) return ResponseDto.noExistAreaId();
 
             UsersEntity usersEntity = userRepository.findByUserId(userId);
             if (usersEntity == null) return ResponseDto.noExistUserId();
@@ -237,6 +239,64 @@ public class RouletteServiceImplement implements RouletteService {
         }
 
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> postMyRandom(PostRouletteRequestDto dto, String userId) {
+        
+        try {
+
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+            if (usersEntity == null) return ResponseDto.noExistUserId();
+
+            MyRandomEntity myRandomEntity = new MyRandomEntity(dto);
+            myRandomEntity.setUserId(userId);
+            randomRepository.save(myRandomEntity);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<ResponseDto> deleteMyRandom(Integer randomId, String userId) {
+
+        try {
+
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+            if (usersEntity == null) return ResponseDto.noExistUserId();
+
+            MyRandomEntity myRandomEntity = randomRepository.findByRandomId(randomId);
+            if (myRandomEntity == null) return ResponseDto.noExistMyRandom();
+
+            randomRepository.deleteByRandomId(randomId);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetRouletteListResponseDto> getMyRandomList(String userId) {
+        List<MyRandomEntity> myRandomEntities = new ArrayList<>();
+
+        try {
+
+            myRandomEntities = randomRepository.findByOrderByRandomIdDesc();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRouletteListResponseDto.success(myRandomEntities);
     }
     
 }

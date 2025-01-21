@@ -29,6 +29,7 @@ public interface ResponseCode {
     String NO_EXIST_REVIEW_POST = "NRV";
     String NO_EXIST_REVIEW_COMMENT = "NRC";
     String NO_EXIST_PARENT_COMMENT = "NPC";
+    String NO_EXIST_MY_RANDOM = "NMR";
 
     String SIGN_IN_FAIL = "SF";
     String AUTHENTICATION_FAIL = "AF";

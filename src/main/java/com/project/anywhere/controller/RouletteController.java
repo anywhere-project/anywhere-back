@@ -3,6 +3,7 @@ package com.project.anywhere.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,9 @@ import com.project.anywhere.dto.request.roulette.PostAreaRequestDto;
 import com.project.anywhere.dto.request.roulette.PostAttractionRequestDto;
 import com.project.anywhere.dto.request.roulette.PostFoodRequestDto;
 import com.project.anywhere.dto.request.roulette.PostMissionRequestDto;
+import com.project.anywhere.dto.request.roulette.PostRouletteRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
+import com.project.anywhere.dto.response.roulette.GetRouletteListResponseDto;
 import com.project.anywhere.service.RouletteService;
 
 import jakarta.validation.Valid;
@@ -50,15 +53,15 @@ public class RouletteController {
         return responseBody;
     }
 
-    @PostMapping("/food/{areaId}")
-    public ResponseEntity<ResponseDto> postFood(@RequestBody @Valid PostFoodRequestDto request, @PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> responseBody = rouletteService.postFood(request, areaId, userId);
+    @PostMapping("/food")
+    public ResponseEntity<ResponseDto> postFood(@RequestBody @Valid PostFoodRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.postFood(request, userId);
         return responseBody;
     }
 
-    @DeleteMapping("/food/{areaId}/{foodId}")
-    public ResponseEntity<ResponseDto> deleteFood(@PathVariable("foodId") Integer foodId, @PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {
-        ResponseEntity<ResponseDto> responseBody = rouletteService.deleteFood(foodId, areaId, userId);
+    @DeleteMapping("/food/{foodId}")
+    public ResponseEntity<ResponseDto> deleteFood(@PathVariable("foodId") Integer foodId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.deleteFood(foodId, userId);
         return responseBody;
     }
 
@@ -71,6 +74,24 @@ public class RouletteController {
     @DeleteMapping("/mission/{missionId}")
     public ResponseEntity<ResponseDto> deleteMission(@PathVariable("missionId") Integer missionId, @AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> responseBody = rouletteService.deleteMission(missionId, userId);
+        return responseBody;
+    }
+
+    @PostMapping("/my-random")
+    public ResponseEntity<ResponseDto> postMyRandom(@RequestBody @Valid PostRouletteRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.postMyRandom(request, userId);
+        return responseBody;
+    }
+
+    @DeleteMapping("/my-random/{randomId}")
+    public ResponseEntity<ResponseDto> deleteMyRandom(@PathVariable("randomId") Integer randomId, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> responseBody = rouletteService.deleteMyRandom(randomId, userId);
+        return responseBody;
+    }
+
+    @GetMapping("/my-random")
+    public ResponseEntity<? super GetRouletteListResponseDto> getMyRandomList(@AuthenticationPrincipal String userId) {
+        ResponseEntity<? super GetRouletteListResponseDto> responseBody = rouletteService.getMyRandomList(userId);
         return responseBody;
     }
     
