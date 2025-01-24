@@ -12,7 +12,6 @@ public interface ResponseCode {
     String DUPLICATED_USER_ID = "DI";
     String DUPLICATED_TEL_NUMBER = "DT";
     String ALREADY_RECOMMEND = "AR";
-    String NO_EXIST_REVIEW = "NRV";
 
     // 400 BAD REQUEST
     String NO_EXIST_USER_ID = "NI";

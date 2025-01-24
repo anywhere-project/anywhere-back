@@ -128,11 +128,6 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
-    public static ResponseEntity<ResponseDto> noExistReview(){
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW, ResponseMessage.NO_EXIST_REVIEW);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
-    }
-
     public static ResponseEntity<ResponseDto> noExistReviewComment(){
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_REVIEW_COMMENT, ResponseMessage.NO_EXIST_REVIEW_COMMENT);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);

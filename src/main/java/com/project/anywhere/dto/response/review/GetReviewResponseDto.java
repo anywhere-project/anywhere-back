@@ -24,8 +24,9 @@ public class GetReviewResponseDto extends ResponseDto{
     private Integer reviewLikeCount;
     private List<ReviewImage> images;
     private List<String> hashTags;
+    private List<String> likeList;
 
-    public GetReviewResponseDto(GetReviewResultSet resultSet, List<GetImageResultSet> resultImageSets, List<String> resultTagSets){
+    public GetReviewResponseDto(GetReviewResultSet resultSet, List<GetImageResultSet> resultImageSets, List<String> resultTagSets, List<String> likeEntities){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.reviewId = resultSet.getReviewId();
         this.reviewContent = resultSet.getReviewContent();
@@ -34,10 +35,11 @@ public class GetReviewResponseDto extends ResponseDto{
         this.reviewLikeCount = resultSet.getReviewLikeCount();
         this.images = ReviewImage.getList(resultImageSets);
         this.hashTags = resultTagSets;
+        this.likeList = likeEntities;
     }
 
-    public static ResponseEntity<GetReviewResponseDto> success(GetReviewResultSet resultSet, List<GetImageResultSet> resultImageSets, List<String> resultTagSets){
-        GetReviewResponseDto responseBody = new GetReviewResponseDto(resultSet, resultImageSets, resultTagSets);
+    public static ResponseEntity<GetReviewResponseDto> success(GetReviewResultSet resultSet, List<GetImageResultSet> resultImageSets, List<String> resultTagSets, List<String> likeEntities){
+        GetReviewResponseDto responseBody = new GetReviewResponseDto(resultSet, resultImageSets, resultTagSets, likeEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
     
