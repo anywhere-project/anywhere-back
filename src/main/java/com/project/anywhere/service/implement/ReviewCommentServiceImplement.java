@@ -37,7 +37,7 @@ public class ReviewCommentServiceImplement implements ReviewCommentService{
             if(usersEntity == null) return ResponseDto.noExistUserId();
 
             ReviewPostEntity reviewPostEntity = reviewPostRepository.findByReviewId(reviewId);
-            if(reviewPostEntity == null) return ResponseDto.noExistReview();
+            if(reviewPostEntity == null) return ResponseDto.noExistReviewPost();
 
             if(dto.getParentCommentId() != null) {
                 ReviewCommentEntity parentCommentEntity = reviewCommentRepository.findByReviewCommentId(dto.getParentCommentId());
