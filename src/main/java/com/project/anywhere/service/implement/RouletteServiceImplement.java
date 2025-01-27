@@ -289,7 +289,10 @@ public class RouletteServiceImplement implements RouletteService {
 
         try {
 
-            myRandomEntities = randomRepository.findByOrderByRandomIdDesc();
+            UsersEntity usersEntity = userRepository.findByUserId(userId);
+            if (usersEntity == null) return ResponseDto.noExistUserId();
+            
+            myRandomEntities = randomRepository.findByUserIdOrderByRandomIdDesc(userId);
 
         } catch(Exception exception) {
             exception.printStackTrace();
