@@ -31,5 +31,4 @@ public class AttractionsEntity {
         this.attractionName = dto.getAttractionName();
         this.attractionAddress = dto.getAttractionAddress();
     }
-
 }

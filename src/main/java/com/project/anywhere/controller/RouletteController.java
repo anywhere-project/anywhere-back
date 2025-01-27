@@ -66,7 +66,7 @@ public class RouletteController {
     }
 
     @PostMapping("/mission")
-    public ResponseEntity<ResponseDto> postMission(@RequestBody @Valid PostMissionRequestDto request, @PathVariable("areaId") Integer areaId, @AuthenticationPrincipal String userId) {
+    public ResponseEntity<ResponseDto> postMission(@RequestBody @Valid PostMissionRequestDto request,@AuthenticationPrincipal String userId) {
         ResponseEntity<ResponseDto> responseBody = rouletteService.postMission(request, userId);
         return responseBody;
     }
