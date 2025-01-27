@@ -13,7 +13,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MyRandom {
-    
     private Integer randomId;
     private String userId;
     private String areaName;
