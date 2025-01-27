@@ -11,7 +11,7 @@ import com.project.anywhere.entity.MyRandomEntity;
 public interface MyRandomRepository extends JpaRepository<MyRandomEntity, Integer>  {
 
     MyRandomEntity findByRandomId(Integer randomId);
-    List<MyRandomEntity> findByOrderByRandomIdDesc();
+    List<MyRandomEntity> findByUserIdOrderByRandomIdDesc(String userId);
     void deleteByRandomId(Integer randomId);
     
 }

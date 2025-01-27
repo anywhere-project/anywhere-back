@@ -24,7 +24,7 @@ public class MyRandom {
         this.randomId = myRandomEntity.getRandomId();
         this.userId = myRandomEntity.getUserId();
         this.areaName = myRandomEntity.getAreaName();
-        this.foodName = myRandomEntity.getAreaName();
+        this.foodName = myRandomEntity.getFoodName();
         this.attractionName = myRandomEntity.getAttractionName();
         this.missionName = myRandomEntity.getMissionName();
     }
