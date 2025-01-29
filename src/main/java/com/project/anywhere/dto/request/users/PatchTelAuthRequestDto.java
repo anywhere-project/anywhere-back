@@ -1,5 +1,7 @@
 package com.project.anywhere.dto.request.users;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,13 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PatchUsersRequestDto {
+public class PatchTelAuthRequestDto {
 
-    private String nickname;
-    private String profileImage;
-    private String name;
+    @NotBlank
+    @Pattern(regexp = "^[0-9]{11}$")
     private String telNumber;
-    private String password;
-    private String userId;
-    
+
 }

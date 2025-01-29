@@ -34,6 +34,7 @@ public interface ResponseMessage {
 
     String SIGN_IN_FAIL = "Sign in fail.";
     String AUTHENTICATION_FAIL = "Authentication fail.";
+    String PASSWORD_MISMATCH = "Password mismatch.";
 
     String TEL_AUTH_FAIL = "Tel auth fail.";
 

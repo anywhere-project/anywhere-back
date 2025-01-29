@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.anywhere.dto.request.auth.TelAuthCheckRequestDto;
+import com.project.anywhere.dto.request.users.PatchPasswordRequestDto;
+import com.project.anywhere.dto.request.users.PatchTelAuthRequestDto;
 import com.project.anywhere.dto.request.users.PatchUsersRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.users.GetUserInfoResponseDto;
@@ -42,10 +45,9 @@ public class UsersController {
 
     }
 
+
     @PatchMapping(value = {"","/"})
-    public ResponseEntity<ResponseDto> patchUser(
-        @RequestBody @Valid PatchUsersRequestDto request,
-        @AuthenticationPrincipal String userId
+    public ResponseEntity<ResponseDto> patchUser(@RequestBody @Valid PatchUsersRequestDto request,@AuthenticationPrincipal String userId
     ){
         ResponseEntity<ResponseDto> response = usersService.patchUser(request,userId);
         return response;
@@ -57,4 +59,21 @@ public class UsersController {
         return response;
     }
     
+    
+    @PatchMapping("/tel-auth")
+    public ResponseEntity<ResponseDto> patchTelAuth(@RequestBody @Valid PatchTelAuthRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = usersService.patchTelAuth(request, userId);
+        return response;
+    }
+
+    @PatchMapping("/tel-auth-check")
+    public ResponseEntity<ResponseDto> patchTelAuthCheck(@RequestBody @Valid TelAuthCheckRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = usersService.patchTelAuthCheck(request, userId);
+        return response;
+    }
+    @PatchMapping("/update-password")
+    public ResponseEntity<ResponseDto> patchPassword(@RequestBody @Valid PatchPasswordRequestDto request, @AuthenticationPrincipal String userId) {
+        ResponseEntity<ResponseDto> response = usersService.patchPassword(request, userId);
+        return response;
+    }
 }
