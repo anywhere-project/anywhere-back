@@ -37,6 +37,8 @@ public class UsersEntity {
     }
 
     public void patch(PatchUsersRequestDto dto){
+        this.userId = dto.getUserId();
+        this.password = dto.getPassword();
         this.profileImage = dto.getProfileImage();
         this.nickname = dto.getNickname();
         this.name = dto.getName();

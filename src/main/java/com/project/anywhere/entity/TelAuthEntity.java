@@ -1,5 +1,7 @@
 package com.project.anywhere.entity;
 
+import com.project.anywhere.dto.request.users.PatchTelAuthRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,4 +22,8 @@ public class TelAuthEntity {
     @Id
     private String telNumber;
     private String authNumber;
+
+    public void patch(PatchTelAuthRequestDto dto) {
+        this.telNumber = dto.getTelNumber();
+    }
 }
