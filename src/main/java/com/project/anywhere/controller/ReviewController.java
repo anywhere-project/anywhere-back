@@ -22,6 +22,7 @@ import com.project.anywhere.service.HashTagService;
 import com.project.anywhere.service.ReviewCommentService;
 import com.project.anywhere.service.ReviewLikeService;
 import com.project.anywhere.dto.response.review.GetReviewCommentListResponseDto;
+import com.project.anywhere.dto.response.review.GetReviewCommentResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewListResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewResponseDto;
 import com.project.anywhere.service.ReviewPostService;
@@ -128,6 +129,14 @@ public class ReviewController {
         @PathVariable("reviewId") Integer reviewId
     ){
         ResponseEntity<? super GetReviewCommentListResponseDto> response = reviewCommentService.getReviewCommentList(reviewId);
+        return response;
+    }
+
+    @GetMapping("/{reviewId}/comment/{reviewCommentId}")
+    public ResponseEntity<? super GetReviewCommentResponseDto> getReviewComment(
+        @PathVariable("reviewCommentId") Integer reviewCommentId
+    ){
+        ResponseEntity<? super GetReviewCommentResponseDto> response = reviewCommentService.getReviewComment(reviewCommentId);
         return response;
     }
 

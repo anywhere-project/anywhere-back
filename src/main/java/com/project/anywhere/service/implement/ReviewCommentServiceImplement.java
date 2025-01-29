@@ -10,6 +10,7 @@ import com.project.anywhere.dto.request.review.PatchReviewCommentRequestDto;
 import com.project.anywhere.dto.request.review.PostReviewCommentRequestDto;
 import com.project.anywhere.dto.response.ResponseDto;
 import com.project.anywhere.dto.response.review.GetReviewCommentListResponseDto;
+import com.project.anywhere.dto.response.review.GetReviewCommentResponseDto;
 import com.project.anywhere.entity.ReviewCommentEntity;
 import com.project.anywhere.entity.ReviewPostEntity;
 import com.project.anywhere.entity.UsersEntity;
@@ -78,6 +79,24 @@ public class ReviewCommentServiceImplement implements ReviewCommentService{
         }
 
         return GetReviewCommentListResponseDto.success(reviewCommentEntities);
+        
+    }
+
+    @Override
+    public ResponseEntity<? super GetReviewCommentResponseDto> getReviewComment(Integer reviewCommentId) {
+        
+        ReviewCommentEntity reviewCommentEntity = new ReviewCommentEntity();
+
+        try {
+            reviewCommentEntity = reviewCommentRepository.findByReviewCommentId(reviewCommentId);
+            if(reviewCommentEntity == null) return ResponseDto.noExistReviewComment();
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetReviewCommentResponseDto.success(reviewCommentEntity);
         
     }
 
