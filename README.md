@@ -676,20 +676,20 @@
 <br/>
 
 # 9. ERD
-<img width="100%" alt="코드 컨벤션" src="file/ANYWHERE_ERD.PNG" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/ANYWHERE_ERD.PNG" style="border: 1px solid black;">
 
 
 # 10. 화면 구성
 ## 로그인
-<img width="100%" alt="코드 컨벤션" src="file/로그인.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/로그인.png" style="border: 1px solid black;">
 <br></br>
 
 ## 회원 가입
-<img width="100%" alt="코드 컨벤션" src="file/회원가입.PNG" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/회원가입.PNG" style="border: 1px solid black;">
 
 ## 메인 페이지
-<img width="100%" alt="코드 컨벤션" src="file/메인.PNG" style="border: 1px solid black">
-<img width="100%" alt="코드 컨벤션" src="file/메인룰렛.PNG" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/메인.PNG" style="border: 1px solid black;">
+<img width="100%" alt="코드 컨벤션" src="file/메인룰렛.PNG" style="border: 1px solid black;">
 <br></br>
 
 ## 후기 페이지
