@@ -681,58 +681,58 @@
 
 # 10. 화면 구성
 ## 로그인
-<img width="100%" alt="코드 컨벤션" src="file/로그인.PNG" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/로그인.png" style="border: 1px solid black">
 <br></br>
 
 ## 회원 가입
-<img width="100%" alt="코드 컨벤션" src="file/회원가입.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/회원가입.PNG" style="border: 1px solid black">
 
 ## 메인 페이지
-<img width="100%" alt="코드 컨벤션" src="file/메인.png" style="border: 1px solid black">
-<img width="100%" alt="코드 컨벤션" src="file/메인룰렛.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/메인.PNG" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/메인룰렛.PNG" style="border: 1px solid black">
 <br></br>
 
 ## 후기 페이지
 
 #### 후기 리스트
 
-<img width="100%" alt="코드 컨벤션" src="file/후기1.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/후기1.PNG" style="border: 1px solid black">
 
 #### 후기 리스트 무한 스크롤
 
-<img width="100%" alt="코드 컨벤션" src="file/후기2.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/후기2.PNG" style="border: 1px solid black">
 
 #### 후기 댓글
 
-<img width="100%" alt="코드 컨벤션" src="file/후기3.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/후기3.PNG" style="border: 1px solid black">
 
 #### 후기 작성
 
-<img width="100%" alt="코드 컨벤션" src="file/후기4.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/후기4.PNG" style="border: 1px solid black">
 
 #### 후기 수정&삭제
 
-<img width="100%" alt="코드 컨벤션" src="file/후기5.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/후기5.PNG" style="border: 1px solid black">
 <br></br>
 
 ## 추천 페이지
 
 #### 추천 리스트
 
-<img width="100%" alt="코드 컨벤션" src="file/추천1.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/추천1.PNG" style="border: 1px solid black">
 
 #### 추천 리스트 무한 스크롤
 
-<img width="100%" alt="코드 컨벤션" src="file/추천2.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/추천2.PNG" style="border: 1px solid black">
 
 
 #### 추천 작성
 
-<img width="100%" alt="코드 컨벤션" src="file/추천4.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/추천4.PNG" style="border: 1px solid black">
 
 #### 추천 수정&삭제
 
-<img width="100%" alt="코드 컨벤션" src="file/추천5.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/추천5.PNG" style="border: 1px solid black">
 
 <br></br>
 
@@ -740,7 +740,7 @@
 
 #### 마이페이지 후기 갤러리
 
-<img width="100%" alt="코드 컨벤션" src="file/마이1.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/마이1.PNG" style="border: 1px solid black">
 
 #### 마이페이지 추천 갤러리
 
@@ -748,20 +748,20 @@
 
 #### 마이페이지 룰렛 기록 리스트
 
-<img width="100%" alt="코드 컨벤션" src="file/마이4.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/마이4.PNG" style="border: 1px solid black">
 <br></br>
 
 ## 관리자 페이지
 
 #### 룰렛 추가
 
-<img width="100%" alt="코드 컨벤션" src="file/관리자1.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/관리자1.PNG" style="border: 1px solid black">
 
 #### 룰렛 삭제
 
-<img width="100%" alt="코드 컨벤션" src="file/관리자2.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/관리자2.PNG" style="border: 1px solid black">
 
 <br></br>
 
 ## 회원 정보 수정
-<img width="100%" alt="코드 컨벤션" src="file/회원정보수정.png" style="border: 1px solid black">
+<img width="100%" alt="코드 컨벤션" src="file/회원정보수정.PNG" style="border: 1px solid black">
